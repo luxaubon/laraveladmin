@@ -59,6 +59,8 @@ class DatabaseSeeder extends Seeder
                 'password' => '$2y$10$AYGJxYwuu0WoJpgIr6aJ2OsY9lqyqHuokYOfh51AoKwzbcg6c2BXu',
 
                 'is_admin' => '1',
+            
+                'created_at' => '2020-01-25 07:33:06',
 
             ]);
 
