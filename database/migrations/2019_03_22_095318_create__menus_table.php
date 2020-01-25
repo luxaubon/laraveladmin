@@ -16,11 +16,11 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('seo');
+            $table->string('seo')->nullable();
 
-            $table->string('name');
+            $table->string('name')->nullable();
 
-            $table->integer('parent_id');
+            $table->integer('parent_id')->nullable();
 
             $table->integer('display_order')->nullable();
 
