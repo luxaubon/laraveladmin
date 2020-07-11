@@ -177,11 +177,15 @@ class ClientController extends Controller
         $name_delpic=explode(",",$page->gallery);           
         $totaldelpic=count($name_delpic); // จำนวนข้อมูล
         $listgroup_update='';   
-        for ($i=0; $i < $totaldelpic-1 ; $i++ ) { if($name_delpic[$i]!=$request->numrow) {$listgroup_update.=$name_delpic[$i].','; } } // ดึงค่าลำดับกลุ่ม
-
+        
+        for ($i=0; $i < $totaldelpic; $i++ ) { 
+            if($name_delpic[$i]!=$request->numrow){
+                $listgroup_update.=$name_delpic[$i].','; 
+            } 
+        } // ดึงค่าลำดับกลุ่ม
+        $datalist = substr_replace($listgroup_update,"",-1);
         // UPDATE
-        $dataList = substr_replace($listgroup_update,"",-1);
-        $page->gallery = $dataList;
+        $page->gallery = $datalist;
         $page->save();
         //DELET FILES
         LaraFile::delete("public/images/".$images->image);
