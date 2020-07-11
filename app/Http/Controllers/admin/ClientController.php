@@ -180,7 +180,8 @@ class ClientController extends Controller
         for ($i=0; $i < $totaldelpic-1 ; $i++ ) { if($name_delpic[$i]!=$request->numrow) {$listgroup_update.=$name_delpic[$i].','; } } // ดึงค่าลำดับกลุ่ม
 
         // UPDATE
-        $page->gallery = $listgroup_update;
+        $dataList = substr_replace($listgroup_update,"",-1);
+        $page->gallery = $dataList;
         $page->save();
         //DELET FILES
         LaraFile::delete("public/images/".$images->image);
