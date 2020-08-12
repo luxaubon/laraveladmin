@@ -76,3 +76,5 @@ Step
 4. php artisan key:generate
 5. php artisan migrate
 6. php artisan db:seed
+7. composer require phpmailer/phpmailer
+8. composer require google/recaptcha
