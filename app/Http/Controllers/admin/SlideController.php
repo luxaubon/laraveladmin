@@ -167,17 +167,22 @@ class SlideController extends Controller
         $page->gallery = $postadd;
         $page->save();     
     }
-    public function del_img(Request $request){
+      public function del_img(Request $request){
         $images = Slides::find($request->numrow);
         $page = Db_other::find($this->id());
 
         $name_delpic=explode(",",$page->gallery);           
         $totaldelpic=count($name_delpic); // จำนวนข้อมูล
         $listgroup_update='';   
-        for ($i=0; $i < $totaldelpic-1 ; $i++ ) { if($name_delpic[$i]!=$request->numrow) {$listgroup_update.=$name_delpic[$i].','; } } // ดึงค่าลำดับกลุ่ม
-
-        // UPDATE
-        $page->gallery = $listgroup_update;
+        
+        for ($i=0; $i < $totaldelpic; $i++ ) { 
+            if($name_delpic[$i]!=$request->numrow){
+                $listgroup_update.=$name_delpic[$i].','; 
+            } 
+        } // ดึงค่าลำดับกลุ่ม
+        
+        $datalist = substr_replace($listgroup_update,"",-1);
+        $page->gallery = $datalist;
         $page->save();
         //DELET FILES
         LaraFile::delete("public/images/".$images->image);
@@ -185,6 +190,7 @@ class SlideController extends Controller
         $images->delete();
         
     }
+
 
 
 }
