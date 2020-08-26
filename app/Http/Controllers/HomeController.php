@@ -23,6 +23,21 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $year = date('Y-m');
+        // $countMont = Db_other::where('montcount','=',$year)->first();
+        // if($countMont == []){
+        //     $post = new Db_other;
+        //     $post->montcount    = $year;
+        //     $post->view         = 1;
+        //     $post->name         = 'viewweb';
+        //     $post->status       = 2;
+        //     $post->save();
+        // }else{
+        //     $Dcount = $countMont->view + 1;
+        //     $countMont->view    = $Dcount;
+        //     $countMont->save();
+        // }
+
         return view('admin.bank');
     }
 }
