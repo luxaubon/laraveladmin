@@ -1,0 +1,300 @@
+@charset 'UTF-8';
+@import 'var';
+
+/* ===== Style for Mobile ===== */
+
+body {
+    font-family: 'Supermarket';
+}
+
+a {
+    color: $primary-color;
+}
+
+.main-wrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #d3392d;
+    //background: url('../img/bg.jpg') center center no-repeat;
+    background-size: cover;
+    padding: 24px;
+
+    .main-frame {
+        border: solid 8px #D9C830;
+        padding: 32px;
+        min-height: calc(100vh - 48px);
+        position: relative;
+
+        >div[class^="frame-"] {
+            width: 48px;
+            height: 48px;
+            border: solid 4px #D9C830;
+            position: absolute;
+
+            &.frame-1 {
+                top: -24px;
+                left: -24px;
+            }
+
+            &.frame-2 {
+                top: -24px;
+                right: -24px;
+            }
+
+            &.frame-3 {
+                bottom: -24px;
+                left: -24px;
+            }
+
+            &.frame-4 {
+                bottom: -24px;
+                right: -24px;
+            }
+        }
+
+        >div[class^="light-"] {
+            position: absolute;
+            width: 30%;
+            height: auto;
+            top: -36px;
+            transform-origin: center 0;
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            &.light-1 {
+                left: -16px;
+                animation: light-1 10s linear infinite;
+            }
+
+            &.light-2 {
+                right: -16px;
+                animation: light-1 10s linear infinite;
+                animation-delay: 1s;
+            }
+        }
+
+        @keyframes light-1 {
+            0% {
+                transform: rotateZ(0deg);
+            } 25% {
+                transform: rotateZ(5deg);
+            } 50% {
+                transform: rotateZ(0deg);
+            } 75% {
+                transform: rotateZ(-5deg);
+            } 100% {
+                transform: rotateZ(0deg);
+            }
+        }
+    }
+}
+
+.main-logo {
+    text-align: center;
+    margin: 1rem auto;
+    img {
+        max-width: 120px;
+        height: auto;
+    }
+}
+
+.main-title {
+    text-align: center;
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.title-desc {
+    font-size: 18px;
+    line-height: 1.25;
+    text-align: center;
+    color: #FFF;
+}
+
+.shoeslide-wrapper {
+    overflow: hidden;
+    position: relative;
+
+    .shoe-slide {
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+}
+
+.heading-title {
+    text-align: center;
+    margin-top: 1rem;
+    border-top: double 6px #D9C830;
+    border-bottom: double 6px #D9C830;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+
+    .title {
+        color: $primary-color;
+        font-size: 24px;
+        margin-bottom: 0;
+        font-family: 'Supermarket';
+    }
+}
+
+.register-form {
+
+    .form-control {
+        border-radius: 100px !important;
+        color: #666;
+        font-family: 'Supermarket';
+
+        &::placeholder {
+            color: #999;
+            font-family: 'Supermarket';
+        }
+    }
+}
+
+/* Ang Pao */
+
+.angpao-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    >div  {
+        width: 50%;
+        padding: .5rem;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+
+            box-shadow: 0 0 20px rgba(0,0,0,.5);
+            border: solid 1px rgba(255,255,255,.5);
+        }
+    }
+}
+
+.angpao-open {
+    position: relative;
+    margin-bottom: -2rem;
+    animation: flipInY 1s 1;
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .angpao-result {
+        width: 100%;
+        padding: 2rem;
+        position: absolute;
+        text-align: center;
+
+        .title {
+            font: 700 normal 24px 'Supermarket';
+        }
+        .discount {
+            font: 700 normal 64px/1 'Supermarket';
+        }
+
+        .shop-code {
+            .form-control {
+                text-align: center;
+                border-radius: 100px ;
+                &::placeholder {
+                    text-align: center;
+                    color: #999;
+                }
+            }
+        }
+    }
+}
+
+.done-message {
+    color: $primary-color;
+    text-align: center;
+
+    font-size: 18px;
+
+    i {
+        font-size: 64px;
+        margin-bottom: 1rem;
+    }
+}
+
+
+/* Modal */
+
+.modal-content {
+
+    &.-chinese-bg {
+        background: url('../img/bg.jpg') center center no-repeat;
+        background-size: cover;
+
+        color: #FFF;
+    }
+
+    .modal-header {
+        .modal-title {
+            font-family: 'Kanit';
+        }
+    }
+}
+
+.modal-display {
+    text-align: center;
+    padding: 2rem;
+
+    i {
+        font-size: 64px;
+        color: $primary-color;
+    }
+
+    .title {
+        font: 400 normal 1.5rem 'Kanit';
+        color: $primary-color;
+        margin-top: 1rem;
+    }
+
+    .desc {
+        font: 400 normal .9rem 'Kanit';
+        margin-bottom: 1rem;
+    }
+
+    .get-otp {
+        margin-bottom: 1rem;
+
+        input[class*="form-control"] {
+            border-radius: 4px 0 0 4px !important;
+            height: 38px !important;
+        }
+        .btn {
+            border-radius: 0 4px 4px 0 !important;
+            font-size: .8rem !important;
+            height: 38px !important;
+        }
+    }
+
+}
+
+
+
+/* Bootstrap Hacked */
+
+.btn {
+
+    border-radius: 100px !important;
+    font-family: 'Supermarket';
+
+    &.btn-primary {
+        background-color: $primary-color;
+        border-color: $primary-color;
+    }
+}

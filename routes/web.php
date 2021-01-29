@@ -15,7 +15,7 @@
 
 
 Route::get('/', function () {
-    return view('admin.bank');
+    return view('index');
 });
 
 Route::resource('/test','TestController'); 

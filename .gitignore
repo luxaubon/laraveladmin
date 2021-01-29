@@ -5,6 +5,7 @@
 /public/uploaded
 /storage/*.key
 /vendor
+/public/assets_home
 .env
 .phpunit.result.cache
 Homestead.json

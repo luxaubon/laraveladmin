@@ -38,6 +38,6 @@ class HomeController extends Controller
         //     $countMont->save();
         // }
 
-        return view('admin.bank');
+        return view('index');
     }
 }

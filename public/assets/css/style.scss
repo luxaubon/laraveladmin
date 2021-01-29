@@ -1,0 +1,27 @@
+@charset 'UTF-8';
+
+@import url('https://fonts.googleapis.com/css2?family=Pridi:wght@400;600&display=swap');
+
+@font-face {
+    font-family: 'Supermarket';
+    src: url('../webfonts/supermarket/supermarket-webfont.woff2') format('woff2'),
+         url('../webfonts/supermarket/supermarket-webfont.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+
+}
+
+
+@import 'bootstrap.min.css';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+@import 'all.min.css';
+@import 'aos.css';
+@import 'swiper.min.css';
+@import 'mobile.scss';
+
+@media only screen and (min-width:1200px) {
+    @import 'desktop.scss'; 
+}
+
+
+
