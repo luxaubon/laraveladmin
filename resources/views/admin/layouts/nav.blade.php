@@ -18,11 +18,12 @@
 						
 					</li>
 
-					<li class="{{ checkActiveMenu(Request::segment(2),'page') }}"><a href="/admin/page/index"><i class="fa fa-calendar"></i> <span>Page</span></a></li>
+					<li class="{{ checkActiveMenu(Request::segment(2),'page') }}"><a href="/admin/page/index"><i class="fa fa-calendar"></i> <span>Code</span></a></li>
+					<li class="{{ checkActiveMenu(Request::segment(2),'shopcode') }}"><a href="/admin/shopcode/index"><i class="fa fa-calendar"></i> <span>Shop Code</span></a></li>
 					<li class="{{ checkActiveMenu(Request::segment(2),'slide') }}"><a href="/admin/slide/index"><i class="far fa-lg fa-fw m-r-10 fa-image"></i> <span>Slide</span></a></li>
-					<li class="{{ checkActiveMenu(Request::segment(2),'client') }}"><a href="/admin/client/index"><i class="far fa-lg fa-fw m-r-10 fa-image"></i> <span>Client</span></a></li>
+					<!-- <li class="{{ checkActiveMenu(Request::segment(2),'client') }}"><a href="/admin/client/index"><i class="far fa-lg fa-fw m-r-10 fa-image"></i> <span>Client</span></a></li> -->
 
-					<li class="has-sub {{ checkActiveMenu(Request::segment(2),'trees') }}{{ checkActiveMenu(Request::segment(2),'products') }}">
+					<!-- <li class="has-sub {{ checkActiveMenu(Request::segment(2),'trees') }}{{ checkActiveMenu(Request::segment(2),'products') }}">
 						<a href="javascript:;">
 					        <b class="caret"></b>
 						    <i class="fab fa-lg fa-fw m-r-10 fa-product-hunt"></i>
@@ -33,7 +34,8 @@
 
 							<li class="{{ checkActiveMenu(Request::segment(2),'products') }}"><a href="/admin/products/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Products</span></a></li>
 						</ul>
-					</li>
+					</li> -->
+					
 					<li class="{{ checkActiveMenu(Request::segment(2),'setting') }}"><a href="/admin/setting/index"><i class="fa fa-cogs"></i> <span>Setting</span></a></li>
 
 

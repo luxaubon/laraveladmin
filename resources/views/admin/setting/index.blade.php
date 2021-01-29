@@ -23,11 +23,12 @@
 						<ul class="nav nav-tabs">
 						<li class="nav-items">
 							<a href="#default-tab-1" data-toggle="tab" class="nav-link active">
-								<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-address-card"></i> Address</span>
-								<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-address-card"></i> Address</span>
+								<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-address-card"></i> Terms and conditions</span>
+								<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-address-card"></i> Terms and conditions</span>
 							</a>
 						</li>
-						<li class="nav-items">
+
+						<!-- <li class="nav-items">
 							<a href="#default-tab-2" data-toggle="tab" class="nav-link">
 								<span class="d-sm-none"><i class="fa fa-envelope"></i> E-mail</span>
 								<span class="d-sm-block d-none"><i class="fa fa-envelope"></i> E-mail</span>
@@ -38,12 +39,12 @@
 								<span class="d-sm-none"><i class="fab fa-lg fa-fw m-r-10 fa-dropbox"></i> Social</span>
 								<span class="d-sm-block d-none"><i class="fab fa-lg fa-fw m-r-10 fa-dropbox"></i> Social</span>
 							</a>
-						</li>
+						</li> -->
 
 						<li class="nav-items">
 							<a href="#default-tab-4" data-toggle="tab" class="nav-link">
-								<span class="d-sm-none"><i class="fab fa-lg fa-fw m-r-10 fa-amazon-pay"></i> Payment</span>
-								<span class="d-sm-block d-none"><i class="fab fa-lg fa-fw m-r-10 fa-amazon-pay"></i> Payment</span>
+								<span class="d-sm-none"><i class="fab fa-lg fa-fw m-r-10 fa-amazon-pay"></i> SMS gateway</span>
+								<span class="d-sm-block d-none"><i class="fab fa-lg fa-fw m-r-10 fa-amazon-pay"></i> SMS gateway</span>
 							</a>
 						</li>
 						<li class="nav-items">

@@ -32,6 +32,7 @@
 	<link href="/assets/css/style.css" rel="stylesheet" />
 	<link href="/assets/css/magnific-popup.css" rel="stylesheet" type="text/css">
 
+	
 	<!--link href="/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 	<link href="/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
 	<link href="/assets/plugins/ionRangeSlider/css/ion.rangeSlider.css" rel="stylesheet" />

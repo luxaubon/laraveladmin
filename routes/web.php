@@ -57,6 +57,20 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
 
     });
 
+    Route::group(['prefix'=>'/shopcode/'], function(){
+
+        Route::get('/index','admin\ShopcodeController@index');
+    	Route::post('/insert','admin\ShopcodeController@store');
+
+        Route::get('/show/{id}','admin\ShopcodeController@show');
+        Route::post('/edit/{id}','admin\ShopcodeController@edit');
+        Route::get('/del_content','admin\ShopcodeController@del_content');
+
+        Route::get('/update_listpic','admin\ShopcodeController@update_listpic');
+        Route::get('/del_img','admin\ShopcodeController@del_img');
+
+    });
+
      Route::group(['prefix'=>'/slide/'], function(){
         Route::get('/index','admin\SlideController@index');
         Route::post('/insert','admin\SlideController@store');

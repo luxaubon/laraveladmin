@@ -24,27 +24,15 @@
                                 <!-- Start TAP -->
 				                     
                              		<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">Name Code</label>
+										<label class="control-label col-sm-2" for="title">Shop Name</label>
 										<div class="col-sm-12">
-											<textarea class="form-control" id="namecode" name="namecode" rows="2" placeholder="Name Code" data-parsley-required="true">{{ old('title') }}</textarea>
+											<textarea class="form-control" id="namecode" name="namecode" rows="2" placeholder="Shop Name" data-parsley-required="true">{{ old('title') }}</textarea>
 										</div>
 									</div>
 									<div class="clearfix m-b-20">
 										<label class="control-label col-sm-2" for="title">Code</label>
 										<div class="col-sm-12">
 											<input type="text" class="form-control" id="code" name="code" placeholder="Code">{{ old('code') }}
-										</div>
-									</div>
-									<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">Number of code</label>
-										<div class="col-sm-12">
-											<input type="number" class="form-control" id="numbercode" name="numbercode" placeholder="Number of code">{{ old('numbercode') }}
-										</div>
-									</div>
-									<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">Percentage</label>
-										<div class="col-sm-12">
-											<input type="number" class="form-control" id="percentage" name="percentage" placeholder="Percentage">{{ old('percentage') }}
 										</div>
 									</div>
 										   

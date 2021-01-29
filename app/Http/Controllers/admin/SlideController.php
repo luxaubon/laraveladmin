@@ -60,24 +60,22 @@ class SlideController extends Controller
 
     public function edit(Request $request)
     {
-       $this->validate(request(), [
-            'title_th' => 'required|max:50',
-            'title_en' => 'required|max:50'
-        ]);
+      
 
        $post = Slides::find($request->editID);
-         $title[] =  array(
-                        'title_th' =>  (mysql_escape(stripslashes($request->title_th))),
-                        'title_en' =>  (mysql_escape(stripslashes($request->title_en)))
-                    );
-        $caption[] =  array(
-                        'caption_th' =>  (mysql_escape(stripslashes($request->caption_th))),
-                        'caption_en' =>  (mysql_escape(stripslashes($request->caption_en)))
-                    );
-        $link[] =  array(
-                        'link_th' =>  (mysql_escape(stripslashes($request->link_th))),
-                        'link_en' =>  (mysql_escape(stripslashes($request->link_en)))
-                    );
+
+        //  $title[] =  array(
+        //                 'title_th' =>  (mysql_escape(stripslashes($request->title_th))),
+        //                 'title_en' =>  (mysql_escape(stripslashes($request->title_en)))
+        //             );
+        // $caption[] =  array(
+        //                 'caption_th' =>  (mysql_escape(stripslashes($request->caption_th))),
+        //                 'caption_en' =>  (mysql_escape(stripslashes($request->caption_en)))
+        //             );
+        // $link[] =  array(
+        //                 'link_th' =>  (mysql_escape(stripslashes($request->link_th))),
+        //                 'link_en' =>  (mysql_escape(stripslashes($request->link_en)))
+        //             );
         
         if ($request->hasFile('image')) {
             LaraFile::delete("public/images/".$post->image);
@@ -86,9 +84,9 @@ class SlideController extends Controller
             $post->image = $filename;
         }
 
-        $post->title = json_encode($title,JSON_UNESCAPED_UNICODE);
-        $post->caption = json_encode($caption,JSON_UNESCAPED_UNICODE);
-        $post->link = json_encode($link,JSON_UNESCAPED_UNICODE);
+        // $post->title = json_encode($title,JSON_UNESCAPED_UNICODE);
+        // $post->caption = json_encode($caption,JSON_UNESCAPED_UNICODE);
+        // $post->link = json_encode($link,JSON_UNESCAPED_UNICODE);
         $post->online = $request->online;
         $post->save();
 
@@ -98,31 +96,30 @@ class SlideController extends Controller
 
     public function store(Request $request){
         $this->validate(request(), [
-            'title_th' => 'required|max:50',
-            'title_en' => 'required|max:50'
+            'image' => 'required',
         ]);
         if ($request->hasFile('image')) {
             $filename = 'main'.date('dym').time().'.'.$request->image->getClientOriginalExtension();
             $imageName = $request->image->move('public/images/',$filename);
         }else{$filename='';}
 
-        $title[] =  array(
-                        'title_th' =>  (mysql_escape(stripslashes($request->title_th))),
-                        'title_en' =>  (mysql_escape(stripslashes($request->title_en)))
-                    );
-        $caption[] =  array(
-                        'caption_th' =>  (mysql_escape(stripslashes($request->caption_th))),
-                        'caption_en' =>  (mysql_escape(stripslashes($request->caption_en)))
-                    );
-        $link[] =  array(
-                        'link_th' =>  (mysql_escape(stripslashes($request->link_th))),
-                        'link_en' =>  (mysql_escape(stripslashes($request->link_en)))
-                    );
+        // $title[] =  array(
+        //                 'title_th' =>  (mysql_escape(stripslashes($request->title_th))),
+        //                 'title_en' =>  (mysql_escape(stripslashes($request->title_en)))
+        //             );
+        // $caption[] =  array(
+        //                 'caption_th' =>  (mysql_escape(stripslashes($request->caption_th))),
+        //                 'caption_en' =>  (mysql_escape(stripslashes($request->caption_en)))
+        //             );
+        // $link[] =  array(
+        //                 'link_th' =>  (mysql_escape(stripslashes($request->link_th))),
+        //                 'link_en' =>  (mysql_escape(stripslashes($request->link_en)))
+        //             );
 
         $post = new Slides;
-        $post->title = json_encode($title,JSON_UNESCAPED_UNICODE);
-        $post->caption = json_encode($caption,JSON_UNESCAPED_UNICODE);
-        $post->link = json_encode($link,JSON_UNESCAPED_UNICODE);
+        // $post->title = json_encode($title,JSON_UNESCAPED_UNICODE);
+        // $post->caption = json_encode($caption,JSON_UNESCAPED_UNICODE);
+        // $post->link = json_encode($link,JSON_UNESCAPED_UNICODE);
         $post->online = $request->online;
         $post->image = $filename;
         $post->save();
@@ -143,7 +140,7 @@ class SlideController extends Controller
             'folder' => $this->folder(),
             'image' => $image,
          );
-        return view('admin.'.$this->folder().'.index',$data);
+        return redirect()->back();
 
     }
 

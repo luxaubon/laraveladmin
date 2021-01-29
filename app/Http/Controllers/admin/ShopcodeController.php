@@ -10,15 +10,8 @@ use Auth;
 
 use Illuminate\Support\Facades\File as LaraFile;
 
-// add this
-/*
-use App\File;
-use Illuminate\Support\Facades\DB;
-LaraFile::delete("public/images/main-1549017697.png");
-$time_stamp = time();
-&&  ((date_start <= $time_stamp) && (date_stop='' || ( date_stop >= $time_stamp) ))
-*/
-class PagesController extends Controller
+
+class ShopcodeController extends Controller
 {
     //
     public function __construct(){
@@ -28,8 +21,8 @@ class PagesController extends Controller
 
     }
 
-    public function folder(){return 'page';}
-    public function status(){return 'Pages';}
+    public function folder(){return 'shopcode';}
+    public function status(){return 'ShopCode';}
 
     public function index()
     {
@@ -40,7 +33,6 @@ class PagesController extends Controller
             'pages' => $pages,
             'pages_id' => '',
             'folder' => $this->folder(),
-           
         );
 
         return view('admin.'.$this->folder().'.index',$data);
@@ -50,14 +42,10 @@ class PagesController extends Controller
     	$this->validate(request(), [
             'namecode' => 'required|max:50',
             'code' => 'required|max:50',
-            'numbercode' => 'required|max:50',
-            'percentage' => 'required|max:50',
         ]);
         $post = new Pages;
         $post->namecode = $request->namecode;
         $post->code = $request->code;
-        $post->numbercode = $request->numbercode;
-        $post->percentage = $request->percentage;
         $post->status = $this->status();
         $post->online = $request->online;
         $post->save();
@@ -90,15 +78,11 @@ class PagesController extends Controller
         $this->validate(request(), [
             'namecode' => 'required|max:50',
             'code' => 'required|max:50',
-            'numbercode' => 'required|max:50',
-            'percentage' => 'required|max:50',
         ]);
 
         $post = Pages::find($request->id);
         $post->namecode = $request->namecode;
         $post->code = $request->code;
-        $post->numbercode = $request->numbercode;
-        $post->percentage = $request->percentage;
         $post->status = $this->status();
         $post->online = $request->online;
         $post->save();
@@ -154,3 +138,4 @@ class PagesController extends Controller
     }
 
 }
+

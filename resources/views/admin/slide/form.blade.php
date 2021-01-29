@@ -3,8 +3,8 @@
                         <!-- begin panel -->
                         <div class="panel">
                             <ul class="nav nav-tabs">
-								<li class="nav-items">
-									<a href="#default-tab-sup-1" data-toggle="tab" class="nav-link active">
+								<!-- <li class="nav-items">
+									<a href="#default-tab-sup-1" data-toggle="tab" class="nav-link ">
 										<span class="d-sm-none">
 											<img src="{{asset('/icon/flag-th.png')}}">
 										</span>
@@ -22,9 +22,9 @@
 											<img src="{{asset('/icon/flag-en.png')}}" height="25px">
 										</span>
 									</a>
-								</li>
+								</li> -->
 								<li class="nav-items">
-									<a href="#default-tab-sup-4" data-toggle="tab" class="nav-link">
+									<a href="#default-tab-sup-4" data-toggle="tab" class="nav-link active">
 										<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-image"></i> Image</span>
 										<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-image"></i> Image</span>
 									</a>
@@ -33,10 +33,10 @@
 							</ul>
 
                             <div class="tab-content m-b-0 ">
-                                <div class="tab-pane fade active show" id="default-tab-sup-1">
+                                <div class="tab-pane fade " id="default-tab-sup-1">
                                 <!-- Start TAP -->
 
-                              		<div class="clearfix m-b-20">
+                              		<!-- <div class="clearfix m-b-20">
 	                        				<label class="control-label col-sm-2" for="title">Title</label>
 	                        				<div class="col-sm-12">
 				                            <textarea class="form-control" id="title_th" name="title_th" rows="2" data-parsley-range="[1,200]" placeholder="Title, Header.." data-parsley-required="true">{{ old('title_th') }}</textarea>
@@ -56,13 +56,13 @@
 				                            <textarea class="form-control" id="link_th" name="link_th" rows="2" placeholder="Link" data-parsley-required="true">{{ old('link_th') }}</textarea>
 
 				                       		</div>
-				                       	</div>
+				                       	</div> -->
 
                                 <!-- END TAP -->
                                 </div>
                                 <div class="tab-pane fade" id="default-tab-sup-2">
                                 <!-- Start TAP -->
-                              		<div class="clearfix m-b-20">
+                              		<!-- <div class="clearfix m-b-20">
 	                        				<label class="control-label col-sm-2" for="title">Title</label>
 	                        				<div class="col-sm-12">
 				                            <textarea class="form-control" id="title_en" name="title_en" rows="2" data-parsley-range="[1,200]" placeholder="Title, Header.." data-parsley-required="true">{{ old('title_en') }}</textarea>
@@ -82,11 +82,11 @@
 				                            <textarea class="form-control" id="link_en" name="link_en" rows="2" placeholder="Link" data-parsley-required="true">{{ old('link_en') }}</textarea>
 
 				                       		</div>
-				                       	</div>
+				                       	</div> -->
                                 <!-- END TAP -->
                                 </div>
 
-                                <div class="tab-pane fade" id="default-tab-sup-4">
+                                <div class="tab-pane fade active show" id="default-tab-sup-4">
                                 <!-- Start TAP -->
                                 	<div class="clearfix m-b-20">
 					                       	<div class="profile-cover">
