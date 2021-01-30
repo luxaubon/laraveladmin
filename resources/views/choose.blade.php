@@ -30,11 +30,9 @@
             </div>
 
             <!-- Main Title @e -->
-
             <div class="heading-title boxDataShow">
                 <h2 class="title">กรุณาเลือกอั่งเปา</h2>
             </div>
-
             <div class="angpao-wrapper boxDataShow">
                 <div class="angpao" id="clickOne">
                     <img src="/assets_home/img/angpao-1.jpg" alt="">
@@ -48,9 +46,6 @@
             </div>
 
             <!-- Main Title @e -->
-            <?php
-                //echo Session::get('ss_percentage');
-            ?>
 
             <div class="heading-title boxShow" style="display: none;">
                 <h2 class="title" id="boxText"></h2>
@@ -58,12 +53,12 @@
             <div class="angpao-open boxShow" style="display: none;">
                 <div class="angpao-result">
                     <div class="title">คุณได้รับส่วนลด</div>
-                    <div class="discount"><?php echo $code; ?>%</div>
+                    <div class="discount"><?php echo Session::get('ss_percentage'); ?>%</div>
                     <div class="shop-code">
                         <form action="">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="กรุณาใส่รหัสร้านค้า" id="shopcode" name="shopcode">
-                                <input type="hidden" class="form-control" value="<?php echo $code; ?>" id="percentage" name="percentage">
+                                <input type="hidden" class="form-control" value="<?php echo Session::get('ss_percentage'); ?>" id="percentage" name="percentage">
                                 <input type="hidden" class="form-control" value="<?php echo Session::get('ss_phone'); ?>" id="phone" name="phone">
                             </div>
                             <div class="form-group">
@@ -75,21 +70,15 @@
                 <img src="/assets_home/img/aungpao-open.png" alt="">
             </div> 
 
-
-            <!-- Main Title @s -->
-            <div class="main-title boxSuccess" style="display: none;">
-                <img src="/assets_home/img/title.png" alt="">
-            </div>
             <!-- Main Title @e -->
             <div class="heading-title boxSuccess" style="display: none;">
                 <h2 class="title">ดำเนินการสำเร็จ</h2>
             </div>
             <div class="done-message boxSuccess" style="display: none;">
                 <i class="fas fa-check-circle"></i>
-                <p>คุณได้รับส่วนลด <?php echo $code; ?> % จากกิจกรรม ตรุษจีนนี้ มีอั่งเปา เรียบร้อยแล้ว</p>
+                <p>คุณได้รับส่วนลด <?php echo Session::get('ss_percentage'); ?> % จากกิจกรรม ตรุษจีนนี้ มีอั่งเปา เรียบร้อยแล้ว</p>
                 <p>ขอบคุณค่ะ</p>
             </div>
-
 
         </div>
     </div>
@@ -116,11 +105,11 @@
 
             $("#btnSuccess").prop('disabled', true);
 
-            $("#shopcode").keyup(function(){
+            $("#shopcode").keyup( () => {
                 $("#btnSuccess").prop('disabled', false);
             });
 
-            $("#btnSuccess").click(function(){
+            $("#btnSuccess").click( () =>{
                 event.preventDefault();
                 var shopcode = $("#shopcode").val();
                 var percentage = $("#percentage").val();
@@ -130,18 +119,19 @@
                 url: "/sendPercentage",
                 method: "POST",
                 data: {
-                    "_token": "{{ csrf_token() }}",
+                        "_token": "{{ csrf_token() }}",
                         "shopcode":shopcode, 
                         "percentage":percentage,
                         "phone" : phone,
                     },
                     success: function(data){
                         if(data == 'success'){
-                            swal("บรรทึกข้อมูลสำเร็จ", "", "success");
+                            swal("บันทึกข้อมูลสำเร็จ", "", "success");
                             $(".boxShow").hide();
                             $(".boxDataShow").hide();
                             $(".boxSuccess").show();
                         }else{
+                            $("#shopcode").val('');
                             swal("SHOPCODE ของท่านไม่ถูกต้อง", "", "error");
                         }
                     },

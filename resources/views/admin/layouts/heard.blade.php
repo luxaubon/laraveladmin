@@ -1,7 +1,7 @@
 <div id="header" class="header navbar-default">
 			<!-- begin navbar-header -->
 			<div class="navbar-header">
-				<a href="/admin/dashboard/index" class="navbar-brand"><span class="navbar-logo"></span> <b>Color</b> Admin</a>
+				<a href="/admin/dashboard/index" class="navbar-brand"><span class="navbar-logo"></span> <b>Administration</b></a>
 				<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -94,7 +94,7 @@
 				</li> -->
 				<li class="dropdown navbar-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="/assets/img/user/user-13.jpg" alt="" />
+						<img src="/public/images/{{Auth::user()->image }}" alt="" />
 						@if(Auth::check() ) 
 							<span class="d-none d-md-inline">{{ Auth::user()->name }}</span> <b class="caret"></b>
 						@endif

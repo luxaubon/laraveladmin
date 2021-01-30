@@ -19,28 +19,28 @@
                             	
                                 <div class="tab-pane fade active show" id="default-tab-sup-1">
                                 <!-- Start TAP -->
-									<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">Name Code</label>
+									 <div class="clearfix m-b-20">
+										<label class="control-label col-sm-2" for="title">จำนวนส่วนลดที่แสดง</label>
 										<div class="col-sm-12">
-											<textarea class="form-control" id="namecode" name="namecode" rows="2" placeholder="Name Code" data-parsley-required="true">{{$pages_id->namecode}}</textarea>
+											<textarea class="form-control" id="namecode" name="namecode" rows="2" placeholder="จำนวนส่วนลดที่แสดง" data-parsley-required="true">{{$pages_id->namecode}}</textarea>
 										</div>
 									</div>
-									<div class="clearfix m-b-20">
+									<!--<div class="clearfix m-b-20">
 										<label class="control-label col-sm-2" for="title">Code</label>
 										<div class="col-sm-12">
 											<input type="text" class="form-control" id="code" name="code" placeholder="Code"  value="{{$pages_id->code}}">
 										</div>
-									</div>
+									</div> -->
 									<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">Number of code</label>
+										<label class="control-label col-sm-2" for="title">จำนวนส่วนลดที่สามารถใช้ได้</label>
 										<div class="col-sm-12">
-											<input type="number" class="form-control" id="numbercode" name="numbercode" placeholder="Number of code" value="{{$pages_id->numbercode}}">
+											<input type="number" class="form-control" id="numbercode" name="numbercode" placeholder="จำนวนส่วนลดที่สามารถใช้ได้" value="{{$pages_id->numbercode}}">
 										</div>
 									</div>
 									<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">Percentage</label>
+										<label class="control-label col-sm-2" for="title">% ในการออกรางวัล</label>
 										<div class="col-sm-12">
-											<input type="number" class="form-control" id="percentage" name="percentage" placeholder="Percentage" value="{{$pages_id->percentage}}">
+											<input type="number" class="form-control" id="percentage" name="percentage" placeholder="% ในการออกรางวัล" value="{{$pages_id->percentage}}">
 										</div>
 									</div>
                                 <!-- END TAP -->

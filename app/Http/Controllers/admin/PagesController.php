@@ -49,13 +49,13 @@ class PagesController extends Controller
      public function store(Request $request){
     	$this->validate(request(), [
             'namecode' => 'required|max:50',
-            'code' => 'required|max:50',
+            //'code' => 'required|max:50',
             'numbercode' => 'required|max:50',
             'percentage' => 'required|max:50',
         ]);
         $post = new Pages;
         $post->namecode = $request->namecode;
-        $post->code = $request->code;
+       // $post->code = $request->code;
         $post->numbercode = $request->numbercode;
         $post->percentage = $request->percentage;
         $post->status = $this->status();
@@ -89,14 +89,14 @@ class PagesController extends Controller
     {
         $this->validate(request(), [
             'namecode' => 'required|max:50',
-            'code' => 'required|max:50',
+            //'code' => 'required|max:50',
             'numbercode' => 'required|max:50',
             'percentage' => 'required|max:50',
         ]);
 
         $post = Pages::find($request->id);
         $post->namecode = $request->namecode;
-        $post->code = $request->code;
+        //$post->code = $request->code;
         $post->numbercode = $request->numbercode;
         $post->percentage = $request->percentage;
         $post->status = $this->status();

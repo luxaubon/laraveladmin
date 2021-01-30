@@ -96,19 +96,19 @@ class HomeController extends Controller
     }
 
     public function Choose() {
-        
-        //dd(session()->all());
-
+        // Session::forget('ss_percentage');
+        // dd(session()->all());
         $setting = Setting::find(1);
-        if(Session::get('ss_percentage') == null){
-        $page = Pages::where('status','=','Pages')->where('online',0)->where('numbercode','!=',0)->get();
+       if(Session::get('ss_percentage') == null || Session::get('ss_percentage') == ''){
+
+            $page = Pages::where('status','=','Pages')->where('online',0)->where('numbercode','!=',0)->get();
 
             $choices = array();
             foreach($page as $data){
-                $choices[$data['percentage']]= $data['percentage'];
+                $choices[$data['namecode']]= $data['percentage'];
             }
             $total = array_sum( $choices );
-            $percent = rand( 0, $total*100 ) / 100; 
+            $percent = rand( 0, $total * 100 ) / 100; 
             $award = null;
             $carry = 0;
 
@@ -122,15 +122,16 @@ class HomeController extends Controller
                 $carry += $value;
             }
 
-            $code = Session::put('ss_percentage', $award);
+           $code = Session::put('ss_percentage', $award);
+
         }else{
+
             $code = Session::get('ss_percentage');
+
         }
-        
         $data = array(
             //HEAD
-            'setting' => $setting,
-            'code' => $code
+            'setting' => $setting
             //HEAD
         );
 
@@ -148,7 +149,7 @@ class HomeController extends Controller
             
             if(!empty($post)){
     
-                $Pages = Pages::where('percentage','=',$request->percentage)->where('status','=','Pages')->where('online',0)->where('numbercode','!=',0)->first();
+                $Pages = Pages::where('namecode','=',$request->percentage)->where('status','=','Pages')->where('online',0)->where('numbercode','!=',0)->first();
                 $Pages->numbercode = $Pages->numbercode - 1;
                 $Pages->save();
 

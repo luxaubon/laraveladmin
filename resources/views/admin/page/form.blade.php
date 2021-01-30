@@ -23,28 +23,28 @@
                                 <div class="tab-pane fade active show" id="default-tab-sup-1">
                                 <!-- Start TAP -->
 				                     
-                             		<div class="clearfix m-b-20">
+                             		 <div class="clearfix m-b-20">
 										<label class="control-label col-sm-2" for="title">Name Code</label>
 										<div class="col-sm-12">
-											<textarea class="form-control" id="namecode" name="namecode" rows="2" placeholder="Name Code" data-parsley-required="true">{{ old('title') }}</textarea>
+											<textarea class="form-control" id="namecode" name="namecode" rows="2" placeholder="จำนวนส่วนลดที่แสดง" data-parsley-required="true">{{ old('title') }}</textarea>
 										</div>
 									</div>
-									<div class="clearfix m-b-20">
+									<!--<div class="clearfix m-b-20">
 										<label class="control-label col-sm-2" for="title">Code</label>
 										<div class="col-sm-12">
 											<input type="text" class="form-control" id="code" name="code" placeholder="Code">{{ old('code') }}
 										</div>
-									</div>
+									</div> -->
 									<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">Number of code</label>
+										<label class="control-label col-sm-2" for="title">จำนวนส่วนลดที่สามารถใช้ได้</label>
 										<div class="col-sm-12">
-											<input type="number" class="form-control" id="numbercode" name="numbercode" placeholder="Number of code">{{ old('numbercode') }}
+											<input type="number" class="form-control" id="numbercode" name="numbercode" placeholder="จำนวนส่วนลดที่สามารถใช้ได้">{{ old('numbercode') }}
 										</div>
 									</div>
 									<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">Percentage</label>
+										<label class="control-label col-sm-2" for="title">% ในการออกรางวัล</label>
 										<div class="col-sm-12">
-											<input type="number" class="form-control" id="percentage" name="percentage" placeholder="Percentage">{{ old('percentage') }}
+											<input type="number" class="form-control" id="percentage" name="percentage" placeholder="% ในการออกรางวัล">{{ old('percentage') }}
 										</div>
 									</div>
 										   

@@ -174,9 +174,8 @@
         	seconds = seconds - 1;
           disabledElem.text(originalText + ' (' + seconds + ')');
           if (seconds === 0) { 
-            disabledElem.removeAttr('disabled')
-              .text(originalText);
-              clearInterval(interval); 
+            disabledElem.removeAttr('disabled').text(originalText);
+            clearInterval(interval); 
           }
         }, 1000);
       });
@@ -203,13 +202,14 @@
             }
          });
 
+         
+
         $('#flexCheckChecked').change(function() {
             if ($(this).is(":checked")) {
                 var text =  $(this).val('true')
-                console.log(text);
+                $('#terms-conditions').modal('toggle');
             } else {
                 var text = $(this).val('false');
-                console.log(text);
             }
         });
 
@@ -218,18 +218,18 @@
             $("#Numotp").val(<?php echo rand(10000,999999); ?>);
             var phone  =   $("#phone").val();
             var otp  =   $("#Numotp").val();
-            $.ajax({
-			   url: "https://o8.sc4msg.com/SendMessage",
-			   method: "POST",
-			   data: {
-                    "ACCOUNT":'<?php echo json_decode($setting->payment)[0]->user; ?>', 
-                    "PASSWORD":'<?php echo json_decode($setting->payment)[0]->pass; ?>',
-                    "MOBILE":phone,
-                    "MESSAGE":'หมายเลข OTP ของท่านคือ ' + otp,
-                }
-			  });
-            swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
-        });
+              $.ajax({
+                url: "https://o8.sc4msg.com/SendMessage",
+                method: "POST",
+                data: {
+                      "ACCOUNT":'<?php echo json_decode($setting->payment)[0]->user; ?>', 
+                      "PASSWORD":'<?php echo json_decode($setting->payment)[0]->pass; ?>',
+                      "MOBILE":phone,
+                      "MESSAGE":'หมายเลข OTP ของท่านคือ ' + otp,
+                  }
+              });
+                  swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
+              });
 
         $("#otp").keyup(function(){
             var text = $(this).val();
@@ -261,7 +261,7 @@
                 },
 				success: function(data){
                     if(data == 'success'){
-                        swal("เรียบร้อย", "", "success");
+                        swal("บันทึกข้อมูลเรียบร้อย", "", "success");
                         
                         setTimeout(function(){ window.location.assign("/choose") }, 2000);
                     }else{

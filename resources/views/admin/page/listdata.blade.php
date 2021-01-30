@@ -11,11 +11,10 @@
                                     <tr class="odd gradeX" id="content{{ $db->id }}">
                                     	
                                         <td>
-                                            <strong>Name </strong> : {{$db->namecode}}
-                                            <hr/>
-                                            <strong>Code</strong> : {{$db->code}}<hr/>
-                                            <strong>Number of Code</strong> : {{ $db->numbercode }}<hr/>
-                                            <strong>Percentage</strong> : {{ $db->percentage }} %<hr/>
+                                            <strong>จำนวนส่วนลดที่แสดง </strong> : {{$db->namecode}}<hr/>
+                                            <!--strong>Code</strong> : {{$db->code}}<hr/-->
+                                            <strong>จำนวนส่วนลดที่สามารถใช้ได้</strong> : {{ $db->numbercode }}<hr/>
+                                            <strong>% ในการออกรางวัล</strong> : {{ $db->percentage }} %<hr/>
                                             <div class="m-t-10">
                                                 <a href="/admin/{{$folder}}/show/{{ $db->id }}" class="btn btn-primary"><i class="fas fa-cog fa-spin"></i> View & Edit</a>
 
