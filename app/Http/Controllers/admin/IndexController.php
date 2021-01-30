@@ -26,11 +26,6 @@ class IndexController extends Controller
     public function index()
     {
         //$user = Auth::user();
-        
-        $pagesView = Pages::orderBy('view','DESC')
-                 ->where('status',$this->status())
-                 ->limit(5)
-                 ->get();
 
         $pagesOnline = Pages::all()
                        ->where('online',0)
@@ -51,7 +46,6 @@ class IndexController extends Controller
             $view.= $dataMont->view.',';
         }
         $data = array(
-            'pagesView' => $pagesView,
             'folder' => 'dashboard',
             'pagesOnline' => $pagesOnline,
             'pagesOffline' => $pagesOffline,

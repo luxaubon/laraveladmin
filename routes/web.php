@@ -14,11 +14,14 @@
 
 
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::resource('/','HomeController');
+Route::resource('/home','HomeController');
 
-Route::resource('/test','TestController'); 
+
+Route::post('/sendOTP','HomeController@sendOTP');
+Route::get('/choose','HomeController@Choose');
+Route::post('/sendPercentage','HomeController@sendPercentage');
+
 
 Route::get('/admin', function () {
     return view('admin.login');
