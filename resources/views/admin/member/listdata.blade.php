@@ -8,6 +8,7 @@
                                         <th class="text-nowrap">Phone</th>
                                         <th class="text-nowrap">OTP</th>
                                         <th class="text-nowrap">SHOP CODE</th>
+                                        <th class="text-nowrap">Discount %</th>
                                         <th class="text-nowrap">Date</th>
                                     </tr>
                                 </thead>
@@ -21,6 +22,7 @@
                                         <td>{{$db->phone}}</td>
                                         <td>{{$db->otp}}</td>
                                         <td>{{$db->shop_code}}</td>
+                                        <td>{{$db->percentage}}</td>
                                         <td>{{ DateThai($db->created_at) }}</td>
 
                                     </tr>

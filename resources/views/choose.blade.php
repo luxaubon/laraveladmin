@@ -2,7 +2,20 @@
 
 @section('content')
 
-<?php if(@Session::get('ss_phone') == null){echo '<script>window.location.assign("/")</script>'; } ?>
+<?php 
+if(@Session::get('ss_phone') == null || @Session::get('user_id') == null){
+    echo '<script>window.location.assign("/")</script>';
+} 
+
+if($codeMaxToday == 'codemaxToday'){
+    echo '<script>
+            swal("Code ส่วนลดวันนี้หมดแล้ว", "กรุณากลับมาใช้อีกครั้งหลังจากมีการเติม Code ส่วนลด", "error");
+            setTimeout(function(){ window.location.assign("http://asicscny2021.mobileconnect.co.th/") }, 3000);
+         </script>';
+}
+
+
+?>
 <!-- Main @s -->
 <div class="main-wrapper">
         <div class="main-frame">
@@ -58,8 +71,6 @@
                         <form action="">
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="กรุณาใส่รหัสร้านค้า" id="shopcode" name="shopcode">
-                                <input type="hidden" class="form-control" value="<?php echo Session::get('ss_percentage'); ?>" id="percentage" name="percentage">
-                                <input type="hidden" class="form-control" value="<?php echo Session::get('ss_phone'); ?>" id="phone" name="phone">
                             </div>
                             <div class="form-group">
                                 <button type="button" id="btnSuccess" class="btn btn-block btn-primary">ตกลง</button>
@@ -112,17 +123,13 @@
             $("#btnSuccess").click( () =>{
                 event.preventDefault();
                 var shopcode = $("#shopcode").val();
-                var percentage = $("#percentage").val();
-                var phone = $("#phone").val();
                 
                 $.ajax({
                 url: "/sendPercentage",
                 method: "POST",
                 data: {
                         "_token": "{{ csrf_token() }}",
-                        "shopcode":shopcode, 
-                        "percentage":percentage,
-                        "phone" : phone,
+                        "shopcode":shopcode,
                     },
                     success: function(data){
                         if(data == 'success'){
@@ -130,6 +137,9 @@
                             $(".boxShow").hide();
                             $(".boxDataShow").hide();
                             $(".boxSuccess").show();
+                        }else if(data == 'codemax'){
+                            swal("Code ส่วนลดนี้หมดแล้ว", "กรุณารอสักครู่ระบบจะทำการสุ่มให้ท่านใหม่", "error");
+                            setTimeout(function(){ window.location.assign("/choose") }, 3000);
                         }else{
                             $("#shopcode").val('');
                             swal("SHOPCODE ของท่านไม่ถูกต้อง", "", "error");

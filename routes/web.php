@@ -20,6 +20,7 @@ Route::resource('/home','HomeController');
 
 Route::post('/sendOTP','HomeController@sendOTP');
 Route::get('/choose','HomeController@Choose');
+Route::get('/OTP','HomeController@OTP');
 Route::post('/sendPercentage','HomeController@sendPercentage');
 
 

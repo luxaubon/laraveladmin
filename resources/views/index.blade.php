@@ -73,7 +73,7 @@
             <input type="email" class="form-control" id="email" name="email" placeholder="อีเมล์">
           </div>
           <div class="form-group">
-            <input type="number" class="form-control" id="phone" name="phone" placeholder="เบอร์โทรศัพท์">
+            <input type="number" class="form-control quantity" id="phone" name="phone" placeholder="เบอร์โทรศัพท์" maxlength="10"> 
           </div>
 
           <div class="form-check text-left mb-3">
@@ -181,28 +181,55 @@
       });
     };
 
+    function validateEmail(email) {
+      const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+
+    var inputQuantity = [];
+    $(function() {
+        $(".quantity").each(function(i) {
+          inputQuantity[i]=this.defaultValue;
+          $(this).data("idx",i); // save this field's index to access later
+        });
+        $(".quantity").on("keyup", function (e) {
+          var $field = $(this),
+              val=this.value,
+              $thisIndex=parseInt($field.data("idx"),10); // retrieve the index
+          if (this.validity && this.validity.badInput || isNaN(val) || $field.is(":invalid") ) {
+              this.value = inputQuantity[$thisIndex];
+              return;
+          } 
+          if (val.length > Number($field.attr("maxlength"))) {
+            val=val.slice(0, 10);
+            $field.val(val);
+          }
+          inputQuantity[$thisIndex]=val;
+        });      
+      });
+
     $(document).ready(function() {
-    
+      
+
          $("#btnCheckData").click(function (){
             
             if($("#name").val() == ''){
                 swal("กรุณากรอก ชื่อ-นามสกุล", "", "error");
             }else if($("#sex").val() == ''){
                 swal("กรุณาเลือกเพศ", "", "error");
-            }else if($("#email").val() == ''){
+            }else if($("#email").val() == '' ){
                 swal("กรุณากรอก E-mail", "", "error");
-            }else if($("#phone").val() == ''){
+            }else if($("#phone").val() == '' || $("#phone").val().length !== 10){
                 swal("กรุณากรอก เบอร์โทรศัพท์", "", "error");
             }else if($("#flexCheckChecked").val() == 'false' || $("#flexCheckChecked").val() == ''){
                 swal("กรุณา ยอมรับ ข้อตกลงและเงื่อนไข", "", "error");
+            }else if(validateEmail($("#email").val()) === false){
+                swal("กรอก E-mail ใหม่อีกครั้ง", "", "error");
             }else{
                 $('#get-otp').modal('toggle');
                 $("#modalTextPhone").html('ส่งรหัส OTP ไปที่หมายเลข '+ $("#phone").val())
-                //$("#btnSuccess").prop('disabled', true);
             }
          });
-
-         
 
         $('#flexCheckChecked').change(function() {
             if ($(this).is(":checked")) {
@@ -213,36 +240,35 @@
             }
         });
 
-        $("#sendOtp").click(function(){
+        $("#sendOtp").click( () =>{
             $('#sendOtp').timedDisable(60);
             $("#Numotp").val(<?php echo rand(10000,999999); ?>);
             var phone  =   $("#phone").val();
             var otp  =   $("#Numotp").val();
-            
-              $.ajax({
-                url: "https://o8.sc4msg.com/SendMessage",
-                method: "POST",
-                data: {
-                      "ACCOUNT":'<?php echo json_decode($setting->payment)[0]->user; ?>', 
-                      "PASSWORD":'<?php echo json_decode($setting->payment)[0]->pass; ?>',
-                      "MOBILE":phone,
-                      "MESSAGE":'หมายเลข OTP ของท่านคือ ' + otp,
+            $.ajax({
+                url: "/OTP",
+                method: "GET",
+                success: function(data){
+                  if(data){
+                    $.ajax({
+                      url: "https://o8.sc4msg.com/SendMessage",
+                      method: "POST",
+                      data: {
+                            "ACCOUNT":data.user, 
+                            "PASSWORD":data.pass,
+                            "MOBILE":phone,
+                            "MESSAGE":'หมายเลข OTP ของท่านคือ ' + otp,
+                        }
+                    });
+                    swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
+                  }else{
+                    swal("ระบบไม่สามารถส่ง OTP กรุณาลองอีกครั้ง", "", "error");
                   }
+                }
               });
-                  swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
-
-              });
-
-        // $("#otp").keyup(function(){
-        //     var text = $(this).val();
-        //     if(text == $("#Numotp").val()){
-        //         $("#btnSuccess").prop('disabled', false);
-        //     }else{
-        //         $("#btnSuccess").prop('disabled', true);
-        //     }
-        // });
+        });
         
-        $("#btnSuccess").click(function(){
+        $("#btnSuccess").click(() =>{
             event.preventDefault();
             var name = $("#name").val();
             var sex  =   $("#sex").val();
