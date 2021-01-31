@@ -81,30 +81,6 @@
                         </select>
                     </div>
                 </div>
-                <div class="divider"></div>
-                <h5>THEME VERSION</h5>
-                <div class="theme-version">
-                	<a href="../template_html/index_v2.html" class="active">
-                		<span style="background-image: url(/assets/img/theme/default.jpg);"></span>
-                	</a>
-                	<a href="../template_transparent/index_v2.html">
-                		<span style="background-image: url(/assets/img/theme/transparent.jpg);"></span>
-                	</a>
-                </div>
-                <div class="theme-version">
-                	<a href="../template_apple/index_v2.html">
-                		<span style="background-image: url(/assets/img/theme/apple.jpg);"></span>
-                	</a>
-                	<a href="../template_material/index_v2.html">
-                		<span style="background-image: url(/assets/img/theme/material.jpg);"></span>
-                	</a>
-                </div>
-                <div class="divider"></div>
-                <div class="row m-t-10">
-                    <div class="col-md-12">
-                        <a href="javascript:;" class="btn btn-inverse btn-block btn-rounded" data-click="reset-local-storage"><b>Reset Local Storage</b></a>
-                    </div>
-                </div>
             </div>
         </div>
         <!-- end theme-panel -->

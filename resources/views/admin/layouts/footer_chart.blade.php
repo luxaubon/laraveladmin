@@ -81,7 +81,6 @@
                         </select>
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- end theme-panel -->
@@ -92,7 +91,6 @@
 	</div>
 	<!-- end page container -->
 	
-	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script src="/assets/plugins/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
 	<!--[if lt IE 9]>
@@ -107,27 +105,128 @@
 	<!-- ================== END BASE JS ================== -->
 	
 	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
-	<script src="/assets/plugins/DataTables/media/js/jquery.dataTables.js"></script>
-	<script src="/assets/plugins/DataTables/media/js/dataTables.bootstrap.min.js"></script>
-	<script src="/assets/plugins/DataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
-	<script src="/assets/plugins/DataTables/extensions/Buttons/js/buttons.bootstrap.min.js"></script>
-	<script src="/assets/plugins/DataTables/extensions/Buttons/js/buttons.flash.min.js"></script>
-	<script src="/assets/plugins/DataTables/extensions/Buttons/js/jszip.min.js"></script>
-	<script src="/assets/plugins/DataTables/extensions/Buttons/js/pdfmake.min.js"></script>
-	<script src="/assets/plugins/DataTables/extensions/Buttons/js/vfs_fonts.min.js"></script>
-	<script src="/assets/plugins/DataTables/extensions/Buttons/js/buttons.html5.min.js"></script>
-	<script src="/assets/plugins/DataTables/extensions/Buttons/js/buttons.print.min.js"></script>
-	<script src="/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
-	<script src="/assets/js/demo/table-manage-buttons.demo.min.js"></script>
+    <script src="/assets/plugins/chart-js/Chart.min.js"></script>
+    <script src="/assets/plugins/morris/raphael.min.js"></script>
+    <script src="/assets/plugins/morris/morris.js"></script>
+	<script>
+                /*
+        Template Name: Color Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3 & 4
+        Version: 4.1.0
+        Author: Sean Ngu
+        Website: http://www.seantheme.com/color-admin-v4.1/admin/
+        */
+
+        Chart.defaults.global.defaultFontColor = COLOR_BLACK;
+        Chart.defaults.global.defaultFontFamily = FONT_FAMILY;
+        Chart.defaults.global.defaultFontStyle = FONT_WEIGHT;
+
+        var randomScalingFactor = function() { 
+            return Math.round(Math.random()*100)
+        };
+
+        var barChartData = {
+            labels: ['ทั้งหมด'],
+            datasets: [{
+                label: 'ผู้ลงทะเบียนยืนยันตัวตน',
+                borderWidth: 2,
+                borderColor: COLOR_PURPLE,
+                backgroundColor: COLOR_PURPLE_TRANSPARENT_3,
+                data: [<?php echo $member['memberOtp1']; ?>]
+            }, {
+                label: 'ผู้ลงทะเบียนที่ไม่ยืนยันตัวตน',
+                borderWidth: 2,
+                borderColor: COLOR_BLACK,
+                backgroundColor: COLOR_BLACK_TRANSPARENT_3,
+                data: [<?php echo $member['memberOtp2']; ?>]
+            }]
+        };
+
+        var pieChartData = {
+            labels: [<?php echo $member['topics2']; ?>],
+            datasets: [{
+                data: [<?php echo $member['data2'];?>],
+                backgroundColor: [COLOR_RED_TRANSPARENT_7, COLOR_ORANGE_TRANSPARENT_7, COLOR_SILVER_TRANSPARENT_7, COLOR_GREY_TRANSPARENT_7, COLOR_BLACK_TRANSPARENT_7],
+                borderColor: [COLOR_RED, COLOR_ORANGE, COLOR_SILVER_DARKER, COLOR_GREY, COLOR_BLACK],
+                borderWidth: 2,
+                label: 'My dataset'
+            }]
+        };
+                
+        var doughnutChartData = {
+            labels: [<?php echo $member['topics_shopcode']; ?>],
+            datasets: [{
+                data: [<?php echo $member['data_shopcode']; ?>],
+                backgroundColor: [COLOR_PURPLE_TRANSPARENT_7, COLOR_BLUE_TRANSPARENT_7, COLOR_GREEN_TRANSPARENT_7, COLOR_GREY_TRANSPARENT_7, COLOR_BLACK_TRANSPARENT_7],
+                borderColor: [COLOR_PURPLE, COLOR_BLUE, COLOR_GREEN, COLOR_GREY, COLOR_BLACK],
+                borderWidth: 2,
+                label: 'My dataset'
+            }]
+        };
+
+
+        var handleChartJs = function() {
+            
+            var ctx2 = document.getElementById('bar-chart').getContext('2d');
+            var barChart = new Chart(ctx2, {
+                type: 'bar',
+                data: barChartData
+            });
+
+            var ctx5 = document.getElementById('pie-chart').getContext('2d');
+                window.myPie = new Chart(ctx5, {
+                type: 'pie',
+                data: pieChartData
+            });
+
+            var ctx6 = document.getElementById('doughnut-chart').getContext('2d');
+                window.myDoughnut = new Chart(ctx6, {
+                type: 'doughnut',
+                data: doughnutChartData
+            });
+
+        };
+
+        var handleMorrisBarChart = function () {
+            Morris.Bar({
+                element: 'morris-bar-chart',
+                data: [
+                    <?php echo $member['dataChart']; ?>
+                ],
+                xkey: 'device',
+                ykeys: ['geekbench'],
+                labels: ['จำนวนผู้เล่น'],
+                barRatio: 1,
+                xLabelAngle: 35,
+                resize: true,
+                gridLineColor: [COLOR_GREY_LIGHTER],
+                gridTextFamily: FONT_FAMILY,
+                gridTextColor: FONT_COLOR,
+                gridTextWeight: FONT_WEIGHT,
+                gridTextSize: FONT_SIZE,
+                barColors: [COLOR_BLACK]
+            });
+        };
+
+
+        var ChartJs = function () {
+            "use strict";
+            return {
+                //main function
+                init: function () {
+                    handleChartJs();
+                    handleMorrisBarChart();
+                }
+            };
+        }();
+    </script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	
 	<script>
 		$(document).ready(function() {
 			App.init();
-			TableManageButtons.init();
+			ChartJs.init();
 		});
 	</script>
-
-
+   
 </body>
 </html>

@@ -8,8 +8,9 @@ use Auth;
 use App\Pages;
 use App\User;
 use App\Db_other;
+use App\User_otp;
 
-
+use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
 {
      
@@ -45,6 +46,51 @@ class IndexController extends Controller
             $montcount.= "'".ViewDate($dataMont->montcount)."',";
             $view.= $dataMont->view.',';
         }
+
+        $memberOtp1 =  User_otp::Where('otp','!=','')->count();
+        $memberOtp2 =  User_otp::Where('otp','=',null)->count();
+
+        $chosse2 = DB::select("SELECT COUNT('user_otp.code_id') as code, pages.namecode
+            FROM  user_otp
+            INNER JOIN pages ON user_otp.code_id = pages.id
+            GROUP BY user_otp.code_id");
+        $topics2 = '';
+        $data2 = '';
+        foreach($chosse2 as $data){
+            $data2.= $data->code.',';
+            $topics2.= '"'.$data->namecode.'",';
+        }
+
+ 
+        $chosse3 = DB::table('user_otp')
+                 ->select(DB::raw('count(shop_code) as total'),'shop_code')
+                 ->Where('shop_code','!=','')
+                 ->groupBy('shop_code')
+                 ->get();
+        $topics_shopcode = '';
+        $data_shopcode = '';
+        foreach($chosse3 as $data){
+            $data_shopcode.= $data->total.',';
+            $topics_shopcode.= '"'.$data->shop_code.'",';
+        }
+        $chosse4 = DB::select("SELECT DATE_FORMAT(`updated_at`, '%e/%c/%Y') as `date`, COUNT(`updated_at`) as total FROM user_otp where `code_id` != null or `shop_code` != '' GROUP BY `date`");
+        //{device: 'iPhone', geekbench: 136},
+        $dataChart = '';
+        foreach($chosse4 as $data){
+            $dataChart.= '{device:"'.$data->date.'",geekbench:'.$data->total.'},';
+        }
+       // dd($dataChart);
+
+        $member = array(
+            'memberOtp1' => $memberOtp1,
+            'memberOtp2' => $memberOtp2,
+            'topics2'    => $topics2,
+            'data2'    => $data2,
+            'topics_shopcode'    => $topics_shopcode,
+            'data_shopcode'    => $data_shopcode,
+            'dataChart'    => $dataChart,
+        );
+        
         $data = array(
             'folder' => 'dashboard',
             'pagesOnline' => $pagesOnline,
@@ -52,9 +98,10 @@ class IndexController extends Controller
             'user' => $user,
             'montcount' => $montcount,
             'view' => $view,
+            'member' => $member,
            
         );
-
+        //dd($data);
         return view('admin.'.$this->folder().'.index',$data);
     }
 
