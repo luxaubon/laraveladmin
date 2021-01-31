@@ -1,5 +1,5 @@
 <!-- begin theme-panel -->
-        <div class="theme-panel theme-panel-lg">
+<div class="theme-panel theme-panel-lg">
             <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
             <div class="theme-panel-content">
                 <h5 class="m-t-0">Color Theme</h5>
@@ -84,18 +84,18 @@
                 <div class="divider"></div>
                 <h5>THEME VERSION</h5>
                 <div class="theme-version">
-                	<a href="../template_html/index_v2.html" class="active">
+                	<a href="/template_html/index_v2.html" class="active">
                 		<span style="background-image: url(/assets/img/theme/default.jpg);"></span>
                 	</a>
-                	<a href="../template_transparent/index_v2.html">
+                	<a href="/template_transparent/index_v2.html">
                 		<span style="background-image: url(/assets/img/theme/transparent.jpg);"></span>
                 	</a>
                 </div>
                 <div class="theme-version">
-                	<a href="../template_apple/index_v2.html">
+                	<a href="/template_apple/index_v2.html">
                 		<span style="background-image: url(/assets/img/theme/apple.jpg);"></span>
                 	</a>
-                	<a href="../template_material/index_v2.html">
+                	<a href="/template_material/index_v2.html">
                 		<span style="background-image: url(/assets/img/theme/material.jpg);"></span>
                 	</a>
                 </div>
@@ -116,7 +116,6 @@
 	<!-- end page container -->
 	
 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="/assets/plugins/jquery/jquery-3.2.1.min.js"></script>
 	<script src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script src="/assets/plugins/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
 	<!--[if lt IE 9]>
@@ -144,12 +143,14 @@
 	<script src="/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
 	<script src="/assets/js/demo/table-manage-buttons.demo.min.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
+	
 	<script>
 		$(document).ready(function() {
 			App.init();
 			TableManageButtons.init();
 		});
 	</script>
-   
+
+
 </body>
 </html>

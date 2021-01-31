@@ -198,7 +198,7 @@
             }else{
                 $('#get-otp').modal('toggle');
                 $("#modalTextPhone").html('ส่งรหัส OTP ไปที่หมายเลข '+ $("#phone").val())
-                $("#btnSuccess").prop('disabled', true);
+                //$("#btnSuccess").prop('disabled', true);
             }
          });
 
@@ -218,6 +218,7 @@
             $("#Numotp").val(<?php echo rand(10000,999999); ?>);
             var phone  =   $("#phone").val();
             var otp  =   $("#Numotp").val();
+            
               $.ajax({
                 url: "https://o8.sc4msg.com/SendMessage",
                 method: "POST",
@@ -229,16 +230,17 @@
                   }
               });
                   swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
+
               });
 
-        $("#otp").keyup(function(){
-            var text = $(this).val();
-            if(text == $("#Numotp").val()){
-                $("#btnSuccess").prop('disabled', false);
-            }else{
-                $("#btnSuccess").prop('disabled', true);
-            }
-        });
+        // $("#otp").keyup(function(){
+        //     var text = $(this).val();
+        //     if(text == $("#Numotp").val()){
+        //         $("#btnSuccess").prop('disabled', false);
+        //     }else{
+        //         $("#btnSuccess").prop('disabled', true);
+        //     }
+        // });
         
         $("#btnSuccess").click(function(){
             event.preventDefault();
@@ -247,32 +249,37 @@
             var email  =   $("#email").val();
             var phone  =   $("#phone").val();
             var otp  =   $("#Numotp").val();
+            var textOTP  =   $("#otp").val();
 
-			$.ajax({
-			   url: "/sendOTP",
-			   method: "POST",
-			   data: {
-                   "_token": "{{ csrf_token() }}",
-                    "name":name, 
-                    "sex":sex,
-                    "email":email,
-                    "phone":phone,
-                    "otp":otp,
-                },
-				success: function(data){
+            if(textOTP === otp && textOTP != '' || textOTP != null){
+              $.ajax({
+                url: "/sendOTP",
+                method: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                      "name":name, 
+                      "sex":sex,
+                      "email":email,
+                      "phone":phone,
+                      "otp":otp,
+                  },
+                  success: function(data){
                     if(data == 'success'){
                         swal("บันทึกข้อมูลเรียบร้อย", "", "success");
-                        
                         setTimeout(function(){ window.location.assign("/choose") }, 2000);
                     }else{
                         swal("กรุณาลองอีกครั้ง", "", "error");
                     }
-					
-				},
-				complete : function(data){
+                  },
+                  complete : function(data){
 
-				},
-			  })
+                  },
+              })
+            }else{
+              swal("กรุณากรอกรหัส OTP ที่ท่านได้รับ", "", "error");
+            }
+
+            
         });
 
     });

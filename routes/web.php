@@ -74,6 +74,20 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
 
     });
 
+    Route::group(['prefix'=>'/member/'], function(){
+
+        Route::get('/index','admin\MemberController@index');
+    	Route::post('/insert','admin\MemberController@store');
+
+        Route::get('/show/{id}','admin\MemberController@show');
+        Route::post('/edit/{id}','admin\MemberController@edit');
+        Route::get('/del_content','admin\MemberController@del_content');
+
+        Route::get('/update_listpic','admin\MemberController@update_listpic');
+        Route::get('/del_img','admin\MemberController@del_img');
+
+    });
+
      Route::group(['prefix'=>'/slide/'], function(){
         Route::get('/index','admin\SlideController@index');
         Route::post('/insert','admin\SlideController@store');

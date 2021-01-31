@@ -148,7 +148,9 @@ class HomeController extends Controller
             $post = User_otp::where('phone','=',$request->phone)->first();
             
             if(!empty($post)){
-    
+                $post->shop_code = $request->shopcode;
+                $post->save();
+
                 $Pages = Pages::where('namecode','=',$request->percentage)->where('status','=','Pages')->where('online',0)->where('numbercode','!=',0)->first();
                 $Pages->numbercode = $Pages->numbercode - 1;
                 $Pages->save();
