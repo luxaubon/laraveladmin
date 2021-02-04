@@ -3,6 +3,7 @@
 @section('content')
 
 <?php 
+
 if(@Session::get('ss_phone') == null || @Session::get('user_id') == null){
     echo '<script>window.location.assign("/")</script>';
 } 

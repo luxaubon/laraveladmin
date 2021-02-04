@@ -240,7 +240,7 @@
             }
         });
 
-        $("#sendOtp").click( () =>{
+        $("#sendOtp").click( function(){
             $('#sendOtp').timedDisable(60);
             $("#Numotp").val(<?php echo rand(10000,999999); ?>);
             var phone  =   $("#phone").val();
@@ -268,7 +268,7 @@
               });
         });
         
-        $("#btnSuccess").click(() =>{
+        $("#btnSuccess").click(function (){
             event.preventDefault();
             var name = $("#name").val();
             var sex  =   $("#sex").val();
@@ -277,7 +277,9 @@
             var otp  =   $("#Numotp").val();
             var textOTP  =   $("#otp").val();
 
-            if(textOTP === otp && textOTP != '' || textOTP != null){
+            $("#btnSuccess").prop('disabled', true);
+
+            if(textOTP === otp && (textOTP) && (otp)){
               $.ajax({
                 url: "/sendOTP",
                 method: "POST",
@@ -293,16 +295,19 @@
                     if(data == 'success'){
                         swal("บันทึกข้อมูลเรียบร้อย", "", "success");
                         setTimeout(function(){ window.location.assign("/choose") }, 2000);
+                    }else if(data == 'sameotp'){
+                      swal("OTP และ เบอร์โทรศัพท์มีการลงทะเบียนแล้ว", "", "error");
                     }else{
                         swal("กรุณาลองอีกครั้ง", "", "error");
                     }
                   },
                   complete : function(data){
-
+                    
                   },
               })
             }else{
               swal("กรุณากรอกรหัส OTP ที่ท่านได้รับ", "", "error");
+              $("#btnSuccess").prop('disabled', false);
             }
 
             

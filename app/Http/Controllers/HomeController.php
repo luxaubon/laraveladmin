@@ -80,20 +80,27 @@ class HomeController extends Controller
 
     public function sendOTP(Request $request)
     {
-        $post = new User_otp;
-        $post->name = $request->name;
-        $post->sex = $request->sex;
-        $post->email = $request->email;
-        $post->phone = $request->phone;
-        $post->otp = $request->otp;
-        $post->save();
-
-        if($post){
-            Session::put('user_id', $post->id);
-            Session::put('ss_phone', $request->phone);
-            echo 'success';
+        $usersame = User_otp::where('phone','=',$request->phone)->where('otp','=',$request->otp)->first();
+        if($usersame){
+            // Session::put('user_id', $usersame->id);
+            // Session::put('ss_phone', $usersame->phone);
+            echo 'sameotp';
         }else{
-            echo 'error';
+            $post = new User_otp;
+            $post->name = $request->name;
+            $post->sex = $request->sex;
+            $post->email = $request->email;
+            $post->phone = $request->phone;
+            $post->otp = $request->otp;
+            $post->save();
+
+            if($post){
+                Session::put('user_id', $post->id);
+                Session::put('ss_phone', $request->phone);
+                echo 'success';
+            }else{
+                echo 'error';
+            }
         }
 
     }
@@ -109,7 +116,6 @@ class HomeController extends Controller
         );
 
         return response()->json($data);
-        return $data;
     }
     public function Choose() {
         // Session::forget('code_id');
