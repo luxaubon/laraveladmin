@@ -21,7 +21,7 @@
 					<div class="widget widget-stats bg-red">
 						<div class="stats-icon"><i class="fa fa-desktop"></i></div>
 						<div class="stats-info">
-							<h4>CONTENT ONLINE</h4>
+							<h4>ยอดผู้เล่นรวมทั้งหมด</h4>
 							<p>{{ $pagesOnline }} </p>	
 						</div>
 						<div class="stats-link">
@@ -35,7 +35,7 @@
 					<div class="widget widget-stats bg-orange">
 						<div class="stats-icon"><i class="fa fa-link"></i></div>
 						<div class="stats-info">
-							<h4>CONTENT OFFLINE</h4>
+							<h4>ยอดผู้ลงทะเบียนทั้งหมด</h4>
 							<p>{{ $pagesOffline }} </p>	
 						</div>
 						<div class="stats-link">
@@ -49,7 +49,7 @@
 					<div class="widget widget-stats bg-grey-darker">
 						<div class="stats-icon"><i class="fa fa-users"></i></div>
 						<div class="stats-info">
-							<h4>Administrator</h4>
+							<h4>จำนวนสิทธิ์คงเหลือ</h4>
 							<p>{{ $user }}</p>	
 						</div>
 						<div class="stats-link">

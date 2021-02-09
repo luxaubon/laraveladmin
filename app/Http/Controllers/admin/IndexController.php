@@ -28,15 +28,13 @@ class IndexController extends Controller
     {
         //$user = Auth::user();
 
-        $pagesOnline = Pages::all()
-                       ->where('online',0)
-                       ->count();
+        $pagesOnline = User_otp::count();
 
-        $pagesOffline = Pages::all()
-                        ->where('online',1)
+        $pagesOffline = User_otp::all()
+                        ->where('percentage','!=','')
                         ->count();
-        $user = User::all()->count();
-
+        $total = Pages::sum('numbercode');
+        $user = $total - $pagesOffline;
         //User::DEFAULT_TYPE,
 
         $montcount = '';
