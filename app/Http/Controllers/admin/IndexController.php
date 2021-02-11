@@ -33,8 +33,8 @@ class IndexController extends Controller
         $pagesOffline = User_otp::all()
                         ->where('percentage','!=','')
                         ->count();
-        $total = Pages::sum('numbercode');
-        $user = $total - $pagesOffline;
+        $user = Pages::sum('numbercode');
+        //$user = $total - $pagesOffline;
         //User::DEFAULT_TYPE,
 
         $montcount = '';
@@ -71,7 +71,7 @@ class IndexController extends Controller
             $data_shopcode.= $data->total.',';
             $topics_shopcode.= '"'.$data->shop_code.'",';
         }
-        $chosse4 = DB::select("SELECT DATE_FORMAT(`updated_at`, '%e/%c/%Y') as `date`, COUNT(`updated_at`) as total FROM user_otp where `code_id` != null or `shop_code` != '' GROUP BY `date`");
+        $chosse4 = DB::select("SELECT DATE_FORMAT(`updated_at`, '%e/%c/%Y') as `date`, COUNT(`updated_at`) as total FROM user_otp where `code_id` != null or `shop_code` != '' GROUP BY `date` ORDER BY updated_at ASC");
         //{device: 'iPhone', geekbench: 136},
         $dataChart = '';
         foreach($chosse4 as $data){
