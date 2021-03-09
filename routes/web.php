@@ -20,9 +20,10 @@ Route::resource('/home','HomeController');
 Route::get('/OTP','HomeController@OTP');
 Route::get('/register','HomeController@register');
 
+Route::post('/registerPhone','HomeController@registerPhone');
 
-Route::get('/choose','HomeController@Choose');
-Route::post('/sendPercentage','HomeController@sendPercentage');
+Route::get('/member','HomeController@member');
+
 
 
 Route::get('/admin', function () {

@@ -35,25 +35,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $year = date('Y-m');
-        // $countMont = Db_other::where('montcount','=',$year)->first();
-        // if($countMont == []){
-        //     $post = new Db_other;
-        //     $post->montcount    = $year;
-        //     $post->view         = 1;
-        //     $post->name         = 'viewweb';
-        //     $post->status       = 2;
-        //     $post->save();
-        // }else{
-        //     $Dcount = $countMont->view + 1;
-        //     $countMont->view    = $Dcount;
-        //     $countMont->save();
-        // }
-        //Session::forget('ss_phone');
-        //Session::forget('user_id');
-       // if(Session::get('ss_phone') == null || Session::get('user_id') == null){
+        if(Session::get('ss_phone')){
+            return redirect('/member');
+        }else{
             $setting = Setting::find(1);
-
             $slide = Db_other::find(1);
             if($slide->gallery != ''){
                 $gallery1 = explode(",",$slide->gallery);
@@ -73,14 +58,12 @@ class HomeController extends Controller
             );
 
             return view('index',$data);
-        // }else{
-        //     return redirect('/choose');
-        // }
+        }
     }
 
     
     public function OTP(Request $request) {
-        $phone = User_otp::where('phone','=',$request->phone)->where('status','=',2)->first();
+        $phone = User_otp::where('phone','=',$request->phone)->where('status','=',1)->first();
 
         Session::put('ss_phone', $request->phone);
 
@@ -126,10 +109,67 @@ class HomeController extends Controller
             'slides' => $slides,
             //HEAD
         );
-
         return view('register',$data);
-        
     }
+
+    public function registerPhone(Request $request){
+
+        Session::put('ss_phone', $request->phone);
+
+        $post                  = new User_otp;
+        $post->name            = $request->name;
+        $post->last_name       = $request->last_name;
+        $post->date            = $request->date;
+        $post->month           = $request->month;
+        $post->year            = $request->year;
+        $post->sex             = $request->sex;
+        $post->phone           = $request->phone;
+        $post->address         = $request->address;
+        $post->province        = $request->province;
+        $post->jobs            = $request->jobs;
+        $post->salary          = $request->salary;
+        $post->save();
+
+        if($post){
+            return 'success';
+        }else{
+            return 'fail';
+        }
+    
+    }
+    public function logout()
+    {
+    }
+    public function member()
+    {
+       
+        if(Session::get('ss_phone')){
+            $setting = Setting::find(1);
+
+            $slide = Db_other::find(1);
+            if($slide->gallery != ''){
+                $gallery1 = explode(",",$slide->gallery);
+                foreach($gallery1 as $value1) {
+                $image = Slides::find($value1);
+                if($image['online'] == 0){
+                        $slides[] = $image;
+                }
+                }
+            }else {$slides = ''; }
+
+            $data = array(
+                //HEAD
+                'setting' => $setting,
+                'slides' => $slides,
+                //HEAD
+            );
+
+            return view('member',$data);
+        }else{
+            return redirect('/');
+        }
+    }
+
 
 
     

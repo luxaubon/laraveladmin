@@ -107,14 +107,15 @@
                             <p>เพศ</p>
                                         
                             <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" id="sex1" name="sex" value="ชาย" >
+                                <input type="radio" class="sex" name="sex" value="1" >
                                 <label class="custom-control-label" for="customRadioInline1">ชาย</label>
                             </div>            
 
                             <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="sex2" name="sex" value="หญิง" >
+                                <input type="radio" class="sex" name="sex" value="2" >
                                 <label class="custom-control-label" for="customRadioInline2">หญิง</label>
                             </div>
+                            
 
                         </div>
 
@@ -182,7 +183,7 @@
                         </div>
 
                         <div class="form-group">
-                            <a href="javascript:void(0);" id="btnCheckData" class="btn btn-block btn-lg btn-primary" >ตกลง</a>
+                            <button type="button" class="btn btn-block btn-lg btn-primary" id="btnCheckData">ตกลง</button>
                         </div>
                     </form>
                 </div>
@@ -204,7 +205,7 @@
 <!-- Main @s -->
 
 
-<div class="modal fade" id="terms-conditions" tabindex="-1" role="dialog" aria-labelledby="terms-conditions"
+    <div class="modal fade" id="terms-conditions" tabindex="-1" role="dialog" aria-labelledby="terms-conditions"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -215,17 +216,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                    massa. Cum
-                    sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-                    ultricies
-                    nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo,
-                    fringilla vel,
-                    aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
-                    Nullam
-                    dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
-                    Aenean
-                    vulputate eleifend tellus.
+                    <?php echo $setting['address_th']; ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">ตกลง</button>
@@ -237,6 +228,7 @@
 
     <script>
     $(document).ready(function() {
+
         $('#flexCheckChecked').change(function() {
           if ($(this).is(":checked")) {
               var text =  $(this).val('true')
@@ -244,31 +236,88 @@
           } else {
               var text = $(this).val('false');
           }
-      });
+        });
 
-    $("#btnCheckData").click(function (){
+        $("#btnCheckData").click(function (){
+            event.preventDefault();
+            $("#btnCheckData").prop('disabled', true);
+
             if($("#name").val() == '' || $("#last_name").val() == ''){
                 swal("กรุณากรอก ชื่อ-นามสกุล", "", "error");
-            }else if($("#phone").val() == '' || $("#phone").val().length !== 10){
-                swal("กรุณากรอก เบอร์โทรศัพท์", "", "error");
-            }else if($("#flexCheckChecked").val() == 'false' || $("#flexCheckChecked").val() == ''){
-                swal("กรุณา ยอมรับ ข้อตกลงและเงื่อนไข", "", "error");
+                $("#btnCheckData").prop('disabled', false);
             }else if($("#date").val() == ''  || $("#month").val() == '' || $("#year").val() == ''){
                 swal("กรุณากรอก วัน-เดือน-ปี เกิดของท่าน", "", "error");
-            } else if($("#sex1").val() == ''){
+                $("#btnCheckData").prop('disabled', false);
+            }else if($(".sex").is(":checked") ==  false){
                 swal("กรุณา เลือกเพศ", "", "error");
+                $("#btnCheckData").prop('disabled', false);
+            }else if($("#phone").val() == '' || $("#phone").val().length !== 10){
+                swal("กรุณากรอก เบอร์โทรศัพท์", "", "error");
+                $("#btnCheckData").prop('disabled', false);
             }else if($("#address").val() == '' ){
-                swal("กรุณากรอกข้อมูลที่อยู่ตามบัตรประชาชน", "", "error");
+                swal("กรุณา กรอกข้อมูลที่อยู่ตามบัตรประชาชน", "", "error");
+                $("#btnCheckData").prop('disabled', false);
+            }else if($("#province").val() == '' ){
+                swal("กรุณา เลือกจังหวัดตามบัตรประชนชน", "", "error");
+                $("#btnCheckData").prop('disabled', false);
             }else if($("#jobs").val() == ''){
                 swal("กรุณา เลือกอาชีพของ่ทาน", "", "error");
+                $("#btnCheckData").prop('disabled', false);
             } else if($("#salary").val() == ''){
                 swal("กรุณา เลือกฐานเงินเดือนของท่าน", "", "error");
+                $("#btnCheckData").prop('disabled', false);
+            }else if($("#flexCheckChecked").val() == 'false' || $("#flexCheckChecked").val() == ''){
+                swal("กรุณา ยอมรับ ข้อตกลงและเงื่อนไข", "", "error");
+                $("#btnCheckData").prop('disabled', false);
             }else{ 
-                $('#get-otp').modal('toggle');
+              
+                var name            =   $("#name").val();
+                var last_name       =   $("#last_name").val();
+                var date            =   $("#date").val();
+                var month           =   $("#month").val();
+                var year            =   $("#year").val();
+                var sex             =   $('input[name="sex"]:checked').val();
+                var phone           =   $("#phone").val();
+                var address         =   $("#address").val();
+                var province        =   $("#province").val();
+                var jobs            =   $("#jobs").val();
+                var salary          =   $("#salary").val();
+                $.ajax({
+                    url: "/registerPhone",
+                    method: "POST",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name":name, 
+                        "last_name":last_name,
+                        "date":date,
+                        "month":month,
+                        "year":year, 
+                        "sex":sex,
+                        "phone":phone,
+                        "address":address,
+                        "province":province, 
+                        "jobs":jobs,
+                        "phone":phone,
+                        "salary":salary,
+                    },
+                    success: function(data){
+                        if(data == 'success'){
+                            swal("สมัครสมาชิกเรียบร้อย", "", "success");
+                            setTimeout(function(){ 
+                                window.location.href = '/member'
+                            }, 2000);
+                        }else{
+                            swal("กรุณาลองใหม่อีกครั้ง", "", "error");
+                            $("#btnCheckData").prop('disabled', false);
+                        }
+                    }
+                })
+
             }
+
          });
 
-        });
+    });
 
     </script>
 
