@@ -26,6 +26,7 @@ Route::get('/login','HomeController@login');
 Route::get('/member','HomeController@member');
 Route::get('/logout','HomeController@logout');
 
+Route::get('/rules','HomeController@rules');
 
 Route::post('/ocr', 'OcrController@ocrImage');
 Route::post('/checkCode', 'HomeController@checkCode');

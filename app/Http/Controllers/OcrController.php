@@ -9,10 +9,10 @@ use GoogleCloudVision\Request\AnnotateImageRequest;
 class OcrController extends Controller{
 
     public function ocrImage(Request $request){
-        dd($request);
-        if($request->file('image')){
+       // dd($request);
+        if($request->file('image')[$request->myarray]){
         	//convert image to base64
-            $image = base64_encode(file_get_contents($request->file('image')));
+            $image = base64_encode(file_get_contents($request->file('image')[$request->myarray]));
             //Sending image for OCR server
             $request = new AnnotateImageRequest();
             $request->setImage($image);

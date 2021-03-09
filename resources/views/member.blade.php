@@ -41,7 +41,7 @@
       <i class="fal fa-file"></i>
       <div>กติกา</div>
     </a>
-    <a href="#" class="btn">
+    <a href="/rules" class="btn">
       <i class="fal fa-trophy"></i>
       <div>ประกาศผล</div>
     </a>
@@ -63,7 +63,7 @@
                     <input type="number" id="number0" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <input type="file" id="files_0" name="image" onchange="fileselectedchange(this,0);" accept="image/*" required>
+                            <input type="file" id="files_0" name="image[]" onchange="fileselectedchange(this,0);" accept="image/*" required>
                         </div>
                     </div>
                 </div>
@@ -120,8 +120,9 @@ $(function () {
 function fileselectedchange(obj,number){
     let formData = new FormData($('#header_image_frm')[0]);
     let file = $('#files_'+number)[0].files[0];
-    formData.append('file', file, file.name,number);
- 
+    formData.append('file', file, file.name);
+    formData.append('myarray', number);
+    //alert(number);
     $.ajax({
         url: '{{ url("/ocr") }}',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -149,7 +150,7 @@ function GetDynamicTextBox(value,number) {
                 <input type="number" id="number`+number+`" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <input type="file" id="files_`+number+`" name="image" onchange="fileselectedchange(this,`+number+`);" accept="image/*" required>
+                            <input type="file" id="files_`+number+`" name="image[]" onchange="fileselectedchange(this,`+number+`);" accept="image/*" required>
                         </div>
                     </div>
                 </div>

@@ -41,7 +41,7 @@
       <i class="fal fa-file"></i>
       <div>กติกา</div>
     </a>
-    <a href="#" class="btn">
+    <a href="/rules" class="btn">
       <i class="fal fa-trophy"></i>
       <div>ประกาศผล</div>
     </a>

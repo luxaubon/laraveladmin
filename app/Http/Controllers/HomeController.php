@@ -206,63 +206,62 @@ class HomeController extends Controller
     }
 
     public function checkCode(Request $request){
-        // echo count($request->number);
-         dd($request->hasFile('image')[0]);
-        // //Session::get('ss_id')
 
         $numberData = count($request->number)-1;
-        for($i=0; $i < $numberData; $i++ ){
+        $images_id = '';
+        for($i=0; $i <= $numberData; $i++ ){
 
-            $photos      = $request->file('image')[$i];
-            $code_number = $request->number[$i];
+            $photo          = $request->file('image')[$i];
+            $code_number    = $request->number[$i];
 
-            $extension = $photo->getClientOriginalExtension();
-            $nameimages = Session::get('ss_id').'-'.$i.'-'.date('dm').'.'.$extension;
-            $paths   = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
-            $images = new Images;
-            $images->sid = Session::get('ss_id');
-            $images->code_number = $code_number;
-            $images->table = 'user_otp';
-            $images->image = $nameimages;
+            $extension      = $photo->getClientOriginalExtension();
+            $nameimages     = Session::get('ss_id').'-'.$i.'-'.date('dms').'-'.rand(0,99999).'.'.$extension;
+            $paths          = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
+
+            $images                 = new Images;
+            $images->sid            = Session::get('ss_id');
+            $images->code_number    = $code_number;
+            $images->table          = 'user_otp';
+            $images->image          = $nameimages;
             $images->save();
             $images_id.=  $images->id.',';
 
         }
 
-        $post = User_otp::find(Session::get('ss_id'));
-        $post->gallery = $images_id;
+        $post           = User_otp::find(Session::get('ss_id'));
+        $post->gallery  = $post->gallery.$images_id;
         $post->save();
 
         return redirect()->back();
 
-        // if ($request->hasFile('image')) {
-        //     $photos = $request->file('image');
-        //     $images_id = '';
-        //     $i=0;
-        //     foreach ($photos as $photo) {
-        //         if($photo != ''){
-        //             $i++;
-        //             $extension = $photo->getClientOriginalExtension();
-        //             $nameimages = Session::get('ss_id').'-'.$i.'-'.date('dm').'.'.$extension;
-        //             $paths   = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
-        //             $images = new Images;
-        //             $images->sid = Session::get('ss_id');
-        //             $images->table = 'user_otp';
-        //             $images->image = $nameimages;
-        //             $images->save();
-        //             $images_id.=  $images->id.',';
-        //         }
-        //     }
-
-        //     $post = User_otp::find($request->id);
-        //     $post->status  = 3;
-        //     $post->gallery = $images_id;
-        //     $post->save();
-
-        //     return redirect()->back();
-        // }
     }   
+
     
+    public function rules(){
+       
+            $setting = Setting::find(1);
+
+            $slide = Db_other::find(1);
+            if($slide->gallery != ''){
+                $gallery1 = explode(",",$slide->gallery);
+                foreach($gallery1 as $value1) {
+                $image = Slides::find($value1);
+                if($image['online'] == 0){
+                        $slides[] = $image;
+                }
+                }
+            }else {$slides = ''; }
+
+            $data = array(
+                //HEAD
+                'setting' => $setting,
+                'slides' => $slides,
+                //HEAD
+            );
+
+            return view('rules',$data);
+        
+    }
 
 
     

@@ -108,7 +108,7 @@
     <script src="/assets/plugins/chart-js/Chart.min.js"></script>
     <script src="/assets/plugins/morris/raphael.min.js"></script>
     <script src="/assets/plugins/morris/morris.js"></script>
-	<script>
+	<!-- <script>
                 /*
         Template Name: Color Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3 & 4
         Version: 4.1.0
@@ -131,20 +131,20 @@
                 borderWidth: 2,
                 borderColor: COLOR_PURPLE,
                 backgroundColor: COLOR_PURPLE_TRANSPARENT_3,
-                data: [<?php echo $member['memberOtp1']; ?>]
+                data: [<?php //echo $member['memberOtp1']; ?>]
             }, {
                 label: 'ผู้ลงทะเบียนที่ไม่ยืนยันตัวตน',
                 borderWidth: 2,
                 borderColor: COLOR_BLACK,
                 backgroundColor: COLOR_BLACK_TRANSPARENT_3,
-                data: [<?php echo $member['memberOtp2']; ?>]
+                data: [<?php //echo $member['memberOtp2']; ?>]
             }]
         };
 
         var pieChartData = {
-            labels: [<?php echo $member['topics2']; ?>],
+            labels: [<?php //echo $member['topics2']; ?>],
             datasets: [{
-                data: [<?php echo $member['data2'];?>],
+                data: [<?php //echo $member['data2'];?>],
                 backgroundColor: [COLOR_RED_TRANSPARENT_7, COLOR_ORANGE_TRANSPARENT_7, COLOR_SILVER_TRANSPARENT_7, COLOR_GREY_TRANSPARENT_7, COLOR_BLACK_TRANSPARENT_7],
                 borderColor: [COLOR_RED, COLOR_ORANGE, COLOR_SILVER_DARKER, COLOR_GREY, COLOR_BLACK],
                 borderWidth: 2,
@@ -153,9 +153,9 @@
         };
                 
         var doughnutChartData = {
-            labels: [<?php echo $member['topics_shopcode']; ?>],
+            labels: [<?php //echo $member['topics_shopcode']; ?>],
             datasets: [{
-                data: [<?php echo $member['data_shopcode']; ?>],
+                data: [<?php //echo $member['data_shopcode']; ?>],
                 backgroundColor: [COLOR_PURPLE_TRANSPARENT_7, COLOR_BLUE_TRANSPARENT_7, COLOR_GREEN_TRANSPARENT_7, COLOR_GREY_TRANSPARENT_7, COLOR_BLACK_TRANSPARENT_7],
                 borderColor: [COLOR_PURPLE, COLOR_BLUE, COLOR_GREEN, COLOR_GREY, COLOR_BLACK],
                 borderWidth: 2,
@@ -190,7 +190,7 @@
             Morris.Bar({
                 element: 'morris-bar-chart',
                 data: [
-                    <?php echo $member['dataChart']; ?>
+                    <?php //echo $member['dataChart']; ?>
                 ],
                 xkey: 'device',
                 ykeys: ['geekbench'],
@@ -218,7 +218,7 @@
                 }
             };
         }();
-    </script>
+    </script> -->
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	
 	<script>
