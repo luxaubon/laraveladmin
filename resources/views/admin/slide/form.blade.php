@@ -88,6 +88,13 @@
 
                                 <div class="tab-pane fade active show" id="default-tab-sup-4">
                                 <!-- Start TAP -->
+									<div class="clearfix m-b-20">
+										<label class="control-label col-sm-2" for="title">Link</label>
+										<div class="col-sm-12">
+											<textarea class="form-control" id="link_th" name="link_th" rows="2" placeholder="Link" data-parsley-required="true">{{ old('link_th') }}</textarea>
+										</div>
+									</div>
+
                                 	<div class="clearfix m-b-20">
 					                       	<div class="profile-cover">
 						                		<div class="blah">

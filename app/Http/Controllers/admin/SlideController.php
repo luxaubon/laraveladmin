@@ -87,6 +87,7 @@ class SlideController extends Controller
         // $post->title = json_encode($title,JSON_UNESCAPED_UNICODE);
         // $post->caption = json_encode($caption,JSON_UNESCAPED_UNICODE);
         // $post->link = json_encode($link,JSON_UNESCAPED_UNICODE);
+        $post->link = mysql_escape($request->link_th);
         $post->online = $request->online;
         $post->save();
 
@@ -120,6 +121,7 @@ class SlideController extends Controller
         // $post->title = json_encode($title,JSON_UNESCAPED_UNICODE);
         // $post->caption = json_encode($caption,JSON_UNESCAPED_UNICODE);
         // $post->link = json_encode($link,JSON_UNESCAPED_UNICODE);
+        $post->link = mysql_escape($request->link_th);
         $post->online = $request->online;
         $post->image = $filename;
         $post->save();

@@ -52,12 +52,7 @@
 
 				                       		</div>
 				                       	</div>
-                              		<div class="clearfix m-b-20">
-	                        				<label class="control-label col-sm-2" for="title">Detail</label>
-	                        				<div class="col-sm-12">
-				                            	 <textarea class="form-control" id="link_th" name="link_th" rows="2" placeholder="Link" data-parsley-required="true">{{@json_decode($pages_id->link)[0]->link_th}}</textarea>
-				                       		</div>
-				                       	</div> -->
+                              		 -->
 
                                 <!-- END TAP -->
                                 </div>
@@ -90,6 +85,13 @@
 
                                 <div class="tab-pane fade active show" id="default-tab-sup-4">
                                 <!-- Start TAP -->
+									<div class="clearfix m-b-20">
+										<label class="control-label col-sm-2" for="title">Detail</label>
+										<div class="col-sm-12">
+												<textarea class="form-control" id="link_th" name="link_th" rows="2" placeholder="Link" data-parsley-required="true">{{@$pages_id->link}}</textarea>
+										</div>
+									</div>
+
                                 	<div class="clearfix m-b-20">
 					                       	<div class="profile-cover">
 

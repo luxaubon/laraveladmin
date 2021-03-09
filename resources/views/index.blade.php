@@ -3,164 +3,139 @@
 @section('content')
 <!-- Main @s -->
 <div class="main-wrapper">
-    <div class="main-frame">
-      <!-- Frame Corner Group @s -->
-      <div class="frame-1"></div>
-      <div class="frame-2"></div>
-      <div class="frame-3"></div>
-      <div class="frame-4"></div>
-      <!-- Frame Corner Group @e -->
 
-      <!-- Light Object Group @s -->
-      <div class="light-1"><img src="/assets_home/img/light.png" alt=""></div>
-      <div class="light-2"><img src="/assets_home/img/light.png" alt=""></div>
-      <!-- Light Object Group @e -->
-
-      <!-- Main Logo @s -->
-      <div class="main-logo">
-        <img src="/assets_home/img/logo.png" alt="">
-      </div>
-      <!-- Main Logo @e -->
-
-      <!-- Main Title @s -->
-      <div class="main-title">
-        <img src="/assets_home/img/title.png?v=2" alt="">
-      </div>
-
-      <div class="title-desc">
-        เมื่อซื้อ รองเท้า ใน Legend series - Kayano, Nimbus, Cumulus และ GT รุ่นใดก็ได้
-      </div>
-      <!-- Main Title @e -->
-
-      <!-- Shoe Figure @s -->
-      <div class="shoeslide-wrapper">
-        <div class="shoe-slide">
-          <div class="swiper-wrapper">
-
-          @foreach($slides as $db => $sdb)
-                @if($sdb)
-                <?php 
-                    $slide = $sdb['image'];
-                    echo '<div class="swiper-slide">
-                        <img src="public/images/'.$slide.'" alt="">
-                    </div>';
-                ?>
-                @endif
-            @endforeach 
+<!-- Main Bar @s  -->
+<div class="main-bar">
+  <div class="main-logo">
+    <img src="assets_home/img/Logo.png" alt="">
+  </div>
+  <div class="main-title">
+    <img src="assets_home/img/title.png" alt="">
+  </div>
+</div>
+<!-- Main Bar @e -->
+<!-- Home Slide @s -->
+<div class="homeslide-wrapper">
+  <div class="home-slide">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      @foreach($slides as $db => $sdb)
+          @if($sdb)
+          <?php 
+              $slide = $sdb['image'];
+              $link = ($sdb['link']) ? $sdb['link'] : 'javascript:void(0);';
+              echo '<div class="swiper-slide">
+                      <a href="'.$sdb['link'].'"><img src="public/images/'.$slide.'" alt=""></a>
+                  </div>';
+          ?>
+          @endif
+      @endforeach 
             
-          </div>
+            
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+  </div>
+</div>
+<!-- Home Slide @e -->
+
+<!-- Content Wrapper @s -->
+<div class="content-wrapper">
+  <!-- Main Button @s -->
+  <div class="main-button">
+    <a href="#" class="btn">
+      <i class="fal fa-file"></i>
+      <div>กติกา</div>
+    </a>
+    <a href="#" class="btn">
+      <i class="fal fa-trophy"></i>
+      <div>ประกาศผล</div>
+    </a>
+    <a href="#" class="btn btn-primary">
+      <i class="fal fa-star"></i>
+      <div>TOP SPENDER</div>
+    </a>
+  </div>
+  <!-- Main Button @s -->
+
+  <!-- Main Box @s -->
+  <div class="main-box">
+
+    <div class="main-mobile">
+      <form action="">
+        <div class="form-group">
+          <input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="กรุณากรอกเบอร์โทรศัพท์" maxlength="10">
         </div>
-      </div>
-      <!-- Shoe Figure @e -->
-    
-      <div class="heading-title">
-        <h2 class="title">ลงทะเบียนรับอั่งเปา</h2>
-      </div>
+        <div class="form-group">
+          <a  href="javascript:void(0);" id="btnCheckData" class="btn btn-block btn-lg btn-primary" >ตกลง</a>
 
-      <div class="register-form">
-        <form action="">
-          <div class="form-group">
-            <input type="text" class="form-control" id="name" name="name" placeholder="ชื่อ-นามสกุล">
-          </div>
-          <div class="form-group">
-            <select name="sex" id="sex" class="form-control">
-              <option value="">เพศ</option>
-              <option value="ชาย">ชาย</option>
-              <option value="หญิง">หญิง</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-control" id="email" name="email" placeholder="อีเมล์">
-          </div>
-          <div class="form-group">
-            <input type="number" class="form-control quantity" id="phone" name="phone" placeholder="เบอร์โทรศัพท์" maxlength="10"> 
-          </div>
-
-          <div class="form-check text-left mb-3">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-            <label class="form-check-label" for="flexCheckChecked">
-              ยอมรับ <a href="#" data-toggle="modal" data-target="#terms-conditions">ข้อตกลงและเงื่อนไข</a>
-            </label>
-          </div>
-
-          <div class="form-group">
-            <a href="javascript:void(0);" id="btnCheckData" class="btn btn-primary btn-block">ลงทะเบียน</a>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
+  <!-- Main Box @e -->
 
-  <!-- Main @e   data-toggle="modal" data-target="#get-otp" -->
-
-  <!-- Terms & Conditions Modal  @s -->
-  <div class="modal fade" id="terms-conditions" tabindex="-1" role="dialog" aria-labelledby="terms-conditions"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">ข้อตกลงและเงื่อนไข</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-         <?php echo $setting['address_th']; ?>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">ตกลง</button>
-        </div>
-      </div>
-    </div>
+  <!-- Reward BG @s -->
+  <div class="main-reward">
+    <img src="assets_home/img/reward.png" alt="">
   </div>
-  <!-- Terms & Conditions Modal  @e -->
+  <!-- Reward BG @e -->
 
-  <!-- Get OTP Modal @s -->
-  <div class="modal fade" id="get-otp" tabindex="-1" role="dialog" aria-labelledby="get-otp" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content -chinese-bg">
-        <div class="modal-body">
-          <div class="modal-display">
-            <i class="fas fa-mobile"></i>
-            <h3 class="title">
-              รับรหัส OTP
-            </h3>
-            <div class="desc" id="modalTextPhone">
-               
-            </div>
+  <a href="#" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
+</div>
+<!-- Content Wrapper @e -->
 
-            <form action="">
-              <div class="get-otp">
-                <div class="row no-gutters">
-                    <div class="col-7">
-                      <input type="number" id="otp" name="otp" class="form-control">
-                      <input type="hidden" id="Numotp" name="Numotp" class="form-control" >
-                    </div>
-                    <div class="col-5">
-                      <button type="button" class="btn btn-block btn-primary" id="sendOtp">รับรหัส OTP </button>
-                    </div>
+</div>
+<!-- Main @s -->
+
+<!-- Get OTP Modal @s -->
+<div class="modal fade" id="get-otp" tabindex="-1" role="dialog" aria-labelledby="get-otp" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-display">
+          <i class="fas fa-mobile"></i>
+          <h3 class="title">
+            รับรหัส OTP
+          </h3>
+          <div class="desc" id="modalTextPhone">
+          </div>
+
+          <form action="">
+            <div class="get-otp">
+              <div class="row no-gutters">
+                    
+                <div class="col-7">
+                    <input type="number" id="otp" name="otp" class="form-control">
+                    <input type="hidden" id="Numotp" name="Numotp" class="form-control" >
+                </div>
+                <div class="col-5">
+                  <button type="button" class="btn btn-block btn-primary" id="sendOtp">รับรหัส OTP </button>
                 </div>
               </div>
+            </div>
 
-              <div class="row">
-                <div class="col-6"><button type="button" class="btn btn-block btn-secondary"
-                    data-dismiss="modal">ยกเลิก</button></div>
-                <div class="col-6">
-                    <button type="button" class="btn btn-block btn-primary" 
+            <div class="row">
+              <div class="col-6"><button type="button" class="btn btn-block btn-secondary"
+                  data-dismiss="modal">ยกเลิก</button></div>
+              <div class="col-6"><button type="button" class="btn btn-block btn-primary" 
                     id="btnSuccess"
                    data-toggle="modal">ตกลง</button></div>
-              </div>
-            </form>
-          </div>
+            </div>
+
+          </form>
+
+
         </div>
       </div>
     </div>
   </div>
-
-
+</div>
 
 <script>
-     $.fn.timedDisable = function(time) {
+  $.fn.timedDisable = function(time) {
       if (time == null) {
         time = 5;
       }
@@ -181,98 +156,48 @@
       });
     };
 
-    function validateEmail(email) {
-      const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    }
-
-    var inputQuantity = [];
-    $(function() {
-        $(".quantity").each(function(i) {
-          inputQuantity[i]=this.defaultValue;
-          $(this).data("idx",i); // save this field's index to access later
-        });
-        $(".quantity").on("keyup", function (e) {
-          var $field = $(this),
-              val=this.value,
-              $thisIndex=parseInt($field.data("idx"),10); // retrieve the index
-          if (this.validity && this.validity.badInput || isNaN(val) || $field.is(":invalid") ) {
-              this.value = inputQuantity[$thisIndex];
-              return;
-          } 
-          if (val.length > Number($field.attr("maxlength"))) {
-            val=val.slice(0, 10);
-            $field.val(val);
-          }
-          inputQuantity[$thisIndex]=val;
-        });      
-      });
-
-    $(document).ready(function() {
+$(document).ready(function() {
       
 
-         $("#btnCheckData").click(function (){
-            
-            if($("#name").val() == ''){
-                swal("กรุณากรอก ชื่อ-นามสกุล", "", "error");
-            }else if($("#sex").val() == ''){
-                swal("กรุณาเลือกเพศ", "", "error");
-            }else if($("#email").val() == '' ){
-                swal("กรุณากรอก E-mail", "", "error");
-            }else if($("#phone").val() == '' || $("#phone").val().length !== 10){
-                swal("กรุณากรอก เบอร์โทรศัพท์", "", "error");
-            }else if($("#flexCheckChecked").val() == 'false' || $("#flexCheckChecked").val() == ''){
-                swal("กรุณา ยอมรับ ข้อตกลงและเงื่อนไข", "", "error");
-            }else if(validateEmail($("#email").val()) === false){
-                swal("กรอก E-mail ใหม่อีกครั้ง", "", "error");
-            }else{
-                $('#get-otp').modal('toggle');
-                $("#modalTextPhone").html('ส่งรหัส OTP ไปที่หมายเลข '+ $("#phone").val())
-            }
-         });
+      $("#btnCheckData").click(function (){
+        if($("#phone").val() == '' || $("#phone").val().length !== 10){
+             swal("กรุณากรอก เบอร์โทรศัพท์", "", "error");
+         }else{
+             $('#get-otp').modal('toggle');
+             $("#modalTextPhone").html('ส่งรหัส OTP ไปที่หมายเลข '+ $("#phone").val())
+         }
+      });
 
-        $('#flexCheckChecked').change(function() {
-            if ($(this).is(":checked")) {
-                var text =  $(this).val('true')
-                $('#terms-conditions').modal('toggle');
-            } else {
-                var text = $(this).val('false');
-            }
-        });
-
-        $("#sendOtp").click( function(){
+      $("#sendOtp").click( function(){
             $('#sendOtp').timedDisable(60);
             $("#Numotp").val(<?php echo rand(10000,999999); ?>);
             var phone  =   $("#phone").val();
             var otp  =   $("#Numotp").val();
-            $.ajax({
-                url: "/OTP",
-                method: "GET",
-                success: function(data){
-                  if(data){
-                    $.ajax({
-                      url: "https://o8.sc4msg.com/SendMessage",
-                      method: "POST",
-                      data: {
-                            "ACCOUNT":data.user, 
-                            "PASSWORD":data.pass,
-                            "MOBILE":phone,
-                            "MESSAGE":'หมายเลข OTP ของท่านคือ ' + otp,
-                        }
-                    });
-                    swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
-                  }else{
-                    swal("ระบบไม่สามารถส่ง OTP กรุณาลองอีกครั้ง", "", "error");
-                  }
-                }
-              });
+            // $.ajax({
+            //     url: "/OTP",
+            //     method: "GET",
+            //     success: function(data){
+            //       if(data){
+            //         $.ajax({
+            //           url: "https://o8.sc4msg.com/SendMessage",
+            //           method: "POST",
+            //           data: {
+            //                 "ACCOUNT":data.user, 
+            //                 "PASSWORD":data.pass,
+            //                 "MOBILE":phone,
+            //                 "MESSAGE":'หมายเลข OTP ของท่านคือ ' + otp,
+            //             }
+            //         });
+            //         swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
+            //       }else{
+            //         swal("ระบบไม่สามารถส่ง OTP กรุณาลองอีกครั้ง", "", "error");
+            //       }
+            //     }
+            //   });
         });
-        
+
         $("#btnSuccess").click(function (){
             event.preventDefault();
-            var name = $("#name").val();
-            var sex  =   $("#sex").val();
-            var email  =   $("#email").val();
             var phone  =   $("#phone").val();
             var otp  =   $("#Numotp").val();
             var textOTP  =   $("#otp").val();
@@ -280,31 +205,31 @@
             $("#btnSuccess").prop('disabled', true);
 
             if(textOTP === otp && (textOTP) && (otp)){
-              $.ajax({
-                url: "/sendOTP",
-                method: "POST",
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                      "name":name, 
-                      "sex":sex,
-                      "email":email,
-                      "phone":phone,
-                      "otp":otp,
-                  },
-                  success: function(data){
-                    if(data == 'success'){
-                        swal("บันทึกข้อมูลเรียบร้อย", "", "success");
-                        setTimeout(function(){ window.location.assign("/choose") }, 2000);
-                    }else if(data == 'sameotp'){
-                      swal("OTP และ เบอร์โทรศัพท์มีการลงทะเบียนแล้ว", "", "error");
-                    }else{
-                        swal("กรุณาลองอีกครั้ง", "", "error");
-                    }
-                  },
-                  complete : function(data){
+              // $.ajax({
+              //   url: "/sendOTP",
+              //   method: "POST",
+              //   data: {
+              //       "_token": "{{ csrf_token() }}",
+              //         "name":name, 
+              //         "sex":sex,
+              //         "email":email,
+              //         "phone":phone,
+              //         "otp":otp,
+              //     },
+              //     success: function(data){
+              //       if(data == 'success'){
+              //           swal("บันทึกข้อมูลเรียบร้อย", "", "success");
+              //           setTimeout(function(){ window.location.assign("/choose") }, 2000);
+              //       }else if(data == 'sameotp'){
+              //         swal("OTP และ เบอร์โทรศัพท์มีการลงทะเบียนแล้ว", "", "error");
+              //       }else{
+              //           swal("กรุณาลองอีกครั้ง", "", "error");
+              //       }
+              //     },
+              //     complete : function(data){
                     
-                  },
-              })
+              //     },
+              // })
             }else{
               swal("กรุณากรอกรหัส OTP ที่ท่านได้รับ", "", "error");
               $("#btnSuccess").prop('disabled', false);
@@ -313,8 +238,8 @@
             
         });
 
-    });
 
+});
 </script>
 
 @endsection

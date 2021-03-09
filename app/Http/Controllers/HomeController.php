@@ -35,23 +35,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $year = date('Y-m');
-        $countMont = Db_other::where('montcount','=',$year)->first();
-        if($countMont == []){
-            $post = new Db_other;
-            $post->montcount    = $year;
-            $post->view         = 1;
-            $post->name         = 'viewweb';
-            $post->status       = 2;
-            $post->save();
-        }else{
-            $Dcount = $countMont->view + 1;
-            $countMont->view    = $Dcount;
-            $countMont->save();
-        }
+        // $year = date('Y-m');
+        // $countMont = Db_other::where('montcount','=',$year)->first();
+        // if($countMont == []){
+        //     $post = new Db_other;
+        //     $post->montcount    = $year;
+        //     $post->view         = 1;
+        //     $post->name         = 'viewweb';
+        //     $post->status       = 2;
+        //     $post->save();
+        // }else{
+        //     $Dcount = $countMont->view + 1;
+        //     $countMont->view    = $Dcount;
+        //     $countMont->save();
+        // }
         //Session::forget('ss_phone');
         //Session::forget('user_id');
-        if(Session::get('ss_phone') == null || Session::get('user_id') == null){
+       // if(Session::get('ss_phone') == null || Session::get('user_id') == null){
             $setting = Setting::find(1);
 
             $slide = Db_other::find(1);
@@ -73,9 +73,9 @@ class HomeController extends Controller
             );
 
             return view('index',$data);
-        }else{
-            return redirect('/choose');
-        }
+        // }else{
+        //     return redirect('/choose');
+        // }
     }
 
     public function sendOTP(Request $request)
