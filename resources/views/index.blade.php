@@ -4,7 +4,7 @@
 <!-- Main @s -->
 <div class="main-wrapper">
 
-<!-- Main Bar @s  -->
+
 <div class="main-bar">
   <div class="main-logo">
     <img src="assets_home/img/Logo.png" alt="">
@@ -13,13 +13,10 @@
     <img src="assets_home/img/title.png" alt="">
   </div>
 </div>
-<!-- Main Bar @e -->
-<!-- Home Slide @s -->
+
 <div class="homeslide-wrapper">
   <div class="home-slide">
-    <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
-      <!-- Slides -->
       @foreach($slides as $db => $sdb)
           @if($sdb)
           <?php 
@@ -31,19 +28,14 @@
           ?>
           @endif
       @endforeach 
-            
-            
     </div>
-    <!-- If we need pagination -->
     <div class="swiper-pagination"></div>
-
   </div>
 </div>
-<!-- Home Slide @e -->
 
 <!-- Content Wrapper @s -->
 <div class="content-wrapper">
-  <!-- Main Button @s -->
+
   <div class="main-button">
     <a href="#" class="btn">
       <i class="fal fa-file"></i>
@@ -58,11 +50,10 @@
       <div>TOP SPENDER</div>
     </a>
   </div>
-  <!-- Main Button @s -->
+
 
   <!-- Main Box @s -->
   <div class="main-box">
-
     <div class="main-mobile">
       <form action="">
         <div class="form-group">
@@ -70,7 +61,6 @@
         </div>
         <div class="form-group">
           <a  href="javascript:void(0);" id="btnCheckData" class="btn btn-block btn-lg btn-primary" >ตกลง</a>
-
         </div>
       </form>
     </div>
@@ -84,6 +74,7 @@
   <!-- Reward BG @e -->
 
   <a href="#" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
+  
 </div>
 <!-- Content Wrapper @e -->
 
@@ -171,29 +162,20 @@ $(document).ready(function() {
       $("#sendOtp").click( function(){
             $('#sendOtp').timedDisable(60);
             $("#Numotp").val(<?php echo rand(10000,999999); ?>);
-            var phone  =   $("#phone").val();
-            var otp  =   $("#Numotp").val();
-            // $.ajax({
-            //     url: "/OTP",
-            //     method: "GET",
-            //     success: function(data){
-            //       if(data){
-            //         $.ajax({
-            //           url: "https://o8.sc4msg.com/SendMessage",
-            //           method: "POST",
-            //           data: {
-            //                 "ACCOUNT":data.user, 
-            //                 "PASSWORD":data.pass,
-            //                 "MOBILE":phone,
-            //                 "MESSAGE":'หมายเลข OTP ของท่านคือ ' + otp,
-            //             }
-            //         });
-            //         swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
-            //       }else{
-            //         swal("ระบบไม่สามารถส่ง OTP กรุณาลองอีกครั้ง", "", "error");
-            //       }
-            //     }
-            //   });
+            var phone   =   $("#phone").val();
+            var otp     =   $("#Numotp").val();
+            $.ajax({
+                url: "/OTP?phone="+phone+"&otp="+otp,
+                method: "GET",
+                success: function(data){
+                  if(data == 'registerDont'){
+
+                  }else{
+                      swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
+                  }
+
+                 }
+            });
         });
 
         $("#btnSuccess").click(function (){
@@ -205,31 +187,7 @@ $(document).ready(function() {
             $("#btnSuccess").prop('disabled', true);
 
             if(textOTP === otp && (textOTP) && (otp)){
-              // $.ajax({
-              //   url: "/sendOTP",
-              //   method: "POST",
-              //   data: {
-              //       "_token": "{{ csrf_token() }}",
-              //         "name":name, 
-              //         "sex":sex,
-              //         "email":email,
-              //         "phone":phone,
-              //         "otp":otp,
-              //     },
-              //     success: function(data){
-              //       if(data == 'success'){
-              //           swal("บันทึกข้อมูลเรียบร้อย", "", "success");
-              //           setTimeout(function(){ window.location.assign("/choose") }, 2000);
-              //       }else if(data == 'sameotp'){
-              //         swal("OTP และ เบอร์โทรศัพท์มีการลงทะเบียนแล้ว", "", "error");
-              //       }else{
-              //           swal("กรุณาลองอีกครั้ง", "", "error");
-              //       }
-              //     },
-              //     complete : function(data){
-                    
-              //     },
-              // })
+              window.location.href = '/register'
             }else{
               swal("กรุณากรอกรหัส OTP ที่ท่านได้รับ", "", "error");
               $("#btnSuccess").prop('disabled', false);

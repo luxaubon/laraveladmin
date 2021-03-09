@@ -78,148 +78,59 @@ class HomeController extends Controller
         // }
     }
 
-    public function sendOTP(Request $request)
-    {
-        $usersame = User_otp::where('phone','=',$request->phone)->where('otp','=',$request->otp)->first();
-        if($usersame){
-            // Session::put('user_id', $usersame->id);
-            // Session::put('ss_phone', $usersame->phone);
-            echo 'sameotp';
-        }else{
-            $post = new User_otp;
-            $post->name = $request->name;
-            $post->sex = $request->sex;
-            $post->email = $request->email;
-            $post->phone = $request->phone;
-            $post->otp = $request->otp;
-            $post->save();
-
-            if($post){
-                Session::put('user_id', $post->id);
-                Session::put('ss_phone', $request->phone);
-                echo 'success';
-            }else{
-                echo 'error';
-            }
-        }
-
-    }
     
-    public function OTP() {
-        $setting = Setting::find(1);
+    public function OTP(Request $request) {
+        $phone = User_otp::where('phone','=',$request->phone)->where('status','=',2)->first();
 
-        $data = array(
-            //HEAD
-            'user' => json_decode($setting->payment)[0]->user,
-            'pass' => json_decode($setting->payment)[0]->pass,
-            //HEAD
-        );
+        Session::put('ss_phone', $request->phone);
 
-        return response()->json($data);
-    }
-    public function Choose() {
-        // Session::forget('code_id');
-        // Session::forget('ss_percentage');
-       // dd(session()->all());
-
-        $setting = Setting::find(1);
-
-       if(Session::get('ss_percentage') == null || Session::get('ss_percentage') == '' && Session::get('code_id') == null || Session::get('code_id') == ''){
-
-            $page = Pages::where('status','=','Pages')->where('online',0)->where('numbercode','>',0)->get();
-
-            if($page){
-                $choices = array();
-                foreach($page as $data){
-                    $choices[$data['id']]= $data['percentage'];
-                }
-                $total = array_sum( $choices );
-                $percent = rand( 0, $total * 100 ) / 100; 
-                $award = null;
-                $carry = 0;
-
-                foreach ( $choices as $key => $value ) {
-                    $high = $carry + $value;
-                    $low = $carry;
-                    if ( $percent > $low && $percent <= $high ) {
-                        $award = $key;
-                        break;
-                    }
-                    $carry += $value;
-                }
-            
-                $dbCode = Pages::find($award);
-                if($dbCode){
-                    Session::put('code_id',$dbCode->id);
-                    Session::put('ss_percentage',$dbCode->namecode);
-                    $codeMaxToday = 'PassCodeToday';
-                }else{
-                    $codeMaxToday = 'codemaxToday';
-                    Session::forget('user_id');
-                    Session::forget('ss_phone');
-                }
-            }else{
-                $codeMaxToday = 'codemaxToday';
-                Session::forget('user_id');
-                Session::forget('ss_phone');
-            }
-
+        if($phone){
+            return 'registerDont';
         }else{
-            $codeMaxToday = 'PassCodeToday';
+
+                return 'success';
+                $setting = Setting::find(1);
+                $account = json_decode($setting->payment)[0]->user;
+                $password = json_decode($setting->payment)[0]->pass;
+                $mobile_no = $request->phone;
+                $message = 'หมายเลข OTP ของท่านคือ '.$request->otp;
+                $category = 'General';
+                $sender_name = ''; // use default sender name if not defined
+                $results = sendMessage($account, $password, $mobile_no, $message, '', $category, $sender_name);
+                if ($results) {
+                    return 'success';
+                } else {
+                    return $results['error'];
+                }
         }
         
+    }
+
+    public function register() {
+        $setting = Setting::find(1);
+
+        $slide = Db_other::find(1);
+        if($slide->gallery != ''){
+            $gallery1 = explode(",",$slide->gallery);
+            foreach($gallery1 as $value1) {
+            $image = Slides::find($value1);
+            if($image['online'] == 0){
+                    $slides[] = $image;
+            }
+            }
+        }else {$slides = ''; }
+
         $data = array(
             //HEAD
             'setting' => $setting,
-            'codeMaxToday' => $codeMaxToday
+            'slides' => $slides,
             //HEAD
         );
 
-        return view('choose',$data);
+        return view('register',$data);
         
     }
-    public function sendPercentage(Request $request) {
 
-        $ShopCode = Pages::where('code','=',$request->shopcode)->where('status','=','ShopCode')->where('online',0)->first();
-        
-        if($ShopCode){
 
-            $Pages = Pages::find(Session::get('code_id'));
-            if($Pages->numbercode != 0){
-
-                $post = User_otp::find(Session::get('user_id'));
-                $post->shop_code = $request->shopcode;
-                $post->code_id = Session::get('code_id');
-                $post->percentage = Session::get('ss_percentage');
-                $post->save();
-
-                $Pages->numbercode = $Pages->numbercode - 1;
-                $Pages->save();
-
-                $log = new Log_otp;
-                $log->user_id = Session::get('user_id');
-                $log->phone = Session::get('ss_phone');
-                $log->percentage = Session::get('ss_percentage');
-                $log->shopcode = Session::get('ss_phone');
-                $log->save();
-
-                Session::forget('code_id');
-                Session::forget('user_id');
-                Session::forget('ss_percentage');
-                Session::forget('ss_phone');
-
-                echo 'success';
-
-            }else{
-                Session::forget('code_id');
-                Session::forget('ss_percentage');
-                echo 'codemax';
-            }
- 
-        }else{
-            echo 'error';
-        }
-
-    }
     
 }

@@ -17,10 +17,11 @@
 Route::resource('/','HomeController');
 Route::resource('/home','HomeController');
 
-
-Route::post('/sendOTP','HomeController@sendOTP');
-Route::get('/choose','HomeController@Choose');
 Route::get('/OTP','HomeController@OTP');
+Route::get('/register','HomeController@register');
+
+
+Route::get('/choose','HomeController@Choose');
 Route::post('/sendPercentage','HomeController@sendPercentage');
 
 
