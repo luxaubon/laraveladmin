@@ -22,8 +22,13 @@ Route::get('/register','HomeController@register');
 
 Route::post('/registerPhone','HomeController@registerPhone');
 
+Route::get('/login','HomeController@login');
 Route::get('/member','HomeController@member');
+Route::get('/logout','HomeController@logout');
 
+
+Route::post('/ocr', 'OcrController@ocrImage');
+Route::post('/checkCode', 'HomeController@checkCode');
 
 
 Route::get('/admin', function () {

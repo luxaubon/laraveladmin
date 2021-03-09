@@ -61,13 +61,26 @@ class HomeController extends Controller
         }
     }
 
-    
+    public function login(Request $request) {
+        $phone = User_otp::where('phone','=',$request->phone)->where('status','=',1)->first();
+        
+        if($phone){
+            Session::put('ss_id',$phone->id);
+            Session::put('ss_phone', $request->phone);
+            return 'loginsuccess';
+        }else{
+            return 'faile';
+        }
+        
+    }
+
     public function OTP(Request $request) {
         $phone = User_otp::where('phone','=',$request->phone)->where('status','=',1)->first();
-
+       
         Session::put('ss_phone', $request->phone);
 
         if($phone){
+            Session::put('ss_id',$phone->id);
             return 'registerDont';
         }else{
 
@@ -137,11 +150,33 @@ class HomeController extends Controller
         }
     
     }
-    public function logout()
-    {
+    public function logout(){
+        Session::forget('ss_phone');
+
+        $setting = Setting::find(1);
+
+            $slide = Db_other::find(1);
+            if($slide->gallery != ''){
+                $gallery1 = explode(",",$slide->gallery);
+                foreach($gallery1 as $value1) {
+                $image = Slides::find($value1);
+                if($image['online'] == 0){
+                        $slides[] = $image;
+                }
+                }
+            }else {$slides = ''; }
+
+            $data = array(
+                //HEAD
+                'setting' => $setting,
+                'slides' => $slides,
+                //HEAD
+            );
+
+            return view('index',$data);
+
     }
-    public function member()
-    {
+    public function member(){
        
         if(Session::get('ss_phone')){
             $setting = Setting::find(1);
@@ -170,6 +205,64 @@ class HomeController extends Controller
         }
     }
 
+    public function checkCode(Request $request){
+        // echo count($request->number);
+         dd($request->hasFile('image')[0]);
+        // //Session::get('ss_id')
+
+        $numberData = count($request->number)-1;
+        for($i=0; $i < $numberData; $i++ ){
+
+            $photos      = $request->file('image')[$i];
+            $code_number = $request->number[$i];
+
+            $extension = $photo->getClientOriginalExtension();
+            $nameimages = Session::get('ss_id').'-'.$i.'-'.date('dm').'.'.$extension;
+            $paths   = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
+            $images = new Images;
+            $images->sid = Session::get('ss_id');
+            $images->code_number = $code_number;
+            $images->table = 'user_otp';
+            $images->image = $nameimages;
+            $images->save();
+            $images_id.=  $images->id.',';
+
+        }
+
+        $post = User_otp::find(Session::get('ss_id'));
+        $post->gallery = $images_id;
+        $post->save();
+
+        return redirect()->back();
+
+        // if ($request->hasFile('image')) {
+        //     $photos = $request->file('image');
+        //     $images_id = '';
+        //     $i=0;
+        //     foreach ($photos as $photo) {
+        //         if($photo != ''){
+        //             $i++;
+        //             $extension = $photo->getClientOriginalExtension();
+        //             $nameimages = Session::get('ss_id').'-'.$i.'-'.date('dm').'.'.$extension;
+        //             $paths   = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
+        //             $images = new Images;
+        //             $images->sid = Session::get('ss_id');
+        //             $images->table = 'user_otp';
+        //             $images->image = $nameimages;
+        //             $images->save();
+        //             $images_id.=  $images->id.',';
+        //         }
+        //     }
+
+        //     $post = User_otp::find($request->id);
+        //     $post->status  = 3;
+        //     $post->gallery = $images_id;
+        //     $post->save();
+
+        //     return redirect()->back();
+        // }
+    }   
+    
 
 
     

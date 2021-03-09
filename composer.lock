@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b28b00f42f6b386a3007766bd8321571",
+    "content-hash": "0ceb9ed8a5eb303bd38699ccf2f546e3",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -4623,6 +4623,48 @@
             "time": "2021-01-20T14:39:13+00:00"
         },
         {
+            "name": "wapnen/google-cloud-vision-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wapnen/google-cloud-vision-php.git",
+                "reference": "82f17190cdfb4466fbc654d7d9827581a58d695e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wapnen/google-cloud-vision-php/zipball/82f17190cdfb4466fbc654d7d9827581a58d695e",
+                "reference": "82f17190cdfb4466fbc654d7d9827581a58d695e",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "GoogleCloudVision\\": "GoogleCloudVision/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Wapnen Gowok",
+                    "email": "wapneng@gmail.com"
+                }
+            ],
+            "description": "A simple php library for the google cloud vision API ",
+            "keywords": [
+                "Computer Vision",
+                "google cloud vision api",
+                "machine learning",
+                "php"
+            ],
+            "time": "2019-02-26T15:01:29+00:00"
+        },
+        {
             "name": "zendframework/zend-diactoros",
             "version": "2.2.1",
             "source": {
@@ -6503,12 +6545,12 @@
             "version": "1.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "reference": "bafc69caeb4d49c39fd0779086c03a3738cbb389",
                 "shasum": ""
             },
@@ -6550,7 +6592,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "wapnen/google-cloud-vision-php": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

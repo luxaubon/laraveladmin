@@ -60,7 +60,7 @@
           <input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="กรุณากรอกเบอร์โทรศัพท์" maxlength="10">
         </div>
         <div class="form-group">
-          <a  href="javascript:void(0);" id="btnCheckData" class="btn btn-block btn-lg btn-primary" >ตกลง</a>
+          <button type="button" class="btn btn-block btn-lg btn-primary" id="btnCheckData">ตกลง</button>
         </div>
       </form>
     </div>
@@ -97,17 +97,16 @@
           <form action="">
             <div class="get-otp">
               <div class="row no-gutters">
-                    
                 <div class="col-7">
                     <input type="number" id="otp" name="otp" class="form-control">
                     <input type="hidden" id="Numotp" name="Numotp" class="form-control" >
+                    
                 </div>
                 <div class="col-5">
                   <button type="button" class="btn btn-block btn-primary" id="sendOtp">รับรหัส OTP </button>
                 </div>
               </div>
             </div>
-
             <div class="row">
               <div class="col-6"><button type="button" class="btn btn-block btn-secondary"
                   data-dismiss="modal">ยกเลิก</button></div>
@@ -115,7 +114,6 @@
                     id="btnSuccess"
                    data-toggle="modal">ตกลง</button></div>
             </div>
-
           </form>
 
 
@@ -151,11 +149,30 @@ $(document).ready(function() {
       
 
       $("#btnCheckData").click(function (){
+        event.preventDefault();
+        $("#btnCheckData").prop('disabled', true);
+
         if($("#phone").val() == '' || $("#phone").val().length !== 10){
              swal("กรุณากรอก เบอร์โทรศัพท์", "", "error");
+             $("#btnCheckData").prop('disabled', false);
          }else{
-             $('#get-otp').modal('toggle');
-             $("#modalTextPhone").html('ส่งรหัส OTP ไปที่หมายเลข '+ $("#phone").val())
+              var phone   =   $("#phone").val();
+              $.ajax({
+                  url: "/login?phone="+phone,
+                  method: "GET",
+                  success: function(data){
+                    if(data == 'loginsuccess'){
+                      window.location.href = '/member'
+                    }else{
+                      $('#get-otp').modal('toggle');
+                      $("#modalTextPhone").html('ส่งรหัส OTP ไปที่หมายเลข '+ $("#phone").val())
+                      $("#btnCheckData").prop('disabled', false);
+                    }
+
+                  }
+              });
+
+            
          }
       });
 
@@ -169,7 +186,7 @@ $(document).ready(function() {
                 method: "GET",
                 success: function(data){
                   if(data == 'registerDont'){
-
+                    window.location.href = '/member'
                   }else{
                       swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
                   }

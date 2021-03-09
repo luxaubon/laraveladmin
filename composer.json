@@ -12,7 +12,8 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "unisharp/laravel-filemanager": "^1.9"
+        "unisharp/laravel-filemanager": "^1.9",
+        "wapnen/google-cloud-vision-php": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

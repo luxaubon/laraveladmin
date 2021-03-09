@@ -17,7 +17,7 @@
 					$("#postdataload").html('<div id="page-loader" class="fade show"><span class="spinner"></span></div>');
         		},       
 				success: function(data){
-					swal("ทำการลบข้อมูลนี้เรียบร้อยแล้ว", {icon: "success",});
+					swal("แก้ไชข้อมูลนี้เรียบร้อยแล้ว", {icon: "success",});
 
 				},
 				complete : function(data){	
