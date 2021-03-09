@@ -19,60 +19,38 @@
                             	
                                 <div class="tab-pane fade active show" id="default-tab-sup-1">
                                 <!-- Start TAP -->
-									 <div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">จำนวนส่วนลดที่แสดง</label>
-										<div class="col-sm-12">
-											<textarea class="form-control" id="namecode" name="namecode" rows="2" placeholder="จำนวนส่วนลดที่แสดง" data-parsley-required="true">{{$pages_id->namecode}}</textarea>
-										</div>
-									</div>
-									<!--<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">Code</label>
-										<div class="col-sm-12">
-											<input type="text" class="form-control" id="code" name="code" placeholder="Code"  value="{{$pages_id->code}}">
-										</div>
-									</div> -->
-									<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">จำนวนส่วนลดที่สามารถใช้ได้</label>
-										<div class="col-sm-12">
-											<input type="number" class="form-control" id="numbercode" name="numbercode" placeholder="จำนวนส่วนลดที่สามารถใช้ได้" value="{{$pages_id->numbercode}}">
-										</div>
-									</div>
-									<div class="clearfix m-b-20">
-										<label class="control-label col-sm-2" for="title">% ในการออกรางวัล</label>
-										<div class="col-sm-12">
-											<input type="number" class="form-control" id="percentage" name="percentage" placeholder="% ในการออกรางวัล" value="{{$pages_id->percentage}}">
-										</div>
-									</div>
+				                     <div class="clearfix m-b-20">
+	                        				<label class="control-label col-sm-2" for="title">
+	                        				รอบการร่วมสนุก <span class="text-danger">*</span></label>
+	                        				<div class="col-sm-12">
+				                            <textarea class="form-control" id="seo_th" name="seo_th" rows="2" data-parsley-range="[1,200]" placeholder="Title, Header.." data-parsley-required="true">{{@json_decode($pages_id->seo)[0]->seo_th}}</textarea>
+
+				                       		</div>
+				                       	</div>
+                              		<div class="clearfix m-b-20">
+	                        				<label class="control-label col-sm-2" for="title">การจับรางวัล</label>
+	                        				<div class="col-sm-12">
+				                            <textarea class="form-control" id="title_th" name="title_th" rows="2" data-parsley-range="[1,200]" placeholder="Title, Header.." data-parsley-required="true">{{@json_decode($pages_id->title)[0]->title_th}}</textarea>
+
+				                       		</div>
+				                       	</div>
+                             		<div class="clearfix m-b-20">
+	                        				<label class="control-label col-sm-2" for="title">ราละเอียดย่อย</label>
+	                        				<div class="col-sm-12">
+				                            <textarea class="form-control" id="caption_th" name="caption_th" rows="2" placeholder="Caption" data-parsley-required="true">{{@json_decode($pages_id->caption)[0]->caption_th}}</textarea>
+
+				                       		</div>
+				                       	</div>
+                              		<div class="clearfix m-b-20">
+	                        				<label class="control-label col-sm-2" for="title">รายละเอียด</label>
+	                        				<div class="col-sm-12">
+				                            	 <textarea class="ckeditor" id="detail_th" name="detail_th" rows="20" >{{@json_decode($pages_id->detail)[0]->detail_th}}</textarea>
+				                       		</div>
+				                       	</div>
+
                                 <!-- END TAP -->
                                 </div>
 
-
-                                <div class="tab-pane fade" id="default-tab-sup-2">
-                                <!-- Start TAP -->
-                                	
-                                <!-- END TAP -->
-                                </div>	
-                                
-
-                                <!-- END TAP -->
-                               
-
-
-                                <div class="tab-pane fade" id="default-tab-sup-4">
-                                <!-- Start TAP -->
-                                	
-                                <!-- END TAP -->
-                                </div>
-                                <div class="tab-pane fade" id="default-tab-sup-5">
-                                <!-- Start TAP -->
-                                	
-                                <!-- END TAP -->
-                                </div>
-                                <div class="tab-pane fade" id="default-tab-sup-6">
-                                <!-- Start TAP -->
-                                	
-                                <!-- END TAP -->
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,10 +58,8 @@
                     <div class="col-md-4 bg-grey-light">
 							  <p class="m-b-10 p-0 ">
 
-								<!-- UPDATE BUTTON -->
 									<button type="submit" id="Save" class="btn btn-success m-t-5">
 									<i class="fa fa-save"></i> Save</button>
-								<!-- UPDATE BUTTON -->
 
 							  </p>
 
@@ -116,13 +92,6 @@
 	                                </div>
 	                                <div id="collapse1" class="panel-collapse collapse show">
 	                                   	<div class="panel-body">
-	                                   		<!--label class="control-label">หัวข้อ </label>
-											<select class="form-control" id="topic" name="topic">
-												<option class="text-success-light" value="0" >News</option>
-												<option class="text-danger-light" value="1" >Event</option>	
-											</select>
-											<hr-->
-											
 										<label class="control-label">Status </label>
 	                                    @php
 	                                    	$selected = $pages_id->online == 0 ?  "selected" : "";

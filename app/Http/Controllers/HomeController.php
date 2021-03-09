@@ -240,7 +240,7 @@ class HomeController extends Controller
     public function rules(){
        
             $setting = Setting::find(1);
-
+           
             $slide = Db_other::find(1);
             if($slide->gallery != ''){
                 $gallery1 = explode(",",$slide->gallery);
@@ -252,10 +252,13 @@ class HomeController extends Controller
                 }
             }else {$slides = ''; }
 
+            $pages = Pages::all();
+
             $data = array(
                 //HEAD
                 'setting' => $setting,
                 'slides' => $slides,
+                'pages' => $pages,
                 //HEAD
             );
 

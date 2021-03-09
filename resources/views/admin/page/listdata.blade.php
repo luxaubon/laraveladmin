@@ -11,10 +11,11 @@
                                     <tr class="odd gradeX" id="content{{ $db->id }}">
                                     	
                                         <td>
-                                            <strong>จำนวนส่วนลดที่แสดง </strong> : {{$db->namecode}}<hr/>
-                                            <!--strong>Code</strong> : {{$db->code}}<hr/-->
-                                            <strong>จำนวนส่วนลดที่สามารถใช้ได้</strong> : {{ $db->numbercode }}<hr/>
-                                            <strong>% ในการออกรางวัล</strong> : {{ $db->percentage }} %<hr/>
+                                            <strong>การจับรางวัล</strong> : {{json_decode($db->seo)[0]->seo_th}}
+                                            <hr/>
+                                            <strong>ราละเอียดย่อย</strong> : {{json_decode($db->caption)[0]->caption_th}}<hr/>
+                                            <strong>Create Date</strong> : {{ $db->created_at->diffForHumans() }}<hr/>
+
                                             <div class="m-t-10">
                                                 <a href="/admin/{{$folder}}/show/{{ $db->id }}" class="btn btn-primary"><i class="fas fa-cog fa-spin"></i> View & Edit</a>
 

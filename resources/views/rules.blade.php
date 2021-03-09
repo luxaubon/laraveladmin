@@ -65,64 +65,28 @@
                                 การจับรางวัล
                             </td>
                         </tr>
-
-                        <tr>
-                            <td>01 - 30 เม.ย. 64</td>
-                            <td><a href="#">6 พ.ค. 64</a></td>
-                        </tr>
-
-                        <tr>
-                            <td>01 - 31 พ.ค. 64</td>
-                            <td><a href="#">2 มิ.ย. 64</a></td>
-                        </tr>
-
-                        <tr>
-                            <td>01 - 30 มิ.ย. 64</td>
-                            <td><a href="#">7 ก.ค. 64</a></td>
-                        </tr>
-
-                        <tr>
-                            <td>01 - 31 ก.ค. 64</td>
-                            <td><a href="#">4 ส.ค. 64</a></td>
-                        </tr>
-
-                        <tr>
-                            <td>01 - 31 ส.ค. 64</td>
-                            <td><a href="#">9 ก.ย. 64</a></td>
-                        </tr>
-
-                        <tr>
-                            <td>1 เม.ย. 64 - 31 ส.ค. 64</td>
-                            <td><a href="#">9 ก.ย. 64</a></td>
-                        </tr>
-
+                      <?php
+                      foreach($pages as $page){
+                        echo '<tr>
+                                <td>'.json_decode($page->seo)[0]->seo_th.'</td>
+                                <td><a href="/rules?show='.$page['id'].'">'.json_decode($page->title)[0]->title_th.'</a></td>
+                            </tr>';
+                      }?>
                     </tbody>
                 </table>
-                <p>รางวัลสร้อยคอทองคำ รอบวันที่ 01 - 31 พฤษภาคม 2564</p>
-                <table class="table table-sm table-striped">
-                    <tbody>
-                        <tr>
-                            <td>01</td>
-                            <td>นายชิงโชค รางวัล</td>
-                            <td>081 123 XXXX</td>
-                        </tr>
-                        <tr>
-                            <td>02</td>
-                            <td>นายชิงโชค รางวัล</td>
-                            <td>081 123 XXXX</td>
-                        </tr>
-                        <tr>
-                            <td>03</td>
-                            <td>นายชิงโชค รางวัล</td>
-                            <td>081 123 XXXX</td>
-                        </tr>
-                        <tr>
-                            <td>04</td>
-                            <td>นายชิงโชค รางวัล</td>
-                            <td>081 123 XXXX</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <?php
+                      foreach($pages as $page){
+                        if(@$_GET['show'] == $page['id']){
+                          echo '<p>'.json_decode($page->caption)[0]->caption_th.'</p>';
+                          echo json_decode($page->detail)[0]->detail_th;
+                          break;
+                        }else if(@$_GET['show'] == null){
+                          echo '<p>'.json_decode($page->caption)[0]->caption_th.'</p>';
+                          echo json_decode($page->detail)[0]->detail_th;
+                          break;
+                        }
+                      }?>
+                
 
             </div>
 

@@ -48,16 +48,27 @@ class PagesController extends Controller
 
      public function store(Request $request){
     	$this->validate(request(), [
-            'namecode' => 'required|max:50',
-            //'code' => 'required|max:50',
-            'numbercode' => 'required|max:50',
-            'percentage' => 'required|max:50',
+            'seo_th' => 'required',
         ]);
+        
+        $seo[] =  array(
+                        'seo_th' =>  (mysql_escape(stripslashes($request->seo_th))),
+                    );   
+        $title[] =  array(
+                        'title_th' =>  (mysql_escape(stripslashes($request->title_th))),
+                    );
+        $caption[] =  array(
+                        'caption_th' =>  (mysql_escape(stripslashes($request->caption_th))),
+                    );
+        $detail[] =  array(
+                        'detail_th' =>  (stripslashes($request->detail_th)),
+                    );
+
         $post = new Pages;
-        $post->namecode = $request->namecode;
-       // $post->code = $request->code;
-        $post->numbercode = $request->numbercode;
-        $post->percentage = $request->percentage;
+        $post->seo = json_encode($seo,JSON_UNESCAPED_UNICODE);
+        $post->title = json_encode($title,JSON_UNESCAPED_UNICODE);
+        $post->caption = json_encode($caption,JSON_UNESCAPED_UNICODE);
+        $post->detail = json_encode($detail,JSON_UNESCAPED_UNICODE);
         $post->status = $this->status();
         $post->online = $request->online;
         $post->save();
@@ -69,7 +80,7 @@ class PagesController extends Controller
             'folder' => $this->folder(),
         );
 
-        return redirect()->back();
+         return redirect()->back();
     
     }
 
@@ -77,28 +88,46 @@ class PagesController extends Controller
     {
         $pages_id = Pages::findOrFail($id);
         $pages = Pages::all()->where('status',$this->status());
-
+        //$image = Pages::find($id)->images;
+        $gallery = explode(",",$pages_id->gallery);
+        foreach($gallery as $value) {
+           $image[] = Images::find($value);
+        }
+        
         $data = array(
             'pages_id' => $pages_id,
             'pages' => $pages,
             'folder' => $this->folder(),
+            'image' => $image,
          );
         return view('admin.'.$this->folder().'.index',$data);
     }
     public function edit(Request $request)
     {
-        $this->validate(request(), [
-            'namecode' => 'required|max:50',
-            //'code' => 'required|max:50',
-            'numbercode' => 'required|max:50',
-            'percentage' => 'required|max:50',
+       $this->validate(request(), [
+            'seo_th' => 'required',
         ]);
 
-        $post = Pages::find($request->id);
-        $post->namecode = $request->namecode;
-        //$post->code = $request->code;
-        $post->numbercode = $request->numbercode;
-        $post->percentage = $request->percentage;
+       $post = Pages::find($request->id);
+
+
+        $seo[] =  array(
+                        'seo_th' =>  (mysql_escape(stripslashes($request->seo_th))),
+                    );   
+        $title[] =  array(
+                        'title_th' =>  (mysql_escape(stripslashes($request->title_th))),
+                    );
+        $caption[] =  array(
+                        'caption_th' =>  (mysql_escape(stripslashes($request->caption_th))),
+                    );
+        $detail[] =  array(
+                        'detail_th' =>  (stripslashes($request->detail_th)),
+                    );
+
+        $post->seo = json_encode($seo,JSON_UNESCAPED_UNICODE);
+        $post->title = json_encode($title,JSON_UNESCAPED_UNICODE);
+        $post->caption = json_encode($caption,JSON_UNESCAPED_UNICODE);
+        $post->detail = json_encode($detail,JSON_UNESCAPED_UNICODE);
         $post->status = $this->status();
         $post->online = $request->online;
         $post->save();
@@ -107,8 +136,18 @@ class PagesController extends Controller
     }
 
     public function del_content(Request $request){
-
         $page = Pages::find($request->numrow);
+
+        if ($page->image) {
+            LaraFile::delete("public/images/".$page->image);
+        }
+        $gallery = explode(",",$page->gallery);
+        foreach($gallery as $value) {
+           $image = Images::find($value);
+           LaraFile::delete("public/images/".$value->image);
+           $image->delete();
+        }
+
         $page->delete();
         
     }
