@@ -33,7 +33,7 @@ class IndexController extends Controller
         $pagesOffline = User_otp::all()
                         ->where('percentage','!=','')
                         ->count();
-        $user = Pages::sum('numbercode');
+        //$user = Pages::sum('numbercode');
         //$user = $total - $pagesOffline;
         //User::DEFAULT_TYPE,
 
@@ -91,7 +91,7 @@ class IndexController extends Controller
             'folder' => 'dashboard',
             'pagesOnline' => $pagesOnline,
             'pagesOffline' => $pagesOffline,
-            'user' => $user,
+            //'user' => $user,
             'montcount' => $montcount,
             'view' => $view,
            //'member' => $member,

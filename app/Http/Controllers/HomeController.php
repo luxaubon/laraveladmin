@@ -13,9 +13,13 @@ use App\Products;
 use App\Images;
 use App\User_otp;
 use App\Log_otp;
+use App\db_code;
+use App\province;
+use App\Toppender;
 
 use Session;
 
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     /**
@@ -49,11 +53,18 @@ class HomeController extends Controller
                 }
                 }
             }else {$slides = ''; }
+            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                $toppender_status = 'online';  
+            }else{
+                $toppender_status = 'offline';
+            }
 
             $data = array(
                 //HEAD
                 'setting' => $setting,
                 'slides' => $slides,
+                'toppender_status' => $toppender_status,
                 //HEAD
             );
 
@@ -104,7 +115,7 @@ class HomeController extends Controller
 
     public function register() {
         $setting = Setting::find(1);
-
+        $province = province::all();
         $slide = Db_other::find(1);
         if($slide->gallery != ''){
             $gallery1 = explode(",",$slide->gallery);
@@ -116,10 +127,19 @@ class HomeController extends Controller
             }
         }else {$slides = ''; }
 
+        $toppender = Toppender::orderBy('id', 'DESC')->first();
+            if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                $toppender_status = 'online';  
+            }else{
+                $toppender_status = 'offline';
+            }
+
         $data = array(
             //HEAD
             'setting' => $setting,
             'slides' => $slides,
+            'province' => $province,
+            'toppender_status' => $toppender_status,
             //HEAD
         );
         return view('register',$data);
@@ -152,7 +172,7 @@ class HomeController extends Controller
     }
     public function logout(){
         Session::forget('ss_phone');
-
+        Session::forget('ss_id');
         $setting = Setting::find(1);
 
             $slide = Db_other::find(1);
@@ -166,39 +186,103 @@ class HomeController extends Controller
                 }
             }else {$slides = ''; }
 
+            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                $toppender_status = 'online';  
+            }else{
+                $toppender_status = 'offline';
+            }
+
             $data = array(
                 //HEAD
                 'setting' => $setting,
                 'slides' => $slides,
+                'toppender_status' => $toppender_status,
                 //HEAD
             );
 
             return view('index',$data);
 
     }
-    public function member(){
+    
+    public function membersuccess(){
        
         if(Session::get('ss_phone')){
             $setting = Setting::find(1);
-
             $slide = Db_other::find(1);
             if($slide->gallery != ''){
                 $gallery1 = explode(",",$slide->gallery);
                 foreach($gallery1 as $value1) {
                 $image = Slides::find($value1);
-                if($image['online'] == 0){
-                        $slides[] = $image;
-                }
+                    if($image['online'] == 0){
+                            $slides[] = $image;
+                    }
                 }
             }else {$slides = ''; }
+
+            $images_code = Images::where('sid',Session::get('ss_id'))->orderBy('id', 'DESC')->paginate(10);
+            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                $toppender_status = 'online';  
+            }else{
+                $toppender_status = 'offline';
+            }
+            $data = array(
+                //HEAD
+                'setting'       => $setting,
+                'slides'        => $slides,
+                'images_code'   => $images_code,
+                'toppender_status'   => $toppender_status
+                //HEAD
+            );
+            return view('membersuccess',$data);
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function member(){
+       
+        if(Session::get('ss_phone')){
+            $user_check         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();
+            $block = '';
+            if($user_check){
+                if(time() > strtotime($user_check['date_block']) && $user_check['date_block'] != null){
+                    $user_check->status  = 2;
+                    $user_check->save();
+                }else if(time() < strtotime($user_check['date_block']) && $user_check['date_block'] != null){
+                    $block = 'block';
+                }else{
+
+                }
+            }
+
+            $setting = Setting::find(1);
+            $slide = Db_other::find(1);
+            if($slide->gallery != ''){
+                $gallery1 = explode(",",$slide->gallery);
+                foreach($gallery1 as $value1) {
+                $image = Slides::find($value1);
+                    if($image['online'] == 0){
+                            $slides[] = $image;
+                    }
+                }
+            }else {$slides = ''; }
+            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                $toppender_status = 'online';  
+            }else{
+                $toppender_status = 'offline';
+            }
 
             $data = array(
                 //HEAD
                 'setting' => $setting,
                 'slides' => $slides,
+                'block' => $block,
+                'toppender_status' => $toppender_status
                 //HEAD
             );
-
             return view('member',$data);
         }else{
             return redirect('/');
@@ -206,38 +290,89 @@ class HomeController extends Controller
     }
 
     public function checkCode(Request $request){
+       
+        $user_check         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();
+        
+        if($user_check){
+            if(time() > strtotime($user_check['date_block']) && $user_check['date_block'] != null){
+                $user_check->status  = 2;
+                $user_check->save();
+            }else if(time() < strtotime($user_check['date_block']) && $user_check['date_block'] != null){
 
-        $numberData = count($request->number)-1;
-        $images_id = '';
-        for($i=0; $i <= $numberData; $i++ ){
+                return redirect()->back();
+                
+            }else{
 
-            $photo          = $request->file('image')[$i];
-            $code_number    = $request->number[$i];
-
-            $extension      = $photo->getClientOriginalExtension();
-            $nameimages     = Session::get('ss_id').'-'.$i.'-'.date('dms').'-'.rand(0,99999).'.'.$extension;
-            $paths          = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
-
-            $images                 = new Images;
-            $images->sid            = Session::get('ss_id');
-            $images->code_number    = $code_number;
-            $images->table          = 'user_otp';
-            $images->image          = $nameimages;
-            $images->save();
-            $images_id.=  $images->id.',';
-
+            }
         }
+        
+            $numberData = count($request->number)-1;
+            $images_id = '';
+            for($i=0; $i <= $numberData; $i++ ){
 
-        $post           = User_otp::find(Session::get('ss_id'));
-        $post->gallery  = $post->gallery.$images_id;
-        $post->save();
+                $photo          = $request->file('image')[$i];
+                $code_number    = $request->number[$i];
+                $check_code     = db_code::where('code_number',$code_number)->first();
 
-        return redirect()->back();
+                if($check_code['status'] == 1){
+                    
+                    $stauts = 1; // กรอกมาใหม่
+                    $check_code->status  = 2;
+                    $check_code->save();
+
+                }else if($check_code['status'] == 2){
+                    $stauts = 2; // ซ้ำ
+                }else{
+                    $stauts = 3; // มั่ว
+                    if($user_check){
+                        $user_check2         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();   
+                        $count               = Log_otp::where('user_id',Session::get('ss_id'))->count('id');
+                        if($user_check2->total_use < 10){
+                            $user_check2->total_use  = $user_check2->total_use + 1;
+                            $user_check2->save();
+                        }else{
+                            $startDate  = time(); 
+                            $dateNow    = date('Y-m-d H:i:s', strtotime('+'.$count.' day', $startDate));
+                            $user_check2->date_block  = $dateNow;
+                            $user_check2->save();
+                            
+                            return redirect()->back();
+
+                        }
+                    }else{
+                        $user_log               = new Log_otp;
+                        $user_log->user_id      = Session::get('ss_id');
+                        $user_log->total_use    = 1;
+                        $user_log->save();
+                    }
+                }
+
+                $extension      = $photo->getClientOriginalExtension();
+                $nameimages     = Session::get('ss_id').'-'.$i.'-'.date('dms').'-'.rand(0,99999).'.'.$extension;
+                $paths          = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
+
+                $images                     = new Images;
+                $images->sid                = Session::get('ss_id');
+                $images->code_first_number  = $code_number[0];
+                $images->code_number        = $code_number;
+                $images->status             = $stauts;
+                $images->table              = 'user_otp';
+                $images->image              = $nameimages;
+                $images->save();
+                $images_id.=  $images->id.',';
+
+            }
+
+            $post           = User_otp::find(Session::get('ss_id'));
+            $post->gallery  = $post->gallery.$images_id;
+            $post->save();
+
+            return redirect('/membersuccess?share=share');
 
     }   
 
     
-    public function rules(){
+    public function results(){
        
             $setting = Setting::find(1);
            
@@ -254,18 +389,124 @@ class HomeController extends Controller
 
             $pages = Pages::all();
 
+            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                $toppender_status = 'online';  
+            }else{
+                $toppender_status = 'offline';
+            }
+
             $data = array(
                 //HEAD
                 'setting' => $setting,
                 'slides' => $slides,
                 'pages' => $pages,
+                'toppender_status' => $toppender_status,
                 //HEAD
             );
 
-            return view('rules',$data);
+            return view('results',$data);
         
     }
 
+    public function rules(){
+       
+        $setting = Setting::find(1);
+       
+        $slide = Db_other::find(1);
+        if($slide->gallery != ''){
+            $gallery1 = explode(",",$slide->gallery);
+            foreach($gallery1 as $value1) {
+            $image = Slides::find($value1);
+            if($image['online'] == 0){
+                    $slides[] = $image;
+            }
+            }
+        }else {$slides = ''; }
+
+        $toppender = Toppender::orderBy('id', 'DESC')->first();
+        if(time() > $toppender->date_start && time() < $toppender->date_stop){
+            $toppender_status = 'online';  
+        }else{
+            $toppender_status = 'offline';
+        }
+
+        $data = array(
+            //HEAD
+            'setting' => $setting,
+            'slides' => $slides,
+            'toppender_status' => $toppender_status,
+            //HEAD
+        );
+
+        return view('rules',$data);
+    
+        }
+
+        public function toppender(){
+            
+            $setting = Setting::find(1);
+        
+            $slide = Db_other::find(1);
+            if($slide->gallery != ''){
+                $gallery1 = explode(",",$slide->gallery);
+                foreach($gallery1 as $value1) {
+                $image = Slides::find($value1);
+                if($image['online'] == 0){
+                        $slides[] = $image;
+                }
+                }
+            }else {$slides = ''; }
+
+            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            if(time() > $toppender->date_start && time() < $toppender->date_stop){
+
+            }else{
+                return redirect('/');
+            }
+            $date_start = date('Y-m-d H:i:s',$toppender->date_start);
+            $date_stop = date('Y-m-d H:i:s',$toppender->date_stop);
+            
+            $user = DB::select("SELECT COUNT('images.id') as totals,user_otp.phone,name,last_name
+                FROM  user_otp
+                INNER JOIN images ON user_otp.id = images.sid
+                WHERE code_first_number = $toppender->status
+                AND   images.status = 1
+                AND   images.created_at BETWEEN '".$date_start."' AND '".$date_stop."'
+                ORDER BY totals DESC
+                LIMIT 10
+            ");
+
+            if(Session::get('ss_id')){
+                $ssid = Session::get('ss_id');
+                $myuser = DB::select("SELECT COUNT('images.id') as totals,user_otp.phone,name,last_name
+                    FROM  user_otp
+                    INNER JOIN images ON user_otp.id = images.sid
+                    WHERE code_first_number = $toppender->status
+                    AND   images.status = 1
+                    AND   images.sid = '".$ssid."'
+                    AND   images.created_at BETWEEN '".$date_start."' AND '".$date_stop."'
+                ");
+            }else{
+                $myuser = '';
+            }
+            $data = array(
+                //HEAD
+                'setting'   => $setting,
+                'slides'    => $slides,
+                'user'      => $user,
+                'myuser'    => $myuser,
+                'toppender_status' => 'online',
+                //HEAD
+            );
+
+            return view('toppender',$data);
+
+        }
+
+
+
+    
 
     
 }

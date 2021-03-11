@@ -3,7 +3,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var editID = $('#editID').val();
-	//	$('.image-link').magnificPopup({type:'image'});
+		//$('.image-link').magnificPopup({type:'image'});
 		
 		//swal('ลบข้อมูล','การลบข้อมูลเรียบร้อย','success');
 

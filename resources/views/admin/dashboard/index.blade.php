@@ -50,7 +50,7 @@
 						<div class="stats-icon"><i class="fa fa-users"></i></div>
 						<div class="stats-info">
 							<h4>จำนวนสิทธิ์คงเหลือ</h4>
-							<p>{{ $user }}</p>	
+							<p></p>	
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;"></a>

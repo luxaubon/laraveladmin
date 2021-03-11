@@ -37,18 +37,20 @@
 <div class="content-wrapper">
 
   <div class="main-button">
-    <a href="#" class="btn">
+    <a href="/rules" class="btn">
       <i class="fal fa-file"></i>
       <div>กติกา</div>
     </a>
-    <a href="/rules" class="btn">
+    <a href="/results" class="btn">
       <i class="fal fa-trophy"></i>
       <div>ประกาศผล</div>
     </a>
-    <a href="#" class="btn btn-primary">
-      <i class="fal fa-star"></i>
-      <div>TOP SPENDER</div>
-    </a>
+    <?php if($toppender_status == 'online'){
+        echo '<a href="/toppender" class="btn btn-primary">
+            <i class="fal fa-star"></i>
+            <div>TOP SPENDER</div>
+        </a>';
+    }?>
   </div>
 
 
@@ -98,7 +100,14 @@
                                         <option value="12">ธันวาคม</option>
                                     </select></div>
                                 <div class="col-4">
-                                    <input type="number" id="year" name="year" class="form-control" placeholder="พ.ศ." maxlength="4">
+                                    <!-- <input type="number" id="year" name="year" class="form-control" placeholder="พ.ศ." maxlength="4"> -->
+                                    <select id="year" name="year" class="form-control">
+                                        <option value="">พ.ศ.</option>
+                                        <?php for($i = 2464; $i < 2564; $i++){
+                                            echo '<option value="'.$i.'">'.$i.'</option>';
+                                        }?>
+                                        
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +141,10 @@
                         <div class="form-group">
                             <p>จังหวัด (กรุณากรอกข้อมูลตามบัตรประชาชน)</p>
                             <select id="province" name="province" class="form-control">
-                                <option value="">กรุงเทพมหานคร</option>
+                                <option value="">จังหวัด</option>
+                                <?php foreach($province as $province){
+                                    echo '<option value="'.$province['PROVINCE_ID'].'">'.$province['PROVINCE_NAME'].'</option>';
+                                }?>
                             </select>
                         </div>
 
@@ -196,7 +208,7 @@
   </div>
   <!-- Reward BG @e -->
 
-  <a href="#" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
+  <a href="javascript:void(0)" onclick="return social_share();" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
   
 </div>
 <!-- Content Wrapper @e -->

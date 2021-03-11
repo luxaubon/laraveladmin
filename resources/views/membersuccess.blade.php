@@ -55,10 +55,46 @@
 
 
   <!-- Main Box @s -->
-    <div class="main-box">
-        <h2 class="title">กติกา</h2>
-        <?php echo $setting['address_en']; ?>
-    </div>
+
+  <div class="main-box">
+                <h2 class="title">ประวัติย้อนหลัง</h2>
+                <table class="table table-bordered table-sm">
+                    <tbody>
+                        <tr>
+                            <td>
+                                รหัสใต้ฝา
+                            </td>
+                            <td>
+                                สถาณะ
+                            </td>
+                        </tr>
+                        <?php
+                        foreach($images_code as $db){
+                            if($db['status'] == 1){
+                                $status = 'ผ่าน';
+                            }else if($db['status'] == 2){
+                                $status = 'รหัสซ้ำ';
+                            }else{
+                                $status = 'รหัสผิดพลาด';
+                            }
+                            echo '<tr>
+                                    <td>'.$db['code_number'].'</td>
+                                    <td>'.$status.'</td>
+                                </tr>';
+                        }?>
+
+                        <tr >
+                            <td colspan="2">
+                            {{ $images_code->links() }}
+                            </td>
+                        </tr>
+
+
+                        
+                    </tbody>
+                </table>
+
+            </div>
 
   <!-- Main Box @e -->
 
@@ -74,7 +110,15 @@
 <!-- Content Wrapper @e -->
 
 </div>
-<!-- Main @s -->
+<!-- Main @s  -->
+<?php if(@$_GET['share'] == 'share'){ ?>
+<script>
+
+$(function () {
+    social_share();
+});
 
 
+    </script>
+<?php } ?>
 @endsection

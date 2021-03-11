@@ -24,9 +24,13 @@ Route::post('/registerPhone','HomeController@registerPhone');
 
 Route::get('/login','HomeController@login');
 Route::get('/member','HomeController@member');
+Route::get('/membersuccess','HomeController@membersuccess');
 Route::get('/logout','HomeController@logout');
 
+Route::get('/results','HomeController@results');
 Route::get('/rules','HomeController@rules');
+
+Route::get('/toppender','HomeController@toppender');
 
 Route::post('/ocr', 'OcrController@ocrImage');
 Route::post('/checkCode', 'HomeController@checkCode');
@@ -54,6 +58,20 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
         //Route::get('/listadmin','admin\RegistrationController@show');
     });
 
+
+    Route::group(['prefix'=>'/toppender/'], function(){
+
+        Route::get('/index','admin\ToppenderController@index');
+    	Route::post('/insert','admin\ToppenderController@store');
+
+        Route::get('/show/{id}','admin\ToppenderController@show');
+        Route::post('/edit/{id}','admin\ToppenderController@edit');
+        Route::get('/del_content','admin\ToppenderController@del_content');
+
+        Route::get('/update_listpic','admin\ToppenderController@update_listpic');
+        Route::get('/del_img','admin\ToppenderController@del_img');
+
+    });
 
     Route::group(['prefix'=>'/page/'], function(){
 

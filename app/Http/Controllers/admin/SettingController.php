@@ -46,14 +46,14 @@ class SettingController extends Controller
     //                 'phone_th' =>  (mysql_escape(stripslashes($request->phone_th))),
     //                 'ifram_th' =>  (mysql_escape(stripslashes($request->ifram_th))),
     //             );
-    $address_en[] =  array(
-                    'company_en' =>  (mysql_escape(stripslashes($request->company_en))),
-                    'address_en' =>  (mysql_escape(stripslashes($request->address_en))),
-                    'tel_en' =>  (mysql_escape(stripslashes($request->tel_en))),
-                    'fax_en' =>  (mysql_escape(stripslashes($request->fax_en))),
-                    'phone_en' =>  (mysql_escape(stripslashes($request->phone_en))),
-                    'ifram_en' =>  (mysql_escape(stripslashes($request->ifram_en))),
-                ); 
+    // $address_en[] =  array(
+    //                 'company_en' =>  (mysql_escape(stripslashes($request->company_en))),
+    //                 'address_en' =>  (mysql_escape(stripslashes($request->address_en))),
+    //                 'tel_en' =>  (mysql_escape(stripslashes($request->tel_en))),
+    //                 'fax_en' =>  (mysql_escape(stripslashes($request->fax_en))),
+    //                 'phone_en' =>  (mysql_escape(stripslashes($request->phone_en))),
+    //                 'ifram_en' =>  (mysql_escape(stripslashes($request->ifram_en))),
+    //             ); 
     $email[] = array(
                     'email' =>  (mysql_escape(stripslashes($request->email))),
                     'host' =>  (mysql_escape(stripslashes($request->host))),
@@ -98,7 +98,8 @@ class SettingController extends Controller
     $post->email = json_encode($email,JSON_UNESCAPED_UNICODE);
     $post->social = json_encode($social,JSON_UNESCAPED_UNICODE);
     $post->address_th = $request->address_th;
-    $post->address_en = json_encode($address_en,JSON_UNESCAPED_UNICODE);
+    //$post->address_en = json_encode($address_en,JSON_UNESCAPED_UNICODE);
+    $post->address_en = $request->address_en;
     $post->payment = json_encode($payment,JSON_UNESCAPED_UNICODE);
     $post->save();  
     }

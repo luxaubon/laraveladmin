@@ -37,30 +37,32 @@
 <div class="content-wrapper">
 
   <div class="main-button">
-    <a href="#" class="btn">
+    <a href="/rules" class="btn">
       <i class="fal fa-file"></i>
       <div>กติกา</div>
     </a>
-    <a href="/rules" class="btn">
+    <a href="/results" class="btn">
       <i class="fal fa-trophy"></i>
       <div>ประกาศผล</div>
     </a>
-    <a href="#" class="btn btn-primary">
-      <i class="fal fa-star"></i>
-      <div>TOP SPENDER</div>
-    </a>
+    <?php if($toppender_status == 'online'){
+        echo '<a href="/toppender" class="btn btn-primary">
+            <i class="fal fa-star"></i>
+            <div>TOP SPENDER</div>
+        </a>';
+    }?>
   </div>
 
 
   <!-- Main Box @s -->
   <div class="main-box">
-    <h2 class="title">กรุณาใส่ CODE </h2>
+    <h2 class="title">กรุณาใส่ CODE</h2>
     <div class="main-mobile">
         <form action="/checkCode" method="POST" id="header_image_frm" enctype="multipart/form-data">    
             @csrf
             <div class="form-group" >
                 <div class="input-group">
-                    <input type="number" id="number0" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE">
+                    <input type="number" id="number0" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <input type="file" id="files_0" name="image[]" onchange="fileselectedchange(this,0);" accept="image/*" required>
@@ -70,7 +72,9 @@
             </div>
 
             <div id="TextBoxContainer"></div>
-            
+            <?php if($block == 'block'){
+
+              }else{?>
             <div class="form-group">
                 <a href="javascript:void(0);" class="btn btn-block" id="btnAdd">+ เพิ่มช่อง</a>
             </div>
@@ -78,6 +82,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-block btn-lg btn-primary">ตกลง</button>
             </div>
+            <?php } ?>
 
             
         </form>
@@ -92,7 +97,7 @@
   </div>
   <!-- Reward BG @e -->
 
-  <a href="#" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
+  <a href="javascript:void(0)" onclick="return social_share();" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
   
 </div>
 <!-- Content Wrapper @e -->
@@ -101,6 +106,12 @@
 <!-- Main @s -->
 
 <script>
+
+<?php if($block == 'block'){
+  echo 'swal("ขออภัยท่านกรอกรหัสผิด", "เกินกว่าสิทธิ์ที่กำหนด กรุณากลับมาลองอีกครั้งในวันพรุ้งนี้", "error");';
+}?>
+
+
 $(function () {
     
     $("#btnAdd").bind("click", function () {
@@ -147,7 +158,7 @@ function GetDynamicTextBox(value,number) {
     return `<div class="form-group" >
                 <div class="input-group">
                 <button type="button" class="btn btn-danger remove">-</button>
-                <input type="number" id="number`+number+`" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE">
+                <input type="number" id="number`+number+`" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <input type="file" id="files_`+number+`" name="image[]" onchange="fileselectedchange(this,`+number+`);" accept="image/*" required>

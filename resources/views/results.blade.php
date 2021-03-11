@@ -55,10 +55,42 @@
 
 
   <!-- Main Box @s -->
-    <div class="main-box">
-        <h2 class="title">กติกา</h2>
-        <?php echo $setting['address_en']; ?>
-    </div>
+  <div class="main-box">
+                <h2 class="title">ประกาศรายชื่อผู้โชคดี</h2>
+                <table class="table table-bordered table-sm">
+                    <tbody>
+                        <tr>
+                            <td>
+                                รอบการร่วมสนุก
+                            </td>
+                            <td>
+                                การจับรางวัล
+                            </td>
+                        </tr>
+                      <?php
+                      foreach($pages as $page){
+                        echo '<tr>
+                                <td>'.json_decode($page->seo)[0]->seo_th.'</td>
+                                <td><a href="/results?show='.$page['id'].'">'.json_decode($page->title)[0]->title_th.'</a></td>
+                            </tr>';
+                      }?>
+                    </tbody>
+                </table>
+                <?php
+                      foreach($pages as $page){
+                        if(@$_GET['show'] == $page['id']){
+                          echo '<p>'.json_decode($page->caption)[0]->caption_th.'</p>';
+                          echo json_decode($page->detail)[0]->detail_th;
+                          break;
+                        }else if(@$_GET['show'] == null){
+                          echo '<p>'.json_decode($page->caption)[0]->caption_th.'</p>';
+                          echo json_decode($page->detail)[0]->detail_th;
+                          break;
+                        }
+                      }?>
+                
+
+            </div>
 
   <!-- Main Box @e -->
 

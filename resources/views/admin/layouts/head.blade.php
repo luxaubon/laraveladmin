@@ -65,7 +65,6 @@
 	<!-- ================== PLUGIN ================== -->
 	<link href="/assets/css/style.css" rel="stylesheet" />
 	<link href="/assets/css/magnific-popup.css" rel="stylesheet" type="text/css">
-	
 
 	<link href="/assets/charts/styles.css" rel="stylesheet" />
 	<script src="/assets/charts/apexcharts.min.js"></script>
