@@ -19,7 +19,10 @@ use App\Toppender;
 
 use Session;
 
+//use Illuminate\Support\Facades\Cache;
+
 use Illuminate\Support\Facades\DB;
+
 class HomeController extends Controller
 {
     /**
@@ -314,6 +317,7 @@ class HomeController extends Controller
                 $code_number    = $request->number[$i];
                 $check_code     = db_code::where('code_number',$code_number)->first();
 
+
                 if($check_code['status'] == 1){
                     
                     $stauts = 1; // กรอกมาใหม่
@@ -370,6 +374,39 @@ class HomeController extends Controller
             return redirect('/membersuccess?share=share');
 
     }   
+
+    // public function checkCode(Request $request){
+
+        
+    //         // $numberData = count($request->number)-1;
+    //         // $images_id = '';
+    //         // for($i=0; $i <= $numberData; $i++ ){
+    //         //     $photo          = $request->file('image')[$i];
+    //         //     $code_number    = $request->number[$i];
+    //         //     $check_code     = db_code::where('code_number',$code_number)->first();
+    //         // }
+    //         //$check_code = DB::select("SELECT code_number FROM db_code where code_number = '1025231009'  ");
+
+    //         //$check_code     = db_code::find(1025231009);
+
+        
+    //         // $check_code =  db_code::all();
+    //         // Cache::put('key', $check_code,10);
+    //         // if (Cache::has('key')){
+    //         //     $value = Cache::get('key');
+    //         // }
+    //         //Cache::forget('key');
+    //         // $value = Cache::remember('key', 10, function(){
+    //         //     return db_code::all();
+    //         //     //return DB::select("SELECT code_number FROM db_code where code_number = '1025231009'  ");
+    //         // });
+    //         // $check_code     = db_code::find(1025231009);
+    //         // $check_code->status = 2;
+    //         // $check_code->save();
+    //         //return response()->json(['check_code' => $value]);
+    //         //return response()->json(['check_code' => $check_code]);
+
+    // } 
 
     
     public function results(){
