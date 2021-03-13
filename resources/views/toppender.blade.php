@@ -7,10 +7,10 @@
 
 <div class="main-bar">
   <div class="main-logo">
-    <img src="assets_home/img/Logo.png" alt="">
+    <a href="/"><img src="assets_home/img/Logo.png" alt=""></a>
   </div>
   <div class="main-title">
-    <img src="assets_home/img/title.png" alt="">
+  <a href="/"><img src="assets_home/img/title.png" alt=""></a>
   </div>
 </div>
 
@@ -56,7 +56,7 @@
 
   <!-- Main Box @s -->
   <div class="main-box">
-                <h2 class="title">ประกาศรายชื่อผุ้โชคดี <br>Top Spender</h2>
+                <h2 class="title">ประกาศรายชื่อผู้โชคดี <br>Top Spender</h2>
                 <table class="table table-bordered table-sm">
                     <tbody>
                         <tr>
@@ -67,6 +67,11 @@
                         </tr>
 
                         <?php 
+                          if($user == 'nodata'){
+                            echo '<tr>
+                                    <th colspan="4">ไม่มีข้อมูล</th>
+                                </tr>';
+                          }else{
                             $i = 1;
                             foreach($user as $db){
                             $last_name = substr($db->last_name, 0, -3);
@@ -78,6 +83,7 @@
                                     <th>XX</th>
                                 </tr>';
                             }
+                          }
                             
                             ?>
 
@@ -85,7 +91,7 @@
                     
 
                 </table>
-                <?php if($myuser){ ?>
+                <?php if(!empty($myuser[0]->totals)){ ?>
                     <table class="table table-bordered table-sm">
                         <tbody>
                             <tr>

@@ -8,7 +8,7 @@
 
   function social_share() {
           window.open(
-              'https://www.facebook.com/sharer.php?u=https://www.google.com/&hashtag=%23hivitaminc',
+              'https://www.facebook.com/sharer.php?u=https://hivitaminc200.com/&hashtag=%23hivitaminc',
               'sharer', 'toolbar=0,status=0,width=626,height=436');
       return false;
   }

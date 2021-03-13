@@ -42,8 +42,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Session::get('ss_phone')){
-            return redirect('/member');
+        if(Session::get('ss_phone') ){
+            if(Session::get('ss_phone') && Session::get('ss_id')){
+                return redirect('/member');
+            }else{
+                return redirect('/register');
+            }
         }else{
             $setting = Setting::find(1);
             $slide = Db_other::find(1);
@@ -151,7 +155,7 @@ class HomeController extends Controller
     public function registerPhone(Request $request){
 
         Session::put('ss_phone', $request->phone);
-
+        
         $post                  = new User_otp;
         $post->name            = $request->name;
         $post->last_name       = $request->last_name;
@@ -165,6 +169,8 @@ class HomeController extends Controller
         $post->jobs            = $request->jobs;
         $post->salary          = $request->salary;
         $post->save();
+
+        Session::put('ss_id', $post->id);
 
         if($post){
             return 'success';
@@ -208,9 +214,9 @@ class HomeController extends Controller
 
     }
     
-    public function membersuccess(){
+    public function history(){
        
-        if(Session::get('ss_phone')){
+        if(Session::get('ss_phone') && Session::get('ss_id')){
             $setting = Setting::find(1);
             $slide = Db_other::find(1);
             if($slide->gallery != ''){
@@ -238,7 +244,7 @@ class HomeController extends Controller
                 'toppender_status'   => $toppender_status
                 //HEAD
             );
-            return view('membersuccess',$data);
+            return view('history',$data);
         }else{
             return redirect('/');
         }
@@ -246,15 +252,17 @@ class HomeController extends Controller
 
     public function member(){
        
-        if(Session::get('ss_phone')){
+        if(Session::get('ss_phone') && Session::get('ss_id')){
             $user_check         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();
             $block = '';
+            $dateblock = '';
             if($user_check){
                 if(time() > strtotime($user_check['date_block']) && $user_check['date_block'] != null){
                     $user_check->status  = 2;
                     $user_check->save();
                 }else if(time() < strtotime($user_check['date_block']) && $user_check['date_block'] != null){
                     $block = 'block';
+                    $dateblock = $user_check['date_block'];
                 }else{
 
                 }
@@ -283,6 +291,7 @@ class HomeController extends Controller
                 'setting' => $setting,
                 'slides' => $slides,
                 'block' => $block,
+                'dateblock' => $dateblock,
                 'toppender_status' => $toppender_status
                 //HEAD
             );
@@ -293,6 +302,10 @@ class HomeController extends Controller
     }
 
     public function checkCode(Request $request){
+
+        if(Session::get('ss_phone') == null && Session::get('ss_id') == null){
+            return redirect('/');
+        }
        
         $user_check         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();
         
@@ -328,8 +341,8 @@ class HomeController extends Controller
                     $stauts = 2; // ซ้ำ
                 }else{
                     $stauts = 3; // มั่ว
-                    if($user_check){
-                        $user_check2         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();   
+                    $user_check2         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();   
+                    if($user_check2){
                         $count               = Log_otp::where('user_id',Session::get('ss_id'))->count('id');
                         if($user_check2->total_use < 10){
                             $user_check2->total_use  = $user_check2->total_use + 1;
@@ -371,7 +384,7 @@ class HomeController extends Controller
             $post->gallery  = $post->gallery.$images_id;
             $post->save();
 
-            return redirect('/membersuccess?share=share');
+            return redirect('/history?share=share');
 
     }   
 
@@ -501,6 +514,7 @@ class HomeController extends Controller
             }else{
                 return redirect('/');
             }
+
             $date_start = date('Y-m-d H:i:s',$toppender->date_start);
             $date_stop = date('Y-m-d H:i:s',$toppender->date_stop);
             
@@ -513,9 +527,13 @@ class HomeController extends Controller
                 ORDER BY totals DESC
                 LIMIT 10
             ");
+            if($user[0]->totals == 0){
+                $user = 'nodata';
+            }
 
             if(Session::get('ss_id')){
                 $ssid = Session::get('ss_id');
+
                 $myuser = DB::select("SELECT COUNT('images.id') as totals,user_otp.phone,name,last_name
                     FROM  user_otp
                     INNER JOIN images ON user_otp.id = images.sid
@@ -524,9 +542,11 @@ class HomeController extends Controller
                     AND   images.sid = '".$ssid."'
                     AND   images.created_at BETWEEN '".$date_start."' AND '".$date_stop."'
                 ");
+
             }else{
                 $myuser = '';
             }
+
             $data = array(
                 //HEAD
                 'setting'   => $setting,

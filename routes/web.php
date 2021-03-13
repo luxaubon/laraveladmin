@@ -24,7 +24,7 @@ Route::post('/registerPhone','HomeController@registerPhone');
 
 Route::get('/login','HomeController@login');
 Route::get('/member','HomeController@member');
-Route::get('/membersuccess','HomeController@membersuccess');
+Route::get('/history','HomeController@history');
 Route::get('/logout','HomeController@logout');
 
 Route::get('/results','HomeController@results');

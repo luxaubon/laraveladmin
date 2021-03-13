@@ -7,10 +7,10 @@
 
 <div class="main-bar">
   <div class="main-logo">
-    <img src="assets_home/img/Logo.png" alt="">
+    <a href="/"><img src="assets_home/img/Logo.png" alt=""></a>
   </div>
   <div class="main-title">
-    <img src="assets_home/img/title.png" alt="">
+  <a href="/"><img src="assets_home/img/title.png" alt=""></a>
   </div>
 </div>
 
@@ -46,7 +46,7 @@
       <div>ประกาศผล</div>
     </a>
     <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn btn-primary">
+        echo '<a href="/toppender" class="btn ">
             <i class="fal fa-star"></i>
             <div>TOP SPENDER</div>
         </a>';
@@ -62,15 +62,19 @@
             @csrf
             <div class="form-group" >
                 <div class="input-group">
-                    <input type="number" id="number0" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required>
+                <button type="button" class="btn" style="background: white;border-color: white;"></button>
+                    <input type="number" id="number0" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required maxlength="10">
                     <div class="input-group-append">
-                        <div class="input-group-text">
-                            <input type="file" id="files_0" name="image[]" onchange="fileselectedchange(this,0);" accept="image/*" required>
-                        </div>
+                        <div class="upload-btn-wrapper input-group-text">
+                          <i class="fal fa-camera"></i>
+                          <input type="file" id="files_0" name="image[]" onchange="fileselectedchange(this,0);" accept="image/*;capture=camera" required>
+                      </div>
                     </div>
                 </div>
+                
+                
             </div>
-
+            
             <div id="TextBoxContainer"></div>
             <?php if($block == 'block'){
 
@@ -80,7 +84,7 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-block btn-lg btn-primary">ตกลง</button>
+                <button type="submit" class="btn btn-block btn-lg btn-primary" id="btnSend">ตกลง</button>
             </div>
             <?php } ?>
 
@@ -104,21 +108,47 @@
 
 </div>
 <!-- Main @s -->
+<div class="modal fade" id="get-otp" tabindex="-1" role="dialog" aria-labelledby="get-otp" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-display">
+          <i class="fas fa-spinner"></i>
+          <h3 class="title">
+            กรุณารอสักครู่
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
 
 <?php if($block == 'block'){
-  echo 'swal("ขออภัยท่านกรอกรหัสผิด", "เกินกว่าสิทธิ์ที่กำหนด กรุณากลับมาลองอีกครั้งในวันพรุ้งนี้", "error");';
+
+  echo 'swal("ขออภัยท่านกรอกรหัสผิด", "เกินกว่าสิทธิ์ที่กำหนด กลับมาลองอีกครั้งในวันที่ '.DateThai($dateblock).'", "error");';
 }?>
 
+$(document).ready(function() {
+  $("#btnSend").submit(function (){
+    $("#btnSend").hide();
+  });
+});
 
 $(function () {
     
     $("#btnAdd").bind("click", function () {
         var div = $("<div />");
         var myArray = $(".main-mobile .form-group .form-control").length;
-        div.html(GetDynamicTextBox("",myArray));
-        $("#TextBoxContainer").append(div);
+        console.log(myArray);
+        if(myArray < 9){
+          div.html(GetDynamicTextBox("",myArray));
+          $("#TextBoxContainer").append(div);
+        }else{
+          swal("ไม่สามารถเพิ่มได้", "ระบบสามารถเพิ่มได้ 10/ครั้ง", "error");
+        }
     });
 
     $("body").on("click", ".remove", function () {
@@ -133,7 +163,7 @@ function fileselectedchange(obj,number){
     let file = $('#files_'+number)[0].files[0];
     formData.append('file', file, file.name);
     formData.append('myarray', number);
-    //alert(number);
+    $('#get-otp').modal('toggle');
     $.ajax({
         url: '{{ url("/ocr") }}',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -144,8 +174,10 @@ function fileselectedchange(obj,number){
         data: formData,
         success: function(data) {
             $("#number"+number).val(data);
+            $('#get-otp').modal('toggle');
         },
         error: function(data) {
+            $('#get-otp').modal('toggle');
             console.log(data);
             swal("ระบบไม่สามารถกรอกรหัส CODE ให้ท่านได้", "กรุณากรอกรหัสด้วยตัวท่านเอง", "error");
         }
@@ -157,13 +189,15 @@ function fileselectedchange(obj,number){
 function GetDynamicTextBox(value,number) {
     return `<div class="form-group" >
                 <div class="input-group">
-                <button type="button" class="btn btn-danger remove">-</button>
-                <input type="number" id="number`+number+`" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required>
+                    <button type="button" class="btn btn-danger remove">-</button>
+                    <input type="number" id="number`+number+`" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required maxlength="10">
                     <div class="input-group-append">
-                        <div class="input-group-text">
-                            <input type="file" id="files_`+number+`" name="image[]" onchange="fileselectedchange(this,`+number+`);" accept="image/*" required>
-                        </div>
+                      <div class="upload-btn-wrapper input-group-text">
+                          <i class="fal fa-camera"></i>
+                          <input type="file" id="files_`+number+`" name="image[]" onchange="fileselectedchange(this,`+number+`);" accept="image/*;capture=camera" required>
+                      </div>
                     </div>
+                    
                 </div>
             </div>`;
 }

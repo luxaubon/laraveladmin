@@ -5,14 +5,14 @@
 <div class="main-wrapper">
 
 
-<div class="main-bar">
-  <div class="main-logo">
-    <img src="assets_home/img/Logo.png" alt="">
-  </div>
-  <div class="main-title">
-    <img src="assets_home/img/title.png" alt="">
-  </div>
-</div>
+    <div class="main-bar">
+        <div class="main-logo">
+          <a href="/"><img src="assets_home/img/Logo.png" alt=""></a>
+        </div>
+        <div class="main-title">
+        <a href="/"><img src="assets_home/img/title.png" alt=""></a>
+        </div>
+      </div>
 
 <div class="homeslide-wrapper">
   <div class="home-slide">
@@ -63,7 +63,7 @@
                             <p>ชื่อและนามสกุล</p>
                             <div class="row">
                                 <div class="col-6">
-                                    <input type="text" id="name" name="name" class="form-control" placeholder="ชื่อ">
+                                    <input type="text" id="name" name="name" onkeyup="isThaichar(this.value,this)" class="form-control" placeholder="ชื่อ">
                                 </div>
                                 <div class="col-6">
                                     <input type="text" id="last_name" name="last_name" class="form-control" placeholder="นามสกุล">
@@ -77,7 +77,7 @@
                                 <div class="col-4">
                                     <select id="date" name="date" class="form-control">
                                         <option value="">วัน</option>
-                                        <?php for($i = 1; $i < 31; $i++){
+                                        <?php for($i = 1; $i < 32; $i++){
                                             echo '<option value="'.$i.'">'.$i.'</option>';
                                         }?>
                                         
@@ -130,12 +130,12 @@
 
                         <div class="form-group">
                             <p>เบอร์โทรศัพท์</p>
-                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์" value="<?php echo Session::get('ss_phone'); ?>" >
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์" value="<?php echo Session::get('ss_phone'); ?>" readonly >
                         </div>
 
                         <div class="form-group">
                             <p>ที่อยู่ (กรุณากรอกข้อมูลตามบัตรประชาชน)</p>
-                            <input type="tel" id="address" name="address" class="form-control" placeholder="ที่อยู่">
+                            <input type="text" id="address" name="address" class="form-control" placeholder="ที่อยู่">
                         </div>
 
                         <div class="form-group">
@@ -239,8 +239,28 @@
     <!-- Terms & Conditions Modal  @e -->
 
     <script>
+        function isThaichar(str,obj){
+            var orgi_text="abcdefghijklmnopqurstvwxyzABCDEFGHIJKLMNOPWXYZSๅภถุึคตจขชๆไำพะัีรนยบลฃฟหกดเ้่าสวงผปแอิืทมใฝ๑๒๓๔ู฿๕๖๗๘๙๐ฎฑธํ๊ณฯญฐฅฤฆฏโฌ็๋ษศซฉฮฺ์ฒฬฦ";
+            var str_length=str.length;
+            var str_length_end=str_length-1;
+            var isThai=true;
+            var Char_At="";
+            for(i=0;i<str_length;i++){
+                Char_At=str.charAt(i);
+                if(orgi_text.indexOf(Char_At)==-1){
+                    isThai=false;
+                }   
+            }
+            if(str_length>=1){
+                if(isThai==false){
+                    obj.value=str.substr(0,str_length_end);
+                }
+            }
+            return isThai; // ถ้าเป็น true แสดงว่าเป็นภาษาไทยทั้งหมด
+        }
     $(document).ready(function() {
 
+        
         $('#flexCheckChecked').change(function() {
           if ($(this).is(":checked")) {
               var text =  $(this).val('true')

@@ -27,3 +27,4 @@ class OcrController extends Controller{
     }
 }
 
+//https://datatables.net/examples/api/show_hide.html

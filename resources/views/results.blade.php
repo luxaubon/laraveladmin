@@ -7,10 +7,10 @@
 
 <div class="main-bar">
   <div class="main-logo">
-    <img src="assets_home/img/Logo.png" alt="">
+    <a href="/"><img src="assets_home/img/Logo.png" alt=""></a>
   </div>
   <div class="main-title">
-    <img src="assets_home/img/title.png" alt="">
+  <a href="/"><img src="assets_home/img/title.png" alt=""></a>
   </div>
 </div>
 
