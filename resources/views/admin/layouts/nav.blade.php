@@ -17,25 +17,42 @@
 						</ul>
 						
 					</li>
+					<li class="has-sub {{ checkActiveMenu(Request::segment(2),'toprank1') }}{{ checkActiveMenu(Request::segment(2),'toprank2') }}{{ checkActiveMenu(Request::segment(2),'toprank3') }}{{ checkActiveMenu(Request::segment(2),'toprank') }}">
+						<a href="javascript:;">
+					        <b class="caret"></b>
+						    <i class="fab fa-lg fa-fw m-r-10 fa-product-hunt"></i>
+						    <span>TopRank</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="{{ checkActiveMenu(Request::segment(2),'toprank') }}"><a href="/admin/toprank/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Every taste</span></a></li>
+							<li class="{{ checkActiveMenu(Request::segment(2),'toprank1') }}"><a href="/admin/toprank1/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Lemon</span></a></li>
+							<li class="{{ checkActiveMenu(Request::segment(2),'toprank2') }}"><a href="/admin/toprank2/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Orange</span></a></li>
+							<li class="{{ checkActiveMenu(Request::segment(2),'toprank3') }}"><a href="/admin/toprank3/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>MixBerry</span></a></li>
+						</ul>
+					</li>
 
-					<li class="{{ checkActiveMenu(Request::segment(2),'page') }}"><a href="/admin/page/index"><i class="fa fa-calendar"></i> <span>Rules</span></a></li>
+					<li class="has-sub {{ checkActiveMenu(Request::segment(2),'member') }}{{ checkActiveMenu(Request::segment(2),'member1') }}{{ checkActiveMenu(Request::segment(2),'member2') }}{{ checkActiveMenu(Request::segment(2),'member3') }}">
+						<a href="javascript:;">
+					        <b class="caret"></b>
+						    <i class="fab fa-lg fa-fw m-r-10 fa-product-hunt"></i>
+						    <span>Member</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="{{ checkActiveMenu(Request::segment(2),'member') }}"><a href="/admin/member/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>All Status</span></a></li>
+							<li class="{{ checkActiveMenu(Request::segment(2),'member1') }}"><a href="/admin/member1/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Pass code</span></a></li>
+							<li class="{{ checkActiveMenu(Request::segment(2),'member2') }}"><a href="/admin/member2/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Duplicate code</span></a></li>
+							<li class="{{ checkActiveMenu(Request::segment(2),'member3') }}"><a href="/admin/member3/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Wrong code</span></a></li>
+						</ul>
+					</li>
+
+					<li class="{{ checkActiveMenu(Request::segment(2),'page') }}"><a href="/admin/page/index"><i class="fa fa-calendar"></i> <span>Results</span></a></li>
 					<li class="{{ checkActiveMenu(Request::segment(2),'toppender') }}"><a href="/admin/toppender/index"><i class="fa fa-calendar"></i> <span>Toppender</span></a></li>
 					<!-- <li class="{{ checkActiveMenu(Request::segment(2),'shopcode') }}"><a href="/admin/shopcode/index"><i class="fa fa-calendar"></i> <span>Shop Code</span></a></li> -->
 					<li class="{{ checkActiveMenu(Request::segment(2),'slide') }}"><a href="/admin/slide/index"><i class="far fa-lg fa-fw m-r-10 fa-image"></i> <span>Slide</span></a></li>
 					<!-- <li class="{{ checkActiveMenu(Request::segment(2),'member') }}"><a href="/admin/member/index"><i class="far fa-lg fa-fw m-r-10 fa-user"></i> <span>Member</span></a></li> -->
 
-					<!-- <li class="has-sub {{ checkActiveMenu(Request::segment(2),'trees') }}{{ checkActiveMenu(Request::segment(2),'products') }}">
-						<a href="javascript:;">
-					        <b class="caret"></b>
-						    <i class="fab fa-lg fa-fw m-r-10 fa-product-hunt"></i>
-						    <span>Product</span>
-						</a>
-						<ul class="sub-menu">
-							<li class="{{ checkActiveMenu(Request::segment(2),'trees') }}"><a href="/admin/trees/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Menus Product</span></a></li>
+					
 
-							<li class="{{ checkActiveMenu(Request::segment(2),'products') }}"><a href="/admin/products/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Products</span></a></li>
-						</ul>
-					</li> -->
 					
 					<li class="{{ checkActiveMenu(Request::segment(2),'setting') }}"><a href="/admin/setting/index"><i class="fa fa-cogs"></i> <span>Setting</span></a></li>
 

@@ -1,4 +1,4 @@
-@extends('admin.layouts.head')
+@extends('admin.layouts.head_notable')
         
 @section('content')
 
@@ -7,11 +7,11 @@
 			<ol class="breadcrumb pull-right">
 				<li class="breadcrumb-item"><a href="javascript:;">Home </a></li>
 				<!--li class="breadcrumb-item"><a href="javascript:;">UI Elements</a></li-->
-				<li class="breadcrumb-item active">Results</li>
+				<li class="breadcrumb-item active">Member Pass Code</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">Results</small></h1>
+			<h1 class="page-header">Member Pass Code</small></h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->
@@ -43,12 +43,12 @@
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul"></i> LIST DATA</span>
 								</a>
 							</li>
-							<li class="nav-items">
+							<!-- <li class="nav-items">
 								<a href="#default-tab-2" data-toggle="tab" class="nav-link <?php echo $ftab; ?>">
 									<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
 								</a>
-							</li>
+							</li> -->
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade {{$lshow2}}" id="default-tab-1">
@@ -69,12 +69,12 @@
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul"></i> LIST DATA</span>
 								</a>
 							</li>
-							<li class="nav-items"> 
+							<!-- <li class="nav-items"> 
 								<a href="#default-tab-2" data-toggle="tab" class="nav-link active">
 									<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
 								</a>
-							</li>
+							</li> -->
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade " id="default-tab-1">
@@ -96,7 +96,7 @@
 			
 			<!-- end row -->
 		</div>
+	
  @include('admin.'.$folder.'.js')
-		
 
 @endsection

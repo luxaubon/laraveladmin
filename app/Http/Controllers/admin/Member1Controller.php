@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\DB;
 
-class MemberController extends Controller
+class Member1Controller extends Controller
 {
     //
     public function __construct(){
@@ -16,7 +16,7 @@ class MemberController extends Controller
 
     }
 
-    public function folder(){return 'member';}
+    public function folder(){return 'member1';}
 
     public function index(Request $request){
         if($request->search){
@@ -24,6 +24,7 @@ class MemberController extends Controller
             $member = DB::table('images')
             ->join('user_otp', 'images.sid', '=', 'user_otp.id')
             ->select('user_otp.id','name', 'last_name', 'phone', 'code_number', 'images.created_at', 'images.image', 'images.status')
+            ->where('images.status',1)
             ->where('code_number',$request->search)
             ->orderBy('id', 'DESC')
             ->paginate(30);
@@ -33,6 +34,7 @@ class MemberController extends Controller
             $member = DB::table('images')
             ->join('user_otp', 'images.sid', '=', 'user_otp.id')
             ->select('user_otp.id','name', 'last_name', 'phone', 'code_number', 'images.created_at', 'images.image', 'images.status')
+            ->where('images.status',1)
             ->orderBy('id', 'DESC')
             ->paginate(30);
 
@@ -54,6 +56,7 @@ class MemberController extends Controller
         $member = DB::table('images')
         ->join('user_otp', 'images.sid', '=', 'user_otp.id')
         ->select('user_otp.id','name', 'last_name', 'phone', 'code_number', 'images.created_at', 'images.image', 'images.status')
+        ->where('images.status',1)
         ->orderBy('id', 'DESC')
         ->get();
 
@@ -81,8 +84,8 @@ class MemberController extends Controller
             $link_image     = ($request->link_image == 'show') ? array_push($myArrayData[$i],asset('images/'.$data->id.'/'.$data->image.'')) : '';
         }
 
-        $filename = 'memberallstatus';
-        return zipfile('memberallstatus.zip',$myArrayHeaders,$myArrayData,$request->pass,$filename);
+        $filename = 'memberpass';
+        return zipfile('memberpass.zip',$myArrayHeaders,$myArrayData,$request->pass,$filename);
 
         //https://www.programmersought.com/article/78061553647/
         

@@ -9,6 +9,7 @@ use App\Pages;
 use App\User;
 use App\Db_other;
 use App\User_otp;
+use App\Images;
 
 use Illuminate\Support\Facades\DB;
 class IndexController extends Controller
@@ -24,80 +25,156 @@ class IndexController extends Controller
     public function folder(){return 'dashboard';}
     public function status(){return 'Pages';}
 
-    public function index()
+    public function index(Request $request)
     {
-        //$user = Auth::user();
-
-        $pagesOnline = User_otp::count();
-
-        $pagesOffline = User_otp::all()
-                        ->where('percentage','!=','')
-                        ->count();
-        //$user = Pages::sum('numbercode');
-        //$user = $total - $pagesOffline;
-        //User::DEFAULT_TYPE,
-
-        $montcount = '';
-        $view = '';
-        $viewMont = Db_other::all()->where('status',2);
-        foreach($viewMont as $dataMont) {
-            $montcount.= "'".ViewDate($dataMont->montcount)."',";
-            $view.= $dataMont->view.',';
+        if($request->date_start && $request->date_stop){
+            $date_start = $request->date_start;
+            $date_stop = $request->date_stop;
+        }else{
+            $date_start = date('Y-m-d');
+            $date_stop = date('Y-m-d');
         }
 
-        // $memberOtp1 =  User_otp::Where('otp','!=','')->count();
-        // $memberOtp2 =  User_otp::Where('otp','=',null)->count();
+        $countUserAll = User_otp::count();
+        $countCode = Images::count();
 
-        // $chosse2 = DB::select("SELECT COUNT('user_otp.code_id') as code, pages.namecode
-        //     FROM  user_otp
-        //     INNER JOIN pages ON user_otp.code_id = pages.id
-        //     GROUP BY user_otp.code_id");
-        // $topics2 = '';
-        // $data2 = '';
-        // foreach($chosse2 as $data){
-        //     $data2.= $data->code.',';
-        //     $topics2.= '"'.$data->namecode.'",';
-        // }
+        $register = DB::select("SELECT COUNT(`id`) as total , DATE_FORMAT(`created_at`, '%e/%c/%Y') as `dates`
+            FROM user_otp WHERE created_at BETWEEN '".$date_start."' AND '".$date_stop."' GROUP BY `dates` ORDER BY created_at");
 
- 
-        // $chosse3 = DB::table('user_otp')
-        //          ->select(DB::raw('count(shop_code) as total'),'shop_code')
-        //          ->Where('shop_code','!=','')
-        //          ->groupBy('shop_code')
-        //          ->get();
-        // $topics_shopcode = '';
-        // $data_shopcode = '';
-        // foreach($chosse3 as $data){
-        //     $data_shopcode.= $data->total.',';
-        //     $topics_shopcode.= '"'.$data->shop_code.'",';
-        // }
-        // $chosse4 = DB::select("SELECT DATE_FORMAT(`updated_at`, '%e/%c/%Y') as `date`, COUNT(`updated_at`) as total FROM user_otp where `code_id` != null or `shop_code` != '' GROUP BY `date` ORDER BY updated_at ASC");
-       
-        // $dataChart = '';
-        // foreach($chosse4 as $data){
-        //     $dataChart.= '{device:"'.$data->date.'",geekbench:'.$data->total.'},';
-        // }
-        // $member = array(
-        //     'memberOtp1' => $memberOtp1,
-        //     'memberOtp2' => $memberOtp2,
-        //     'topics2'    => $topics2,
-        //     'data2'    => $data2,
-        //     'topics_shopcode'    => $topics_shopcode,
-        //     'data_shopcode'    => $data_shopcode,
-        //     'dataChart'    => $dataChart,
-        // );
+        $dataChartRegister = '';
+        foreach($register as $data){
+            $dataChartRegister.= '{device:"'.$data->dates.'",geekbench:'.$data->total.'},';
+        }
+
+        $transactionAllday = DB::select("SELECT DATE_FORMAT(`created_at`, '%e/%c/%Y') as `date`, 
+        COUNT(`id`) as total FROM images WHERE created_at BETWEEN '".$date_start."' AND '".$date_stop."' GROUP BY date");
+        $dataChartTransaction = '';
+        foreach($transactionAllday as $data){
+            $dataChartTransaction.= '{device:"'.$data->date.'",geekbench:'.$data->total.'},';
+        }
+
+        $job = DB::select("SELECT COUNT('jobs') as total,jobs FROM user_otp WHERE created_at BETWEEN '".$date_start."' AND '".$date_stop."' GROUP BY jobs");
+        $dataChartJobs = '';
+        foreach($job as $data){
+            switch ($data->jobs) {
+                case 0: $jobS = 'ไม่ระบุ';break;
+                case 1: $jobS = 'พนักงานบริษัท';break;
+                case 2: $jobS = 'พนักงานโรงงาน';break;
+                case 3: $jobS = 'ข้าราชการ';break;
+                case 4: $jobS = 'นักเรียน/นักศึกษา';break;
+                case 5: $jobS = 'ลูกจ้างทั่วไป';break;
+                case 6: $jobS = 'เจ้าของธุระกิจ';break;
+                case 7: $jobS = 'พ่อค้า แม่ค้า (ค้าขาย)';break;
+                case 8: $jobS = 'เกษตรกร';break;
+                case 9: $jobS = 'เกษียณ/แม่บ้าน';break;
+                default: $jobS = 'ไม่ระบุ'; break;
+              }
+            $dataChartJobs.= '{device:"'.$jobS.'",geekbench:'.$data->total.'},';
+        }
+
+
+        $salary = DB::select("SELECT COUNT('salary') as total,salary FROM user_otp WHERE created_at BETWEEN '".$date_start."' AND '".$date_stop."' GROUP BY salary");
+        $dataChartSalary = '';
+        foreach($salary as $data){
+            switch ($data->salary) {
+                case 0: $salary = 'ไม่ระบุ';break;
+                case 1: $salary = 'ต่ำกว่า 5,000 บาท';break;
+                case 2: $salary = '5,001 - 7,999 บาท';break;
+                case 3: $salary = '8,000 - 9,999 บาท';break;
+                case 4: $salary = '10,000 - 11,999 บาท';break;
+                case 5: $salary = '12,000 - 13,999 บาท';break;
+                case 6: $salary = '14,000 - 15,999 บาท';break;
+                case 7: $salary = '16,000 - 19,999 บาท';break;
+                case 8: $salary = '20,000 - 24,999 บาท';break;
+                case 9: $salary = '25,000 - 29,999 บาท';break;
+                case 10: $salary = '30,000 บาท หรือมากกว่า';break;
+                default: $salary = 'ไม่ระบุ'; break;
+              }
+            $dataChartSalary.= '{device:"'.$salary.'",geekbench:'.$data->total.'},';
+        }
+
+        $code = DB::select("SELECT COUNT('id') as total,code_first_number
+                FROM  images
+                WHERE status = 1
+                AND code_first_number IN (1,2,3)
+                AND created_at BETWEEN '".$date_start."' AND '".$date_stop."'
+                GROUP BY code_first_number");
+        $codeTitle = '';
+        $codeData = '';
+        foreach($code as $data){
+            switch ($data->code_first_number) {
+                case 1: $taste = 'Lemon';break;
+                case 2: $taste = 'Orange';break;
+                case 3: $taste = 'Mix Berry';break;
+                default: $taste = ''; break;
+              }
+            $codeData.= $data->total.',';
+            $codeTitle.= '"'.$taste.'",';
+        }
+
+        $ageTitle = '';
+        $ageData = '';
+        $age1_5 = DB::select("SELECT count(id) as total  FROM user_otp where year < 2563 and year > 2549 AND created_at BETWEEN '".$date_start."' AND '".$date_stop."'");
+        if($age1_5[0]->total > 0){
+            $ageData.= $age1_5[0]->total.',';
+            $ageTitle.= '"ช่างอายุระหว่าง 1-15 ปี",';  
+        }
+        $age16_25 = DB::select("SELECT count(id) as total  FROM user_otp where year < 2548 and year > 2539 AND created_at BETWEEN '".$date_start."' AND '".$date_stop."'");
+        if($age16_25[0]->total > 0){
+            $ageData.= $age16_25[0]->total.',';
+            $ageTitle.= '"ช่างอายุระหว่าง 16-25 ปี",';  
+        }
+        $age26_35 = DB::select("SELECT count(id) as total  FROM user_otp where year < 2538 and year > 2529 AND created_at BETWEEN '".$date_start."' AND '".$date_stop."'");
+        if($age26_35[0]->total > 0){
+            $ageData.= $age26_35[0]->total.',';
+            $ageTitle.= '"ช่างอายุระหว่าง 26-35 ปี",';  
+        }
+        $age36_45 = DB::select("SELECT count(id) as total  FROM user_otp where year < 2528 and year > 2519 AND created_at BETWEEN '".$date_start."' AND '".$date_stop."'");
+        if($age36_45[0]->total > 0){
+            $ageData.= $age36_45[0]->total.',';
+            $ageTitle.= '"ช่างอายุระหว่าง 36-45 ปี",';  
+        }
+        $age46 = DB::select("SELECT count(id) as total  FROM user_otp where year < 2518 AND created_at BETWEEN '".$date_start."' AND '".$date_stop."' ");
+        if($age46[0]->total > 0){
+            $ageData.= $age46[0]->total.',';
+            $ageTitle.= '"ช่างอายุ 46 ปีขึ้นไป",';  
+        }
+        
+        $sex = DB::select("SELECT COUNT('id') as total,sex FROM user_otp WHERE created_at BETWEEN '".$date_start."' AND '".$date_stop."' GROUP BY sex");
+        $sexTitle = '';
+        $sexData = '';
+        foreach($sex as $data){
+            switch ($data->sex) {
+                case 1: $sexs = 'ชาย';break;
+                case 2: $sexs = 'หญิง';break;
+                default: $sexs = ''; break;
+              }
+            $sexData.= $data->total.',';
+            $sexTitle.= '"'.$sexs.'",';
+        }
+
+        $Chart = array(
+            'countUserAll' => $countUserAll,
+            'countCode' => $countCode,
+            'dataChartRegister' => $dataChartRegister,
+            'dataChartTransaction' => $dataChartTransaction,
+            'dataChartJobs' => $dataChartJobs,
+            'dataChartSalary' => $dataChartSalary,
+
+            'codeData' => $codeData,
+            'codeTitle' => $codeTitle,
+            'ageData' => $ageData,
+            'ageTitle' => $ageTitle,
+            'sexTitle' => $sexTitle,
+            'sexData' => $sexData,
+        );
+
         
         $data = array(
             'folder' => 'dashboard',
-            'pagesOnline' => $pagesOnline,
-            'pagesOffline' => $pagesOffline,
-            //'user' => $user,
-            'montcount' => $montcount,
-            'view' => $view,
-           //'member' => $member,
+            'Chart' => $Chart,
            
         );
-        //dd($data);
         return view('admin.'.$this->folder().'.index',$data);
     }
 

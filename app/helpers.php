@@ -169,5 +169,42 @@ function ViewDate($strDate){
 				}
 			}
 
+			
+		function zipfile($zipname=null,$headers=null,$myArrayData=null,$pass=null,$filename=null) {
+			
+			header('Cache-Control:must-revalidate,post-check=0,pre-check=0');
+			header('Expires:0');
+			header('Pragma:public');
+			header('Content-Encoding: UTF-8');
+			header('Content-type: text/csv; charset=UTF-8');
+
+			$zip = new ZipArchive();
+			$zip->open($zipname, ZipArchive::CREATE);
+			$fd = putfile($zip, $headers, $myArrayData);
+			$zip->addFromString($filename.'.csv', stream_get_contents($fd));
+			$zip->setEncryptionName($filename.'.csv', ZipArchive::EM_AES_256, $pass); //Add file name and password dynamically
+			fclose($fd);
+			$zip->close();
+			header('Content-Type: application/zip');
+			header('Content-disposition: attachment; filename='.$zipname);
+			header('Content-Length: ' . filesize($zipname));
+			readfile($zipname);
+			unlink($zipname);
+		}
+
+		function putfile($zip, $headers, $records) {
+			$fd = fopen('php://temp/maxmemory:1048576', 'w');
+			if (false === $fd) {
+				die('Failed to create temporary file');
+			}
+			fputcsv($fd, $headers);
+			foreach($records as $record) {
+				fputcsv($fd, $record);
+			}
+			rewind($fd);
+			return $fd;
+		}
+
+
 
 			 ?>

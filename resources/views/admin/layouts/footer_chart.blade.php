@@ -108,7 +108,7 @@
     <script src="/assets/plugins/chart-js/Chart.min.js"></script>
     <script src="/assets/plugins/morris/raphael.min.js"></script>
     <script src="/assets/plugins/morris/morris.js"></script>
-	<!-- <script>
+	<script>
                 /*
         Template Name: Color Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3 & 4
         Version: 4.1.0
@@ -124,38 +124,22 @@
             return Math.round(Math.random()*100)
         };
 
-        var barChartData = {
-            labels: ['ทั้งหมด'],
-            datasets: [{
-                label: 'ผู้ลงทะเบียนยืนยันตัวตน',
-                borderWidth: 2,
-                borderColor: COLOR_PURPLE,
-                backgroundColor: COLOR_PURPLE_TRANSPARENT_3,
-                data: [<?php //echo $member['memberOtp1']; ?>]
-            }, {
-                label: 'ผู้ลงทะเบียนที่ไม่ยืนยันตัวตน',
-                borderWidth: 2,
-                borderColor: COLOR_BLACK,
-                backgroundColor: COLOR_BLACK_TRANSPARENT_3,
-                data: [<?php //echo $member['memberOtp2']; ?>]
-            }]
-        };
 
         var pieChartData = {
-            labels: [<?php //echo $member['topics2']; ?>],
+            labels: [<?php echo $Chart['codeTitle']; ?>],
             datasets: [{
-                data: [<?php //echo $member['data2'];?>],
-                backgroundColor: [COLOR_RED_TRANSPARENT_7, COLOR_ORANGE_TRANSPARENT_7, COLOR_SILVER_TRANSPARENT_7, COLOR_GREY_TRANSPARENT_7, COLOR_BLACK_TRANSPARENT_7],
-                borderColor: [COLOR_RED, COLOR_ORANGE, COLOR_SILVER_DARKER, COLOR_GREY, COLOR_BLACK],
+                data: [<?php echo $Chart['codeData'];?>],
+                backgroundColor: [COLOR_RED_TRANSPARENT_7, COLOR_ORANGE_TRANSPARENT_7, COLOR_PURPLE_TRANSPARENT_7],
+                borderColor: [COLOR_RED,COLOR_ORANGE,COLOR_PURPLE],
                 borderWidth: 2,
                 label: 'My dataset'
             }]
         };
-                
-        var doughnutChartData = {
-            labels: [<?php //echo $member['topics_shopcode']; ?>],
+        
+        var pieChartData2 = {
+            labels: [<?php echo $Chart['ageTitle']; ?>],
             datasets: [{
-                data: [<?php //echo $member['data_shopcode']; ?>],
+                data: [<?php echo $Chart['ageData'];?>],
                 backgroundColor: [COLOR_PURPLE_TRANSPARENT_7, COLOR_BLUE_TRANSPARENT_7, COLOR_GREEN_TRANSPARENT_7, COLOR_GREY_TRANSPARENT_7, COLOR_BLACK_TRANSPARENT_7],
                 borderColor: [COLOR_PURPLE, COLOR_BLUE, COLOR_GREEN, COLOR_GREY, COLOR_BLACK],
                 borderWidth: 2,
@@ -163,25 +147,45 @@
             }]
         };
 
+        var pieChartData3 = {
+            labels: [<?php echo $Chart['sexTitle']; ?>],
+            datasets: [{
+                data: [<?php echo $Chart['sexData'];?>],
+                backgroundColor: [COLOR_GREEN_TRANSPARENT_7, COLOR_GREY_TRANSPARENT_7, COLOR_BLACK_TRANSPARENT_7],
+                borderColor: [COLOR_GREEN,COLOR_GREY,COLOR_BLACK],
+                borderWidth: 2,
+                label: 'My dataset'
+            }]
+        };
 
+        // { 'label': 'One', 'value' : 29, 'color': COLOR_RED }, 
+        // { 'label': 'Two', 'value' : 12, 'color': COLOR_ORANGE }, 
+        // { 'label': 'Three', 'value' : 32, 'color': COLOR_GREEN }, 
+        // { 'label': 'Four', 'value' : 196, 'color': COLOR_AQUA }, 
+        // { 'label': 'Five', 'value' : 17, 'color': COLOR_BLUE }, 
+        // { 'label': 'Six', 'value' : 98, 'color': COLOR_PURPLE }, 
+        // { 'label': 'Seven', 'value' : 13, 'color': COLOR_GREY }, 
+        // { 'label': 'Eight', 'value' : 5, 'color': COLOR_BLACK }
+        //COLOR_SILVER_DARKER
+        //COLOR_SILVER
+        
         var handleChartJs = function() {
-            
-            var ctx2 = document.getElementById('bar-chart').getContext('2d');
-            var barChart = new Chart(ctx2, {
-                type: 'bar',
-                data: barChartData
-            });
 
             var ctx5 = document.getElementById('pie-chart').getContext('2d');
                 window.myPie = new Chart(ctx5, {
                 type: 'pie',
                 data: pieChartData
             });
+            var ctx2 = document.getElementById('pie-chart2').getContext('2d');
+                window.myPie = new Chart(ctx2, {
+                type: 'pie',
+                data: pieChartData2
+            });
 
-            var ctx6 = document.getElementById('doughnut-chart').getContext('2d');
-                window.myDoughnut = new Chart(ctx6, {
-                type: 'doughnut',
-                data: doughnutChartData
+            var ctx3 = document.getElementById('pie-chart3').getContext('2d');
+                window.myPie = new Chart(ctx3, {
+                type: 'pie',
+                data: pieChartData3
             });
 
         };
@@ -190,11 +194,72 @@
             Morris.Bar({
                 element: 'morris-bar-chart',
                 data: [
-                    <?php //echo $member['dataChart']; ?>
+                    <?php echo $Chart['dataChartRegister']; ?>
                 ],
                 xkey: 'device',
                 ykeys: ['geekbench'],
-                labels: ['จำนวนผู้เล่น'],
+                labels: ['ยอด Register แต่ละวัน'],
+                barRatio: 1,
+                xLabelAngle: 35,
+                resize: true,
+                gridLineColor: [COLOR_GREY_LIGHTER],
+                gridTextFamily: FONT_FAMILY,
+                gridTextColor: FONT_COLOR,
+                gridTextWeight: FONT_WEIGHT,
+                gridTextSize: FONT_SIZE,
+                barColors: [COLOR_BLACK]
+            });
+        };
+
+        var handleMorrisBarChartTransaction = function () {
+            Morris.Bar({
+                element: 'morris-bar-chart-Transaction',
+                data: [
+                    <?php echo $Chart['dataChartTransaction']; ?>
+                ],
+                xkey: 'device',
+                ykeys: ['geekbench'],
+                labels: ['Transaction'],
+                barRatio: 1,
+                xLabelAngle: 35,
+                resize: true,
+                gridLineColor: [COLOR_GREY_LIGHTER],
+                gridTextFamily: FONT_FAMILY,
+                gridTextColor: FONT_COLOR,
+                gridTextWeight: FONT_WEIGHT,
+                gridTextSize: FONT_SIZE,
+                barColors: [COLOR_BLACK]
+            });
+        };
+        var handleMorrisBarChartJobs = function () {
+            Morris.Bar({
+                element: 'morris-bar-chart-Jobs',
+                data: [
+                    <?php echo $Chart['dataChartJobs']; ?>
+                ],
+                xkey: 'device',
+                ykeys: ['geekbench'],
+                labels: ['จำนวน'],
+                barRatio: 1,
+                xLabelAngle: 35,
+                resize: true,
+                gridLineColor: [COLOR_GREY_LIGHTER],
+                gridTextFamily: FONT_FAMILY,
+                gridTextColor: FONT_COLOR,
+                gridTextWeight: FONT_WEIGHT,
+                gridTextSize: FONT_SIZE,
+                barColors: [COLOR_BLACK]
+            });
+        };
+        var handleMorrisBarChartSaraly = function () {
+            Morris.Bar({
+                element: 'morris-bar-chart-saraly',
+                data: [
+                    <?php echo $Chart['dataChartSalary']; ?>
+                ],
+                xkey: 'device',
+                ykeys: ['geekbench'],
+                labels: ['จำนวน'],
                 barRatio: 1,
                 xLabelAngle: 35,
                 resize: true,
@@ -215,10 +280,13 @@
                 init: function () {
                     handleChartJs();
                     handleMorrisBarChart();
+                    handleMorrisBarChartTransaction();
+                    handleMorrisBarChartJobs();
+                    handleMorrisBarChartSaraly();
                 }
             };
         }();
-    </script> -->
+    </script> 
 	<!-- ================== END PAGE LEVEL JS ================== -->
 	
 	<script>

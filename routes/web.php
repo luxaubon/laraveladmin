@@ -37,7 +37,6 @@ Route::post('/ocr', 'OcrController@ocrImage');
 Route::post('/checkCode', 'HomeController@checkCode');
 //Route::get('/checkCode', 'HomeController@checkCode');
 
-
 Route::get('/admin', function () {
     return view('admin.login');
 })->name('login');
@@ -46,6 +45,7 @@ Route::post('/admin/login','admin\SessionsController@store');
 
 Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
     Route::get('/logout','admin\SessionsController@destroy');
+    
     
     Route::group(['prefix'=>'/dashboard/'], function(){
         Route::get('/index','admin\IndexController@index')->name('home'); 
@@ -88,34 +88,44 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
         Route::get('/del_img','admin\PagesController@del_img');
 
     });
-
-    Route::group(['prefix'=>'/shopcode/'], function(){
-
-        Route::get('/index','admin\ShopcodeController@index');
-    	Route::post('/insert','admin\ShopcodeController@store');
-
-        Route::get('/show/{id}','admin\ShopcodeController@show');
-        Route::post('/edit/{id}','admin\ShopcodeController@edit');
-        Route::get('/del_content','admin\ShopcodeController@del_content');
-
-        Route::get('/update_listpic','admin\ShopcodeController@update_listpic');
-        Route::get('/del_img','admin\ShopcodeController@del_img');
+    Route::group(['prefix'=>'/toprank/'], function(){
+        Route::get('/index','admin\ToprankController@index');
+        Route::get('/zip','admin\ToprankController@zipFiles');
 
     });
+    Route::group(['prefix'=>'/toprank1/'], function(){
+        Route::get('/index','admin\Toprank1Controller@index');
+        Route::get('/zip','admin\Toprank1Controller@zipFiles');
 
+    });
+    Route::group(['prefix'=>'/toprank2/'], function(){
+        Route::get('/index','admin\Toprank2Controller@index');
+        Route::get('/zip','admin\Toprank2Controller@zipFiles');
+
+    });
+    Route::group(['prefix'=>'/toprank3/'], function(){
+        Route::get('/index','admin\Toprank3Controller@index');
+        Route::get('/zip','admin\Toprank3Controller@zipFiles');
+
+    });
+    
     Route::group(['prefix'=>'/member/'], function(){
-
         Route::get('/index','admin\MemberController@index');
-    	Route::post('/insert','admin\MemberController@store');
-
-        Route::get('/show/{id}','admin\MemberController@show');
-        Route::post('/edit/{id}','admin\MemberController@edit');
-        Route::get('/del_content','admin\MemberController@del_content');
-
-        Route::get('/update_listpic','admin\MemberController@update_listpic');
-        Route::get('/del_img','admin\MemberController@del_img');
-
+        Route::get('/zip','admin\MemberController@zipFiles');
     });
+    Route::group(['prefix'=>'/member1/'], function(){
+        Route::get('/index','admin\Member1Controller@index');
+        Route::get('/zip','admin\Member1Controller@zipFiles');
+    });
+    Route::group(['prefix'=>'/member2/'], function(){
+        Route::get('/index','admin\Member2Controller@index');
+        Route::get('/zip','admin\Member2Controller@zipFiles');
+    });
+    Route::group(['prefix'=>'/member3/'], function(){
+        Route::get('/index','admin\Member3Controller@index');
+        Route::get('/zip','admin\Member3Controller@zipFiles');
+    });
+
 
      Route::group(['prefix'=>'/slide/'], function(){
         Route::get('/index','admin\SlideController@index');
@@ -140,28 +150,6 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
 
      });
 
-      Route::group(['prefix'=>'/trees/'], function(){
-        Route::get('/index','admin\TreesController@index');
-        Route::post('/insert','admin\TreesController@store');
-
-        Route::get('/show/{id}','admin\TreesController@show');
-        Route::post('/edit/{id}','admin\TreesController@edit');
-        Route::get('/del_content','admin\TreesController@del_content');
-     });
-
-       Route::group(['prefix'=>'/products/'], function(){
-        
-        Route::get('/index','admin\ProductsController@index');
-        Route::post('/insert','admin\ProductsController@store');
-
-        Route::get('/show/{id}','admin\ProductsController@show');
-        Route::post('/edit/{id}','admin\ProductsController@edit');
-        Route::get('/del_content','admin\ProductsController@del_content');
-
-        Route::get('/update_listpic','admin\ProductsController@update_listpic');
-        Route::get('/del_img','admin\ProductsController@del_img');
-
-     });
 
      Route::group(['prefix'=>'/setting/'], function(){
         Route::get('/index','admin\SettingController@index');

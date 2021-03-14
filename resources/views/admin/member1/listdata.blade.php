@@ -2,7 +2,7 @@
 
                         
 
-                            <form class="form-inline" action="/admin/member/index" method="GET">
+                            <form class="form-inline" action="/admin/member1/index" method="GET">
 								<div class="form-group m-r-10">
                                     <a href="#modal-dialog"  class="btn btn-primary m-r-5 m-b-5" data-toggle="modal">Excel Download</a>
 								</div>
@@ -132,7 +132,7 @@
             var pass = $("#pass").val();
 
             swal("Password zip : "+pass, {icon: "success",});
-            window.open('/admin/member/zip?name='+name+'&last_name='+last_name+'&phone='+phone+'&code='+code+'&date_register='+date_register+'&status='+status+'&link_image='+link_image+'&pass='+pass+'', '_blank');
+            window.open('/admin/member1/zip?name='+name+'&last_name='+last_name+'&phone='+phone+'&code='+code+'&date_register='+date_register+'&status='+status+'&link_image='+link_image+'&pass='+pass+'', '_blank');
 
 		});
 	});
