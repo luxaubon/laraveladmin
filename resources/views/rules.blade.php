@@ -35,7 +35,10 @@
 
 <!-- Content Wrapper @s -->
 <div class="content-wrapper">
-
+<div class="main-point">
+      <?php if($point > 0){echo '<span class="btn btn-sm btn-primary"><a href="/history" style="color: white;">คะแนนสะสมของคุณ : '.$point.'</a></span>';} ?>
+      <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span>
+  </div>
   <div class="main-button">
     <a href="/rules" class="btn">
       <i class="fal fa-file"></i>
@@ -46,7 +49,7 @@
       <div>ประกาศผล</div>
     </a>
     <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn">
+        echo '<a href="/toppender" class="btn btn-primary">
             <i class="fal fa-star"></i>
             <div>TOP SPENDER</div>
         </a>';
@@ -56,7 +59,7 @@
 
   <!-- Main Box @s -->
     <div class="main-box">
-        <h2 class="title">กติกา</h2>
+        <h2 class="title">กติกาและเงื่อนไขร่วมกิจกรรม</h2>
         <?php echo $setting['address_en']; ?>
     </div>
 

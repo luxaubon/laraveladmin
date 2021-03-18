@@ -46,7 +46,7 @@
       <div>ประกาศผล</div>
     </a>
     <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn">
+        echo '<a href="/toppender" class="btn btn-primary">
             <i class="fal fa-star"></i>
             <div>TOP SPENDER</div>
         </a>';
@@ -75,7 +75,7 @@
     <img src="assets_home/img/reward.png" alt="">
   </div>
   <!-- Reward BG @e -->
-
+  
   <a href="javascript:void(0)" onclick="return social_share();" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
   
 </div>
@@ -102,7 +102,7 @@
               <div class="row no-gutters">
                 <div class="col-7">
                     <input type="number" id="otp" name="otp" class="form-control">
-                    <input type="text" id="Numotp" name="Numotp" class="form-control" >
+                    <input type="hidden" id="Numotp" name="Numotp" class="form-control" >
                     
                 </div>
                 <div class="col-5">

@@ -54,6 +54,11 @@
   <script src="/assets_home/js/jquery-3.5.1.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+  <link rel="stylesheet" type="text/css" href="/assets_home/jquery.datetimepicker.css" >
+  <script src="/assets_home/jquery.js"></script>
+  <script src="/assets_home/build/jquery.datetimepicker.full.js"></script>
+
+
 </head>
 
 <body>

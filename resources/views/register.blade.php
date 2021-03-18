@@ -46,7 +46,7 @@
       <div>ประกาศผล</div>
     </a>
     <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn">
+        echo '<a href="/toppender" class="btn btn-primary">
             <i class="fal fa-star"></i>
             <div>TOP SPENDER</div>
         </a>';
@@ -76,10 +76,10 @@
                             <div class="row">
 
                             <div class="col-12">
-                                <input type="date" id="b_dates" name="b_dates" class="form-control" placeholder="วันเดือนปีเกิด">
+                                <input type="text" id="b_dates" name="b_dates" class="form-control" placeholder="วันเดือนปีเกิด" readonly>
                             </div>
 
-                                <!-- <div class="col-4">
+                               <!-- <div class="col-4">
                                     <select id="date" name="date" class="form-control">
                                         <option value="">วัน</option>
                                         <?php 
@@ -116,12 +116,21 @@
                                         ?>
                                         
                                     </select>
-                                </div> -->
+                                </div>  -->
 
                             </div>
                         </div>
 
                         <div class="form-group">
+                            <p>เพศ</p>
+                            <select id="sex" name="sex" class="form-control">
+                                <option value="">เพศ</option>
+                                <option value="1">ชาย</option>
+                                <option value="2">หญิง</option>
+                            </select>
+                        </div>
+
+                        <!-- <div class="form-group">
                             <p>เพศ</p>
                                         
                             <div class="custom-control custom-radio custom-control-inline">
@@ -135,7 +144,7 @@
                             </div>
                             
 
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <p>เบอร์โทรศัพท์</p>
@@ -269,7 +278,21 @@
         }
     $(document).ready(function() {
 
-        
+   
+        $.datetimepicker.setLocale('th');
+        jQuery('#b_dates').datetimepicker({
+            timepicker:false,
+            format:'d-m-Y',  // กำหนดรูปแบบวันที่ ที่ใช้ เป็น 00-00-0000            
+            lang:'th',  // ต้องกำหนดเสมอถ้าใช้ภาษาไทย และ เป็นปี พ.ศ.
+            onSelectDate:function(dp,$input){
+                var yearT=new Date(dp).getFullYear();  
+                var yearTH=yearT+543;
+                var fulldate=$input.val();
+                var fulldateTH=fulldate.replace(yearT,yearTH);
+                $input.val(fulldateTH);
+            },
+        });
+  
         $('#flexCheckChecked').change(function() {
           if ($(this).is(":checked")) {
               var text =  $(this).val('true')
@@ -283,13 +306,14 @@
             event.preventDefault();
             $("#btnCheckData").prop('disabled', true);
             //$("#date").val() == ''  || $("#month").val() == '' || $("#year").val() == ''
+            //$(".sex").is(":checked") ==
             if($("#name").val() == '' || $("#last_name").val() == ''){
                 swal("กรุณากรอก ชื่อ-นามสกุล", "", "error");
                 $("#btnCheckData").prop('disabled', false);
             }else if($("#b_dates").val() == ''){
                 swal("กรุณากรอก วัน-เดือน-ปี เกิดของท่าน", "", "error");
                 $("#btnCheckData").prop('disabled', false);
-            }else if($(".sex").is(":checked") ==  false){
+            }else if($("#sex").val() == ''){
                 swal("กรุณา เลือกเพศ", "", "error");
                 $("#btnCheckData").prop('disabled', false);
             }else if($("#phone").val() == '' || $("#phone").val().length !== 10){
@@ -318,7 +342,8 @@
                 // var month           =   $("#month").val();
                 // var year            =   $("#year").val();
                 var b_dates         =   $("#b_dates").val();
-                var sex             =   $('input[name="sex"]:checked').val();
+                var sex             =   $("#sex").val();
+                // var sex             =   $('input[name="sex"]:checked').val();
                 var phone           =   $("#phone").val();
                 var address         =   $("#address").val();
                 var province        =   $("#province").val();

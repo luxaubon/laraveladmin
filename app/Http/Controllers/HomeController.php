@@ -102,7 +102,7 @@ class HomeController extends Controller
             return 'registerDont';
         }else{
 
-                return 'success';
+               // return 'success';
                 $setting = Setting::find(1);
                 $account = json_decode($setting->payment)[0]->user;
                 $password = json_decode($setting->payment)[0]->pass;
@@ -153,6 +153,7 @@ class HomeController extends Controller
     }
 
     public function registerPhone(Request $request){
+   
 
         Session::put('ss_phone', $request->phone);
 
@@ -163,9 +164,9 @@ class HomeController extends Controller
         // $post->date            = $request->date;
         // $post->month           = $request->month;
         // $post->year            = $request->year;
-        $post->date            = $myarray[2];
+        $post->date            = $myarray[0];
         $post->month           = $myarray[1];
-        $post->year            = $myarray[0]+543;
+        $post->year            = $myarray[2];
         $post->sex             = $request->sex;
         $post->phone           = $request->phone;
         $post->address         = $request->address;
@@ -244,16 +245,18 @@ class HomeController extends Controller
             }
             $history = DB::table('images')->select('code_number', 'status')->whereIn('id', $myarray_query)->orderBy('id', 'DESC')->get();
             $history_count = DB::table('images')->select('code_number', 'status')->whereIn('id', $myarray_query)->where('status',1)->count();
-            
+   
             $toppender = Toppender::orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
                 $toppender_status = 'online';  
             }else{
                 $toppender_status = 'offline';
             }
+            $point = Images::where('sid',Session::get('ss_id'))->where('status',1)->count();
             $data = array(
                 //HEAD
                 'setting'               => $setting,
+                'point'                 => $point,
                 'slides'                => $slides,
                 'images_code'           => $images_code,
                 'toppender_status'      => $toppender_status,
@@ -302,12 +305,16 @@ class HomeController extends Controller
             }else{
                 $toppender_status = 'offline';
             }
+            
+            $point = Images::where('sid',Session::get('ss_id'))->where('status',1)->count();
+            
 
             $data = array(
                 //HEAD
                 'setting' => $setting,
                 'slides' => $slides,
                 'block' => $block,
+                'point' => $point,
                 'dateblock' => $dateblock,
                 'toppender_status' => $toppender_status
                 //HEAD
@@ -365,6 +372,21 @@ class HomeController extends Controller
                             $user_check2->total_use  = $user_check2->total_use + 1;
                             $user_check2->save();
                         }else{
+                            if($count < 3){
+                                $count = 1;
+                            }else if($count == 3){
+                                $count = 1;
+                            }else if($count == 4){
+                                $count = 2;
+                            }else if($count == 5){
+                                $count = 3;
+                            }else if($count == 6){
+                                $count = 4;
+                            }else if($count == 7){
+                                $count = 5;
+                            }else{
+                                $count = 6;
+                            }
                             $startDate  = time(); 
                             $dateNow    = date('Y-m-d H:i:s', strtotime('+'.$count.' day', $startDate));
                             $user_check2->date_block  = $dateNow;
@@ -405,40 +427,6 @@ class HomeController extends Controller
 
     }   
 
-    // public function checkCode(Request $request){
-
-        
-    //         // $numberData = count($request->number)-1;
-    //         // $images_id = '';
-    //         // for($i=0; $i <= $numberData; $i++ ){
-    //         //     $photo          = $request->file('image')[$i];
-    //         //     $code_number    = $request->number[$i];
-    //         //     $check_code     = db_code::where('code_number',$code_number)->first();
-    //         // }
-    //         //$check_code = DB::select("SELECT code_number FROM db_code where code_number = '1025231009'  ");
-
-    //         //$check_code     = db_code::find(1025231009);
-
-        
-    //         // $check_code =  db_code::all();
-    //         // Cache::put('key', $check_code,10);
-    //         // if (Cache::has('key')){
-    //         //     $value = Cache::get('key');
-    //         // }
-    //         //Cache::forget('key');
-    //         // $value = Cache::remember('key', 10, function(){
-    //         //     return db_code::all();
-    //         //     //return DB::select("SELECT code_number FROM db_code where code_number = '1025231009'  ");
-    //         // });
-    //         // $check_code     = db_code::find(1025231009);
-    //         // $check_code->status = 2;
-    //         // $check_code->save();
-    //         //return response()->json(['check_code' => $value]);
-    //         //return response()->json(['check_code' => $check_code]);
-
-    // } 
-
-    
     public function results(){
        
             $setting = Setting::find(1);
@@ -462,12 +450,19 @@ class HomeController extends Controller
             }else{
                 $toppender_status = 'offline';
             }
+            if(Session::get('ss_id')){
+                $point = Images::where('sid',Session::get('ss_id'))->where('status',1)->count();
+            }else{
+                $point = 0;
+            }
+
 
             $data = array(
                 //HEAD
                 'setting' => $setting,
                 'slides' => $slides,
                 'pages' => $pages,
+                'point' => $point,
                 'toppender_status' => $toppender_status,
                 //HEAD
             );
@@ -498,10 +493,18 @@ class HomeController extends Controller
             $toppender_status = 'offline';
         }
 
+        if(Session::get('ss_id')){
+            $point = Images::where('sid',Session::get('ss_id'))->where('status',1)->count();
+        }else{
+            $point = 0;
+        }
+
+
         $data = array(
             //HEAD
             'setting' => $setting,
             'slides' => $slides,
+            'point' => $point,
             'toppender_status' => $toppender_status,
             //HEAD
         );
@@ -560,8 +563,11 @@ class HomeController extends Controller
                     AND   images.created_at BETWEEN '".$date_start."' AND '".$date_stop."'
                 ");
 
+                $point = Images::where('sid',Session::get('ss_id'))->where('status',1)->count();
+                
             }else{
                 $myuser = '';
+                $point = 0;
             }
 
             $data = array(
@@ -571,6 +577,8 @@ class HomeController extends Controller
                 'user'      => $user,
                 'myuser'    => $myuser,
                 'toppender_status' => 'online',
+                'date_stop' => $date_stop,
+                'point' => $point,
                 //HEAD
             );
 

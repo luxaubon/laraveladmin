@@ -35,6 +35,11 @@
 
 <!-- Content Wrapper @s -->
 <div class="content-wrapper">
+  <div class="main-point">
+    
+    <?php if($point > 0){echo '<span class="btn btn-sm btn-primary"><a href="/history" style="color: white;">คะแนนสะสมของคุณ : '.$point.'</a></span>';} ?>
+      <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span>
+  </div>
 
   <div class="main-button">
     <a href="/rules" class="btn">
@@ -46,13 +51,27 @@
       <div>ประกาศผล</div>
     </a>
     <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn">
+        echo '<a href="/toppender" class="btn btn-primary">
             <i class="fal fa-star"></i>
             <div>TOP SPENDER</div>
         </a>';
     }?>
   </div>
 
+    <!-- Countdown Timer @s -->
+    
+    <div class="countdown-timer">
+        <div class="countdown-clock">
+          <div id="countdown-clock"></div>
+            <div class="countdownclock-title">
+                <div>วัน</div>
+                <div>ชั่วโมง</div>
+                <div>นาที</div>
+                <div>วินาที</div>
+            </div>
+        </div>
+      </div>
+    <!-- Countdown Timer @e -->
 
   <!-- Main Box @s -->
   <div class="main-box">
@@ -110,6 +129,11 @@
   <!-- Main Box @e -->
 
   <!-- Reward BG @s -->
+  <div class="bottom-button">
+                <a href="/" class="btn btn-sm btn-dark"><i class="fal fa-angle-left"></i> ย้อนกลับ</a>
+                <a href="/toppender" class="btn btn-sm btn-dark"><i class="fal fa-redo-alt"></i> รีเฟรช</a>
+            </div>
+
   <div class="main-reward">
     <img src="assets_home/img/reward.png" alt="">
   </div>
@@ -122,6 +146,27 @@
 
 </div>
 <!-- Main @s -->
+<script>
 
+var countDownDate = new Date("<?php echo DateEng($date_stop);?>").getTime();
+  if(countDownDate < Math.floor(Date.now() / 1000)*1000){
+    window.location.assign("/")
+  }
+  var x = setInterval(function () {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("countdown-clock").innerHTML = "<div>" + days + "</div><div>" + hours + "</div><div>" +  minutes + "</div><div>" + seconds + "</div>";
+    if (distance < 0) {
+      clearInterval(x);
+      
+    }
+  }, 1000);
+
+
+</script>
 
 @endsection

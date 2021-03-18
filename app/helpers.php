@@ -57,7 +57,7 @@ if ( !function_exists('mysql_escape'))
     }
 }
 
-function ViewDate($strDate){
+			function ViewDate($strDate){
 				$strYear = date("Y",strtotime($strDate));
 				$strMonth= date("n",strtotime($strDate));
 				$strMonthCut = Array("","January","February","March","April","May","June","July","August","September","October","November","December");
@@ -78,6 +78,21 @@ function ViewDate($strDate){
 				$strMonthThai=$strMonthCut[$strMonth];
 				return "$strDay $strMonthThai $strYear";
 			}
+			
+			function DateEng($strDate)
+			{
+				$strYear = date("Y",strtotime($strDate));
+				$strMonth= date("n",strtotime($strDate));
+				$strDay= date("j",strtotime($strDate));
+				$strHour= date("H",strtotime($strDate));
+				$strMinute= date("i",strtotime($strDate));
+				$strSeconds= date("s",strtotime($strDate));
+				$strMonthCut = Array("","January","February","March","April","May","June","July","August","September","October","November","December");
+				$strMonthThai = $strMonthCut[$strMonth];
+
+				return "$strMonthThai $strDay, $strYear $strHour:$strMinute:$strSeconds";
+			}
+
 
 			
 			function sendMessage($account, $password, $mobile_no, $message, $schedule = '', $category = '', $sender_name = '', $proxy = '', $proxy_userpwd = '')
