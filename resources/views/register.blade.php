@@ -46,7 +46,7 @@
       <div>ประกาศผล</div>
     </a>
     <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn btn-primary">
+        echo '<a href="/toppender" class="btn">
             <i class="fal fa-star"></i>
             <div>TOP SPENDER</div>
         </a>';
@@ -74,12 +74,19 @@
                         <div class="form-group">
                             <p>วันเดือนปีเกิด</p>
                             <div class="row">
-                                <div class="col-4">
+
+                            <div class="col-12">
+                                <input type="date" id="b_dates" name="b_dates" class="form-control" placeholder="วันเดือนปีเกิด">
+                            </div>
+
+                                <!-- <div class="col-4">
                                     <select id="date" name="date" class="form-control">
                                         <option value="">วัน</option>
-                                        <?php for($i = 1; $i < 32; $i++){
-                                            echo '<option value="'.$i.'">'.$i.'</option>';
-                                        }?>
+                                        <?php 
+                                        // for($i = 1; $i < 32; $i++){
+                                        //     echo '<option value="'.$i.'">'.$i.'</option>';
+                                        // }
+                                        ?>
                                         
                                     </select>
                                 </div>
@@ -100,15 +107,17 @@
                                         <option value="12">ธันวาคม</option>
                                     </select></div>
                                 <div class="col-4">
-                                    <!-- <input type="number" id="year" name="year" class="form-control" placeholder="พ.ศ." maxlength="4"> -->
                                     <select id="year" name="year" class="form-control">
                                         <option value="">พ.ศ.</option>
-                                        <?php for($i = 2464; $i < 2564; $i++){
-                                            echo '<option value="'.$i.'">'.$i.'</option>';
-                                        }?>
+                                        <?php 
+                                        // for($i = 2464; $i < 2564; $i++){
+                                        //     echo '<option value="'.$i.'">'.$i.'</option>';
+                                        // }
+                                        ?>
                                         
                                     </select>
-                                </div>
+                                </div> -->
+
                             </div>
                         </div>
 
@@ -273,11 +282,11 @@
         $("#btnCheckData").click(function (){
             event.preventDefault();
             $("#btnCheckData").prop('disabled', true);
-
+            //$("#date").val() == ''  || $("#month").val() == '' || $("#year").val() == ''
             if($("#name").val() == '' || $("#last_name").val() == ''){
                 swal("กรุณากรอก ชื่อ-นามสกุล", "", "error");
                 $("#btnCheckData").prop('disabled', false);
-            }else if($("#date").val() == ''  || $("#month").val() == '' || $("#year").val() == ''){
+            }else if($("#b_dates").val() == ''){
                 swal("กรุณากรอก วัน-เดือน-ปี เกิดของท่าน", "", "error");
                 $("#btnCheckData").prop('disabled', false);
             }else if($(".sex").is(":checked") ==  false){
@@ -305,9 +314,10 @@
               
                 var name            =   $("#name").val();
                 var last_name       =   $("#last_name").val();
-                var date            =   $("#date").val();
-                var month           =   $("#month").val();
-                var year            =   $("#year").val();
+                // var date            =   $("#date").val();
+                // var month           =   $("#month").val();
+                // var year            =   $("#year").val();
+                var b_dates         =   $("#b_dates").val();
                 var sex             =   $('input[name="sex"]:checked').val();
                 var phone           =   $("#phone").val();
                 var address         =   $("#address").val();
@@ -321,9 +331,10 @@
                         "_token": "{{ csrf_token() }}",
                         "name":name, 
                         "last_name":last_name,
-                        "date":date,
-                        "month":month,
-                        "year":year, 
+                        "b_dates":b_dates,
+                        // "date":date,
+                        // "month":month,
+                        // "year":year, 
                         "sex":sex,
                         "phone":phone,
                         "address":address,

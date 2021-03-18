@@ -64,7 +64,7 @@ class Member1Controller extends Controller
         $name           = ($request->name == 'show') ? $myArrayHeaders[] = "ชื่อ" : '';
         $last_name      = ($request->last_name == 'show') ? $myArrayHeaders[] = "นามสกุล" : '';
         $phone          = ($request->phone == 'show') ? $myArrayHeaders[] = "เบอร์โทร" : '';
-        $code           = ($request->code == 'show') ? $myArrayHeaders[] = "รหัสใต้ฝ่า" : '';
+        $code           = ($request->code == 'show') ? $myArrayHeaders[] = "รหัสใต้ฝา" : '';
         $date_register  = ($request->date_register == 'show') ? $myArrayHeaders[] = "วันที่สมัคร" : '';
         $status         = ($request->status == 'show') ? $myArrayHeaders[] = "สถาณะ" : '';
         $link_image     = ($request->link_image == 'show') ? $myArrayHeaders[] = "link รูป" : '';

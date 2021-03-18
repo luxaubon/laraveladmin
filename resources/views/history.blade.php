@@ -46,7 +46,7 @@
       <div>ประกาศผล</div>
     </a>
     <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn btn-primary">
+        echo '<a href="/toppender" class="btn">
             <i class="fal fa-star"></i>
             <div>TOP SPENDER</div>
         </a>';
@@ -71,7 +71,7 @@
                         <?php
                         foreach($images_code as $db){
                             if($db['status'] == 1){
-                                $status = 'ผ่าน';
+                                $status = 'รหัสผ่าน';
                             }else if($db['status'] == 2){
                                 $status = 'รหัสซ้ำ';
                             }else{
@@ -110,15 +110,69 @@
 <!-- Content Wrapper @e -->
 
 </div>
+
+<div class="modal fade" id="get-otp" tabindex="-1" role="dialog" aria-labelledby="get-otp" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-display">
+          <h3 class="title">
+            คุณได้รับ <?php if(!empty($history_count)){ echo $history_count;}else{ echo 0; } ?> คะแนน
+          </h3>
+          <div class="desc" id="modalTextPhone">
+          </div>
+
+          <form action="">
+            <div class="get-otp">
+              <div class="row no-gutters">
+                <div class="col-12">
+                <table class="table table-bordered table-sm">
+                    <tbody>
+                        <tr>
+                            <td>รหัสใต้ฝา</td>
+                            <td>สถาณะ</td>
+                        </tr>
+                        <?php 
+                        if(!empty($history)){ 
+                          foreach($history as $historys){
+                            switch ($historys->status) {
+                              case 1: $status = 'รหัสผ่าน'; $color = '#4aff4a;';break;
+                              case 2: $status = 'รหัสซ้ำ'; $color = '#ff3838;';break;
+                              case 3: $status = 'รหัสผิดพลาด'; $color = '#ff3838;';break;
+                              default: $status = 'รหัสผิดพลาด'; $color = '#ff3838;';break;
+                            }
+                            echo '<tr>
+                                  <td>'.$historys->code_number.'</td>
+                                  <td style="color: '.$color.'">'.$status.'</td>
+                              </tr>';
+                          }
+
+                        } ?>
+                        
+
+                    </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12"><button type="button" class="btn btn-block btn-primary" onclick="social_share();" data-toggle="modal">ตกลง</button></div>
+            </div>
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- Main @s  -->
-<?php if(@$_GET['share'] == 'share'){ ?>
-<script>
 
-$(function () {
-    social_share();
-});
-
-
-    </script>
-<?php } ?>
+  <script>
+    $(function () {
+      $('#get-otp').modal('toggle');
+      
+    });
+ </script>
 @endsection

@@ -7,7 +7,7 @@
                                     <a href="#modal-dialog"  class="btn btn-primary m-r-5 m-b-5" data-toggle="modal">Excel Download</a>
 								</div>
 								<div class="form-group m-r-10">
-									<input type="text" class="form-control" name="search" placeholder="ค้นหารหัสใต้ฝ่า" >
+									<input type="text" class="form-control" name="search" placeholder="ค้นหารหัสใต้ฝา" >
 								</div>
 								<button type="submit" class="btn btn-sm btn-warning  m-r-5">ค้นหา</button>
 							</form>
@@ -19,7 +19,7 @@
                                         <th class="text-nowrap">ชื่อ</th>
                                         <th class="text-nowrap">นามสกุล</th>
                                         <th class="text-nowrap">เบอร์โทร</th>
-                                        <th class="text-nowrap">รหัสใต้ฝ่า</th>
+                                        <th class="text-nowrap">รหัสใต้ฝา</th>
                                         <th class="text-nowrap">วันที่สมัคร</th>
                                         <th class="text-nowrap">สถาณะ</th>
                                         <th class="text-nowrap">รูป</th>
@@ -91,7 +91,7 @@
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="code" id="code" checked>
-                                                    <label class="form-check-label" for="defaultCheckbox">รหัสใต้ฝ่า</label>
+                                                    <label class="form-check-label" for="defaultCheckbox">รหัสใต้ฝา</label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="date_register" id="date_register" checked>

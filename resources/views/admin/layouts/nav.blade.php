@@ -35,7 +35,7 @@
 						<a href="javascript:;">
 					        <b class="caret"></b>
 						    <i class="fab fa-lg fa-fw m-r-10 fa-product-hunt"></i>
-						    <span>Member</span>
+						    <span>Code</span>
 						</a>
 						<ul class="sub-menu">
 							<li class="{{ checkActiveMenu(Request::segment(2),'member') }}"><a href="/admin/member/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>All Status</span></a></li>

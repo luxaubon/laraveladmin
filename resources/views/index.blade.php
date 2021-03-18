@@ -46,7 +46,7 @@
       <div>ประกาศผล</div>
     </a>
     <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn btn-primary">
+        echo '<a href="/toppender" class="btn">
             <i class="fal fa-star"></i>
             <div>TOP SPENDER</div>
         </a>';
@@ -59,6 +59,7 @@
     <div class="main-mobile">
       <form action="">
         <div class="form-group">
+        <h4>กรุณากรอกเบอร์โทรศัพท์</h4>
           <input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="กรุณากรอกเบอร์โทรศัพท์" maxlength="10">
         </div>
         <div class="form-group">

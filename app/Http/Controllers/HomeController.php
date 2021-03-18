@@ -155,13 +155,17 @@ class HomeController extends Controller
     public function registerPhone(Request $request){
 
         Session::put('ss_phone', $request->phone);
-        
+
+        $myarray = explode('-',$request->b_dates);
         $post                  = new User_otp;
         $post->name            = $request->name;
         $post->last_name       = $request->last_name;
-        $post->date            = $request->date;
-        $post->month           = $request->month;
-        $post->year            = $request->year;
+        // $post->date            = $request->date;
+        // $post->month           = $request->month;
+        // $post->year            = $request->year;
+        $post->date            = $myarray[2];
+        $post->month           = $myarray[1];
+        $post->year            = $myarray[0]+543;
         $post->sex             = $request->sex;
         $post->phone           = $request->phone;
         $post->address         = $request->address;
@@ -214,7 +218,7 @@ class HomeController extends Controller
 
     }
     
-    public function history(){
+    public function history(Request $request){
        
         if(Session::get('ss_phone') && Session::get('ss_id')){
             $setting = Setting::find(1);
@@ -230,6 +234,17 @@ class HomeController extends Controller
             }else {$slides = ''; }
 
             $images_code = Images::where('sid',Session::get('ss_id'))->orderBy('id', 'DESC')->paginate(10);
+
+            $myarray_query = array();
+            $myarray = explode(',',$request->code);
+            foreach($myarray as $code){
+                if(!empty($code)){
+                    array_push($myarray_query,$code);
+                }
+            }
+            $history = DB::table('images')->select('code_number', 'status')->whereIn('id', $myarray_query)->orderBy('id', 'DESC')->get();
+            $history_count = DB::table('images')->select('code_number', 'status')->whereIn('id', $myarray_query)->where('status',1)->count();
+            
             $toppender = Toppender::orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
                 $toppender_status = 'online';  
@@ -238,10 +253,12 @@ class HomeController extends Controller
             }
             $data = array(
                 //HEAD
-                'setting'       => $setting,
-                'slides'        => $slides,
-                'images_code'   => $images_code,
-                'toppender_status'   => $toppender_status
+                'setting'               => $setting,
+                'slides'                => $slides,
+                'images_code'           => $images_code,
+                'toppender_status'      => $toppender_status,
+                'history'               => $history,
+                'history_count'         => $history_count
                 //HEAD
             );
             return view('history',$data);
@@ -377,14 +394,14 @@ class HomeController extends Controller
                 $images->image              = $nameimages;
                 $images->save();
                 $images_id.=  $images->id.',';
-
             }
 
             $post           = User_otp::find(Session::get('ss_id'));
             $post->gallery  = $post->gallery.$images_id;
             $post->save();
 
-            return redirect('/history?share=share');
+
+            return redirect('/history?code='.$images_id);
 
     }   
 

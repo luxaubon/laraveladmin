@@ -46,7 +46,7 @@
       <div>ประกาศผล</div>
     </a>
     <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn btn-primary">
+        echo '<a href="/toppender" class="btn">
             <i class="fal fa-star"></i>
             <div>TOP SPENDER</div>
         </a>';

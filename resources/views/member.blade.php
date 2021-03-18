@@ -63,7 +63,7 @@
             <div class="form-group" >
                 <div class="input-group">
                 <button type="button" class="btn" style="background: white;border-color: white;"></button>
-                    <input type="number" id="number0" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required maxlength="10">
+                    <input type="number" id="number0" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
                     <div class="input-group-append">
                         <div class="upload-btn-wrapper input-group-text">
                           <i class="fal fa-camera"></i>
@@ -190,7 +190,7 @@ function GetDynamicTextBox(value,number) {
     return `<div class="form-group" >
                 <div class="input-group">
                     <button type="button" class="btn btn-danger remove">-</button>
-                    <input type="number" id="number`+number+`" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required maxlength="10">
+                    <input type="number" id="number`+number+`" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
                     <div class="input-group-append">
                       <div class="upload-btn-wrapper input-group-text">
                           <i class="fal fa-camera"></i>
