@@ -73,15 +73,22 @@
                         </tr>
                         <?php
                         foreach($images_code as $db){
+
+                          $title = $db['code_number'];
                             if($db['status'] == 1){
                                 $status = 'รหัสผ่าน';
                             }else if($db['status'] == 2){
                                 $status = 'รหัสซ้ำ';
-                            }else{
+                            }else if($db['status'] == 3){
                                 $status = 'รหัสผิดพลาด';
+                            }else if($db['status'] == 4){
+                              $status = 'ลงทะเบียนโดย Admin';
+                              $title = 'ส่งรหัสใต้ฝา';
+                            }else if($db['status'] == 5){
+                              $status = 'ยกเลิกโดย Admin';
                             }
                             echo '<tr>
-                                    <td>'.$db['code_number'].'</td>
+                                    <td>'.$title.'</td>
                                     <td>'.$status.'</td>
                                 </tr>';
                         }?>
@@ -151,7 +158,6 @@
                           }
 
                         } ?>
-                        
 
                     </tbody>
                 </table>

@@ -24,7 +24,7 @@ class Member1Controller extends Controller
             $member = DB::table('images')
             ->join('user_otp', 'images.sid', '=', 'user_otp.id')
             ->select('user_otp.id','name', 'last_name', 'phone', 'code_number', 'images.created_at', 'images.image', 'images.status')
-            ->where('images.status',1)
+            ->whereIN('images.status',array(1,4))
             ->where('code_number',$request->search)
             ->orderBy('id', 'DESC')
             ->paginate(30);
@@ -34,7 +34,7 @@ class Member1Controller extends Controller
             $member = DB::table('images')
             ->join('user_otp', 'images.sid', '=', 'user_otp.id')
             ->select('user_otp.id','name', 'last_name', 'phone', 'code_number', 'images.created_at', 'images.image', 'images.status')
-            ->where('images.status',1)
+            ->whereIN('images.status',array(1,4))
             ->orderBy('id', 'DESC')
             ->paginate(30);
 
@@ -56,7 +56,7 @@ class Member1Controller extends Controller
         $member = DB::table('images')
         ->join('user_otp', 'images.sid', '=', 'user_otp.id')
         ->select('user_otp.id','name', 'last_name', 'phone', 'code_number', 'images.created_at', 'images.image', 'images.status')
-        ->where('images.status',1)
+        ->whereIN('images.status',array(1,4))
         ->orderBy('id', 'DESC')
         ->get();
 

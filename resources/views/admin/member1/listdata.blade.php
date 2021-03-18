@@ -37,6 +37,8 @@
                                             $status = 'รหัสซ้ำ';
                                         }else if($db->status == 3){
                                             $status = 'รหัสผิดพลาด';
+                                        }else if($db->status == 4){
+                                            $status = 'ลงทะเบียนโดย Admin';
                                         }
                                     echo '<tr class="odd gradeX">
                                             <td>'.$i.'</td>

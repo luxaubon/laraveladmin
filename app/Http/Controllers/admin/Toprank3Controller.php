@@ -16,7 +16,7 @@ class Toprank3Controller extends Controller
 
     }
 
-    public function folder(){return 'toprank2';}
+    public function folder(){return 'toprank3';}
     public function status(){return 'Pages';}
 
     public function index()
@@ -25,7 +25,7 @@ class Toprank3Controller extends Controller
         $member = DB::select("SELECT COUNT('images.id') as pointcode,name,last_name,phone
             FROM  user_otp
             INNER JOIN images ON user_otp.id = images.sid
-            WHERE images.status = 1
+            WHERE images.status IN (1,4)
             AND code_first_number = 3
             GROUP BY user_otp.id
             ORDER BY pointcode DESC
@@ -47,7 +47,7 @@ class Toprank3Controller extends Controller
         $member = DB::select("SELECT COUNT('images.id') as pointcode,name,last_name,phone
             FROM  user_otp
             INNER JOIN images ON user_otp.id = images.sid
-            WHERE images.status = 1
+            WHERE images.status IN (1,4)
             AND code_first_number = 3
             GROUP BY user_otp.id
             ORDER BY pointcode DESC

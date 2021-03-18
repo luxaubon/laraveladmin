@@ -95,7 +95,7 @@ class IndexController extends Controller
 
         $code = DB::select("SELECT COUNT('id') as total,code_first_number
                 FROM  images
-                WHERE status = 1
+                WHERE images.status IN (1,4)
                 AND code_first_number IN (1,2,3)
                 AND created_at BETWEEN '".$date_start."' AND '".$date_stop."'
                 GROUP BY code_first_number");

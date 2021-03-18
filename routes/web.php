@@ -126,6 +126,19 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
         Route::get('/zip','admin\Member3Controller@zipFiles');
     });
 
+    Route::group(['prefix'=>'/user/'], function(){
+        Route::get('/index','admin\UserController@index');
+        Route::post('/insert','admin\UserController@store');
+
+        Route::get('/show/{id}','admin\UserController@show');
+        Route::post('/edit/{id}','admin\UserController@edit');
+        Route::get('/del_content','admin\UserController@del_content');
+        
+        Route::get('/update_listpic','admin\UserController@update_listpic');
+        Route::get('/del_img','admin\UserController@del_img');
+
+     });
+
 
      Route::group(['prefix'=>'/slide/'], function(){
         Route::get('/index','admin\SlideController@index');

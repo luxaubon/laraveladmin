@@ -25,7 +25,7 @@ class ToprankController extends Controller
         $member = DB::select("SELECT COUNT('images.id') as pointcode,name,last_name,phone
             FROM  user_otp
             INNER JOIN images ON user_otp.id = images.sid
-            WHERE images.status = 1
+            WHERE images.status IN (1,4)
             AND code_first_number IN (1,2,3)
             GROUP BY user_otp.id
             ORDER BY pointcode DESC
@@ -47,7 +47,7 @@ class ToprankController extends Controller
         $member = DB::select("SELECT COUNT('images.id') as pointcode,name,last_name,phone
             FROM  user_otp
             INNER JOIN images ON user_otp.id = images.sid
-            WHERE images.status = 1
+            WHERE images.status IN (1,4)
             AND code_first_number IN (1,2,3)
             GROUP BY user_otp.id
             ORDER BY pointcode DESC
