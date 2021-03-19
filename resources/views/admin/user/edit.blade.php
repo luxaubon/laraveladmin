@@ -74,9 +74,9 @@
                                         }else if($db->status == 3){
                                             $status = 'รหัสผิดพลาด';
                                         }else if($db->status == 4){
-                                            $status = 'ลงทะเบียนโดย Admin';
+                                            $status = 'ลงทะเบียนโดย '.@$db->admin_name;
                                         }else if($db->status == 5){
-                                            $status = 'ยกเลิกโดย Admin';
+                                            $status = 'ยกเลิกโดย '.@$db->admin_name;
                                         }
                                             
                                         echo '<tr class="odd gradeX">

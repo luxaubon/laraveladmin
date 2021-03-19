@@ -20,7 +20,6 @@ class UserController extends Controller
 
     public function index(Request $request){
       
-
         if($request->search){
             $myArray = array();
             $member = User_otp::where('name', 'LIKE',"%$request->search%")->orWhere('phone', 'LIKE',"%$request->search%")->orderBy('id', 'DESC')->paginate(30);
@@ -130,6 +129,8 @@ class UserController extends Controller
         $post->status = 4;
         $post->image = $filename;
         $post->table = 'user_otp';
+        $post->admin_id = Auth::id();
+        $post->admin_name = Auth::user()->name;
         $post->save();
 
         return redirect()->back();
