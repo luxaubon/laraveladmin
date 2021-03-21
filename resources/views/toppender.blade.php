@@ -38,7 +38,7 @@
   <div class="main-point">
     
     <?php if($point > 0){echo '<span class="btn btn-sm btn-primary"><a href="/history" style="color: white;">คะแนนสะสมของคุณ : '.$point.'</a></span>';} ?>
-      <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span>
+      <!-- <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span> -->
   </div>
 
   <div class="main-button">
@@ -101,6 +101,7 @@
                                     <th>'.$phone.'XXXX</th>
                                     <th>XX</th>
                                 </tr>';
+                             
                             }
                           }
                             
@@ -130,9 +131,9 @@
 
   <!-- Reward BG @s -->
   <div class="bottom-button">
-                <a href="/" class="btn btn-sm btn-dark"><i class="fal fa-angle-left"></i> ย้อนกลับ</a>
-                <a href="/toppender" class="btn btn-sm btn-dark"><i class="fal fa-redo-alt"></i> รีเฟรช</a>
-            </div>
+      <a href="/" class="btn btn-sm btn-dark"><i class="fal fa-angle-left"></i> ย้อนกลับ</a>
+      <a href="/toppender" class="btn btn-sm btn-dark"><i class="fal fa-redo-alt"></i> รีเฟรช</a>
+  </div>
 
   <div class="main-reward">
     <img src="assets_home/img/reward.png" alt="">

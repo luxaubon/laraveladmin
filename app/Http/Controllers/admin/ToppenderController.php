@@ -34,7 +34,7 @@ class ToppenderController extends Controller
     {
         //$user = Auth::user();
         
-        $pages = Toppender::all();
+        $pages = Toppender::orderBy('id','DESC')->get();
         $data = array(
             'pages' => $pages,
             'pages_id' => '',
@@ -50,6 +50,9 @@ class ToppenderController extends Controller
             'date_start' => 'required',
             'date_stop' => 'required',
             'status' => 'required',
+            'online' => 'required',
+            'luckynumber' => 'required',
+            
         ]);
         
         $date_start = $request->date_start == '' ?  "" : strtotime($request->date_start);
@@ -60,6 +63,8 @@ class ToppenderController extends Controller
         $post->status = $request->status;
         $post->date_start = $date_start;
         $post->date_stop = $date_stop;
+        $post->luckynumber = $request->luckynumber;
+        $post->online = $request->online;
         $post->save();
 
         return redirect()->back();
@@ -69,7 +74,7 @@ class ToppenderController extends Controller
     public function show($id)
     {
         $pages_id = Toppender::findOrFail($id);
-        $pages = Toppender::all();
+        $pages = Toppender::orderBy('id','DESC')->get();
 
         $date_start = date('Y-m-d H:i:s',$pages_id->date_start);
         $date_stop = date('Y-m-d H:i:s',$pages_id->date_stop);
@@ -80,8 +85,10 @@ class ToppenderController extends Controller
             WHERE code_first_number = $pages_id->status
             AND   images.status = 1
             AND   images.created_at BETWEEN '".$date_start."' AND '".$date_stop."'
+            GROUP BY user_otp.id
             ORDER BY totals DESC
         ");
+
         $data = array(
             'pages_id'  => $pages_id,
             'pages'     => $pages,
@@ -96,6 +103,8 @@ class ToppenderController extends Controller
             'date_start' => 'required',
             'date_stop' => 'required',
             'status' => 'required',
+            'online' => 'required',
+            'luckynumber' => 'required',
         ]);
 
        $post = Toppender::find($request->id);
@@ -106,6 +115,8 @@ class ToppenderController extends Controller
         $post->status = $request->status;
         $post->date_start = $date_start;
         $post->date_stop = $date_stop;
+        $post->luckynumber = $request->luckynumber;
+        $post->online = $request->online;
         $post->save();
 
        return redirect()->back();

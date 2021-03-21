@@ -37,7 +37,7 @@
 <div class="content-wrapper">
 <div class="main-point">
       <?php if($point > 0){echo '<span class="btn btn-sm btn-primary"><a href="/history" style="color: white;">คะแนนสะสมของคุณ : '.$point.'</a></span>';} ?>
-      <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span>
+      <!-- <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span> -->
   </div>
   <div class="main-button">
     <a href="/rules" class="btn">
@@ -97,7 +97,7 @@
     </div>
 
   <!-- Main Box @e -->
-
+  
   <!-- Reward BG @s -->
   <div class="main-reward">
     <img src="assets_home/img/reward.png" alt="">
@@ -116,7 +116,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <div class="modal-display">
-          <i class="fas fa-spinner"></i>
+          <img src="images/loading.gif" alt="">
           <h3 class="title">
             กรุณารอสักครู่
           </h3>

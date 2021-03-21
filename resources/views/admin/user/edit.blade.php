@@ -78,8 +78,24 @@
                                         }else if($db->status == 5){
                                             $status = 'ยกเลิกโดย '.@$db->admin_name;
                                         }
-                                            
-                                        echo '<tr class="odd gradeX">
+										if(Auth::id() == 1){
+											echo '<tr class="odd gradeX">
+													<td>'.$i.'</td>
+													<td>'.$db->code_number.'</td>
+													<td>'.DateThai($db->created_at).'</td>
+													<td>'.$status.'</td>
+													<td width="10%"> 
+														<div class="card">
+															<a href="'.asset('images/'.$db->sid.'/'.$db->image.'').'" class="image-link">
+																<img class="card-img-top" src="'.asset('images/'.$db->sid.'/'.$db->image.'').'" />
+															</a>
+														</div>
+													</td>
+													<td>
+													<a href="javascript::void(0)" id="content_del'.$db->id.'" class="btn btn-sm btn-danger" >Reject </a></td>
+												</tr>';
+										}else{
+											echo '<tr class="odd gradeX">
                                                 <td>'.$i.'</td>
                                                 <td>'.$db->code_number.'</td>
                                                 <td>'.DateThai($db->created_at).'</td>
@@ -91,8 +107,10 @@
 														</a>
 													</div>
 												</td>
-												<td><a href="javascript::void(0)" id="content_del'.$db->id.'" >Reject </a></td>
+												<td>-</td>
                                             </tr>';
+										}
+                                        
                                         }
                                         ?>
                                         <tr>
@@ -138,8 +156,10 @@
 							  <p class="m-b-10 p-0 ">
 
 								<!-- UPDATE BUTTON -->
+								@if(Auth::id() == 1)
 									<button type="submit" id="Save" class="btn btn-success m-t-5">
 									<i class="fa fa-save"></i> Save</button>
+								@endif
 								<!-- UPDATE BUTTON -->
 
 							  </p>
@@ -203,3 +223,25 @@
 	                    <!-- end col-6 -->
 	                </div>
          </div>
+		
+		 <div class="modal fade" id="modal-dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Reject </h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					<div class="modal-body">
+						<p>
+							<input type="hidden" id="myid">
+							<textarea class="form-control" rows="3" id="rejectText"></textarea>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<a href="javascript:;" class="btn btn-white" data-dismiss="modal">ยกเลิก</a>
+						<a href="javascript:;" class="btn btn-success" id="btnSendReject">ตกลง</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		

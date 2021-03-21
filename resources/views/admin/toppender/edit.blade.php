@@ -24,6 +24,7 @@
 											<thead>
 												<tr>
 													<th class="text-nowrap">No.</th>
+													<th class="text-nowrap">ชื่อ นามสกุล</th>
 													<th class="text-nowrap">เบอร์</th>
 													<th class="text-nowrap">Point</th>
 												</tr>
@@ -34,6 +35,7 @@
 													foreach($user as $db){
 													echo '<tr class="odd gradeX">
 														<th class="text-nowrap">'.$i++.'</th>
+														<th class="text-nowrap">'.$db->name.'  '.$db->last_name.'</th>
 														<th class="text-nowrap">'.$db->phone.'</th>
 														<th class="text-nowrap">'.$db->totals.'</th>
 														</td>
@@ -52,10 +54,10 @@
 
                     <div class="col-md-4 bg-grey-light">
 							  <p class="m-b-10 p-0 ">
-
+							  @if(Auth::id() == 1)
 									<button type="submit" id="Save" class="btn btn-success m-t-5">
 									<i class="fa fa-save"></i> Save</button>
-
+								@endif
 							  </p>
 
 								<div class="panel-group alert alert-dark" id="accordion">
@@ -87,7 +89,22 @@
 	                                </div>
 	                                <div id="collapse1" class="panel-collapse collapse show">
 	                                   	<div class="panel-body">
-										<hr>
+										   <label class="control-label">จำนวนรางวัล </label>
+										   <div class="input-group date" >
+	                                            <input type="number" class="form-control" name="luckynumber" value="{{ $pages_id->luckynumber }}" >
+	                                        </div>
+											<hr>
+											@php
+												$selected_online_1 = $pages_id->online == 1 ?  "selected" : "";
+												$selected_online_2 = $pages_id->online == 2 ?  "selected" : "";
+	                                    	@endphp
+											<label class="control-label">การแสดงผล </label>
+												<select class="form-control" id="online" name="online" required>
+													<option class="text-success-light" value="">การแสดงผล</option>
+													<option class="text-danger-light" value="1" {{ $selected_online_1 }}>ไม่แสดง</option>
+													<option class="text-success-light" value="2" {{ $selected_online_2 }}>แสดง</option>	
+												</select>
+                                         <hr>
 											@php
 				                            	$date_stop = $pages_id->date_stop != '' ?  date('Y-m-d\TH:i:s',$pages_id->date_stop) : "";
 				                            	$date_start = $pages_id->date_start != '' ?  date('Y-m-d\TH:i:s',$pages_id->date_start) : "";

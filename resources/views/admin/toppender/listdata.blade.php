@@ -17,19 +17,24 @@
                                             }else{
                                                 $status = 'Mix Berry';
                                             }
+                                            if($db['online'] == 1){
+                                                $online = 'แสดง';
+                                            }else if($db['online'] == 2){
+                                                $online = 'ไม่แสดง';
+                                            }
                                         ?>
                                         <td>
-                                            <strong>รสชาติ</strong> : {{$status}}
-                                            <hr/>
+                                            <strong>รสชาติ</strong> : {{$status}}<hr/>
+                                            <strong>การแสดงผล</strong> : {{$online}}<hr/>
                                             <strong>วันเริ่มกิจกรรม</strong> : {{ date('Y-m-d\TH:i:s',$db->date_stop) }}<hr/>
                                             <strong>วันสิ้นสุดกิจกรรม</strong> : {{ date('Y-m-d\TH:i:s',$db->date_stop) }}<hr/>
 
                                             <div class="m-t-10">
                                                 <a href="/admin/{{$folder}}/show/{{ $db->id }}" class="btn btn-primary"><i class="fas fa-cog fa-spin"></i> View & Edit</a>
 
-                                                
+                                                @if(Auth::id() == 1)
                                                 <a href="javascript::void(0)" class="btn btn-danger" id="content_del{{ $db->id }}"><i class="fas fa-lg fa-fw m-r-10 fa-trash-alt"></i> Trash</a>
-
+                                                @endif
                                             </div>
 
                                         </td>

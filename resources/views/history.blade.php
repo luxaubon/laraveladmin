@@ -37,7 +37,7 @@
 <div class="content-wrapper">
   <div class="main-point">
       <?php if($point > 0){echo '<span class="btn btn-sm btn-primary"><a href="/history" style="color: white;">คะแนนสะสมของคุณ : '.$point.'</a></span>';} ?>
-      <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span>
+      <!-- <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span> -->
   </div>
   <div class="main-button">
     <a href="/rules" class="btn">
@@ -85,7 +85,7 @@
                               $status = 'ลงทะเบียนโดย Admin';
                               $title = 'ส่งรหัสใต้ฝา';
                             }else if($db['status'] == 5){
-                              $status = 'ยกเลิกโดย Admin';
+                              $status = $db['textreject'];
                             }
                             echo '<tr>
                                     <td>'.$title.'</td>
@@ -107,7 +107,9 @@
             </div>
 
   <!-- Main Box @e -->
-
+  <div class="bottom-button">
+      <a href="/" class="btn btn-sm btn-dark"><i class="fal fa-angle-left"></i> ย้อนกลับ</a>
+  </div>
   <!-- Reward BG @s -->
   <div class="main-reward">
     <img src="assets_home/img/reward.png" alt="">
@@ -178,7 +180,7 @@
 
 <!-- Main @s  -->
 <?php 
-if(!empty($history_count)){
+if(!empty($history)){
   echo "<script>
         $(function () {
           $('#get-otp').modal('toggle');

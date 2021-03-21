@@ -107,6 +107,9 @@ class UserController extends Controller
 
     public function del_content(Request $request){
         $post = Images::find($request->numrow);
+        $post->textreject = $request->rejectText;
+        $post->admin_id = Auth::id();
+        $post->admin_name = Auth::user()->name;
         $post->status = 5;
         $post->save();
     }

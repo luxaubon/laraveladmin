@@ -60,7 +60,7 @@ class HomeController extends Controller
                 }
                 }
             }else {$slides = ''; }
-            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
                 $toppender_status = 'online';  
             }else{
@@ -134,7 +134,7 @@ class HomeController extends Controller
             }
         }else {$slides = ''; }
 
-        $toppender = Toppender::orderBy('id', 'DESC')->first();
+        $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
                 $toppender_status = 'online';  
             }else{
@@ -157,7 +157,7 @@ class HomeController extends Controller
 
         Session::put('ss_phone', $request->phone);
 
-        $myarray = explode('-',$request->b_dates);
+        $myarray = explode('/',$request->datepicker);
         $post                  = new User_otp;
         $post->name            = $request->name;
         $post->last_name       = $request->last_name;
@@ -166,7 +166,7 @@ class HomeController extends Controller
         // $post->year            = $request->year;
         $post->date            = $myarray[0];
         $post->month           = $myarray[1];
-        $post->year            = $myarray[2];
+        $post->year            = $myarray[2]+543;
         $post->sex             = $request->sex;
         $post->phone           = $request->phone;
         $post->address         = $request->address;
@@ -200,7 +200,7 @@ class HomeController extends Controller
                 }
             }else {$slides = ''; }
 
-            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
                 $toppender_status = 'online';  
             }else{
@@ -245,8 +245,8 @@ class HomeController extends Controller
             }
             $history = DB::table('images')->select('code_number', 'status')->whereIn('id', $myarray_query)->orderBy('id', 'DESC')->get();
             $history_count = DB::table('images')->select('code_number', 'status')->whereIn('id', $myarray_query)->where('status',1)->count();
-   
-            $toppender = Toppender::orderBy('id', 'DESC')->first();
+
+            $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
                 $toppender_status = 'online';  
             }else{
@@ -299,7 +299,7 @@ class HomeController extends Controller
                     }
                 }
             }else {$slides = ''; }
-            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
                 $toppender_status = 'online';  
             }else{
@@ -347,7 +347,7 @@ class HomeController extends Controller
         }
         
             $numberData = count($request->number)-1;
-            $images_id = '';
+            //$images_id = '';
             for($i=0; $i <= $numberData; $i++ ){
 
                 $photo          = $request->file('image')[$i];
@@ -415,12 +415,12 @@ class HomeController extends Controller
                 $images->table              = 'user_otp';
                 $images->image              = $nameimages;
                 $images->save();
-                $images_id.=  $images->id.',';
+               // $images_id.=  $images->id.',';
             }
 
-            $post           = User_otp::find(Session::get('ss_id'));
-            $post->gallery  = $post->gallery.$images_id;
-            $post->save();
+            // $post           = User_otp::find(Session::get('ss_id'));
+            // $post->gallery  = $post->gallery.$images_id;
+            // $post->save();
 
 
             return redirect('/history?code='.$images_id);
@@ -444,7 +444,7 @@ class HomeController extends Controller
 
             $pages = Pages::all();
 
-            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
                 $toppender_status = 'online';  
             }else{
@@ -486,7 +486,7 @@ class HomeController extends Controller
             }
         }else {$slides = ''; }
 
-        $toppender = Toppender::orderBy('id', 'DESC')->first();
+        $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
         if(time() > $toppender->date_start && time() < $toppender->date_stop){
             $toppender_status = 'online';  
         }else{
@@ -528,7 +528,7 @@ class HomeController extends Controller
                 }
             }else {$slides = ''; }
 
-            $toppender = Toppender::orderBy('id', 'DESC')->first();
+            $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
 
             }else{
@@ -544,8 +544,9 @@ class HomeController extends Controller
                 WHERE code_first_number = $toppender->status
                 AND   images.status = 1
                 AND   images.created_at BETWEEN '".$date_start."' AND '".$date_stop."'
+                GROUP BY user_otp.id
                 ORDER BY totals DESC
-                LIMIT 10
+                LIMIT $toppender->luckynumber
             ");
             if($user[0]->totals == 0){
                 $user = 'nodata';
@@ -561,6 +562,7 @@ class HomeController extends Controller
                     AND   images.status = 1
                     AND   images.sid = '".$ssid."'
                     AND   images.created_at BETWEEN '".$date_start."' AND '".$date_stop."'
+                    
                 ");
 
                 $point = Images::where('sid',Session::get('ss_id'))->where('status',1)->count();
@@ -569,7 +571,6 @@ class HomeController extends Controller
                 $myuser = '';
                 $point = 0;
             }
-
             $data = array(
                 //HEAD
                 'setting'   => $setting,

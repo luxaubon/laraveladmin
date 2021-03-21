@@ -56,8 +56,10 @@
 
                     <div class="col-md-4 bg-grey-light">
 							  <p class="m-b-10 p-0 ">
+							  @if(Auth::id() == 1)
 									<button type="submit" id="Save" class="btn btn-success m-t-5">
 									<i class="fa fa-save"></i> Save</button>
+								@endif
 							  </p>
 
 								<div class="panel-group alert alert-dark" id="accordion">

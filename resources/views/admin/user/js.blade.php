@@ -1,102 +1,140 @@
 <script type="text/javascript">
+
+	
 	$(document).ready(function(){
+		
+
 		var editID = $('#editID').val();
 		$('.image-link').magnificPopup({type:'image'});
 		
 		// Delete IMAGE GALLERY
-	   $("a[id^='del_img']").click(function(){
+
+
+		$("a[id^='content_del']").click(function(){
 			var numrow = $(this).attr("id");
-			numrow = numrow.substr(7);
-			var params = {
-			  	numrow : numrow,
-			  	id : editID
-			  }
-			swal({
-					title: 'คุณแน่ใจที่จะทำการลบข้อมูลนี้?',
-					text: 'เมื่อทำการลบข้อมูลนี้ จะไม่สามารถกู้กลับมาได้!',
-					icon: 'error',
-					buttons: {
-						cancel : {
-							text: 'ยกเลิก',
-							value: null,
-							visible: true,
-							className: 'btn btn-default',
-							closeModal: true,
-						},
-						confirm : {
-							text: 'ทำการลบ',
-							value: true,
-							visible: true,
-							className: 'btn btn-danger',
-							closeModal: true
+			numrow = numrow.substr(11);
+			$("#myid").val(numrow);
+			$('#modal-dialog').modal('toggle');
+		});// Delete CONTENT
+
+		$("#btnSendReject").click(function(){
+			var rejectText = $("#rejectText").val();
+			var numrow = $("#myid").val();
+			if(rejectText === ''){
+				alert('โปรกรอกข้อความในการ Reject');
+				return false;
+			}else{
+				var params = {
+					numrow : numrow,
+					rejectText : rejectText,
+				}
+				$.ajax({
+					type : "GET",
+					url: "/admin/{{$folder}}/del_content",
+					data : params,
+					beforeSend : function(data){
+						swal("ทำการเปลี่ยนแปลงข้อมูลนี้เรียบร้อยแล้ว", {icon: "success",});
+					},
+						complete : function(){
+							window.location.assign('');
 						}
-					}
-				}).then((willDelete) => {
-					  if (willDelete) {
+					});
+			}
+		})
+
+	//    $("a[id^='del_img']").click(function(){
+	// 		var numrow = $(this).attr("id");
+	// 		numrow = numrow.substr(7);
+	// 		var params = {
+	// 		  	numrow : numrow,
+	// 		  	id : editID
+	// 		  }
+	// 		swal({
+	// 				title: 'คุณแน่ใจที่จะทำการลบข้อมูลนี้?',
+	// 				text: 'เมื่อทำการลบข้อมูลนี้ จะไม่สามารถกู้กลับมาได้!',
+	// 				icon: 'error',
+	// 				buttons: {
+	// 					cancel : {
+	// 						text: 'ยกเลิก',
+	// 						value: null,
+	// 						visible: true,
+	// 						className: 'btn btn-default',
+	// 						closeModal: true,
+	// 					},
+	// 					confirm : {
+	// 						text: 'ทำการลบ',
+	// 						value: true,
+	// 						visible: true,
+	// 						className: 'btn btn-danger',
+	// 						closeModal: true
+	// 					}
+	// 				}
+	// 			}).then((willDelete) => {
+	// 				  if (willDelete) {
 					  	
-					  	$.ajax({
-							type : "GET",
-							url: "/admin/{{$folder}}/del_img",
-							data : params,
-							beforeSend : function(data){
-								$("#"+numrow).hide();
-								swal("ทำการลบข้อมูลนี้เรียบร้อยแล้ว", {icon: "success",});
+	// 				  	$.ajax({
+	// 						type : "GET",
+	// 						url: "/admin/{{$folder}}/del_img",
+	// 						data : params,
+	// 						beforeSend : function(data){
+	// 							$("#"+numrow).hide();
+	// 							swal("ทำการลบข้อมูลนี้เรียบร้อยแล้ว", {icon: "success",});
 								
-							},
-						 	complete : function(){
-							 	//window.location.assign('');
-							}
-							});
+	// 						},
+	// 					 	complete : function(){
+	// 						 	//window.location.assign('');
+	// 						}
+	// 						});
 							
-					  }
-				});
-		});// Delete IMAGE
+	// 				  }
+	// 			});
+	// 	});// Delete IMAGE
 
 	   // Delete LIST DATA
 
-	  $("a[id^='content_del']").click(function(){
-			var numrow = $(this).attr("id");
-			numrow = numrow.substr(11);
-			var params = {
-			  	numrow : numrow,
-			  }
-			swal({
-					title: 'คุณแน่ใจที่จะทำการเปลี่ยนแปลงข้อมูลนี้?',
-					text: 'เมื่อทำการเปลี่ยนแปลงข้อมูลนี้ จะไม่สามารถกู้กลับมาได้!',
-					icon: 'error',
-					buttons: {
-						cancel : {
-							text: 'ยกเลิก',
-							value: null,
-							visible: true,
-							className: 'btn btn-default',
-							closeModal: true,
-						},
-						confirm : {
-							text: 'ทำการเปลี่ยนแปลง',
-							value: true,
-							visible: true,
-							className: 'btn btn-danger',
-							closeModal: true
-						}
-					}
-				}).then((willDelete) => {
-					  if (willDelete) {
-					  	$.ajax({
-							type : "GET",
-							url: "/admin/{{$folder}}/del_content",
-							data : params,
-							beforeSend : function(data){
-								swal("ทำการเปลี่ยนแปลงข้อมูลนี้เรียบร้อยแล้ว", {icon: "success",});
+	//   $("a[id^='content_del']").click(function(){
+	// 		var numrow = $(this).attr("id");
+	// 		numrow = numrow.substr(11);
+	// 		var params = {
+	// 		  	numrow : numrow,
+	// 		  }
+	// 		swal({
+	// 				title: 'คุณแน่ใจที่จะทำการเปลี่ยนแปลงข้อมูลนี้?',
+	// 				text: 'เมื่อทำการเปลี่ยนแปลงข้อมูลนี้ จะไม่สามารถกู้กลับมาได้!',
+	// 				icon: 'error',
+	// 				buttons: {
+	// 					cancel : {
+	// 						text: 'ยกเลิก',
+	// 						value: null,
+	// 						visible: true,
+	// 						className: 'btn btn-default',
+	// 						closeModal: true,
+	// 					},
+	// 					confirm : {
+	// 						text: 'ทำการเปลี่ยนแปลง',
+	// 						value: true,
+	// 						visible: true,
+	// 						className: 'btn btn-danger',
+	// 						closeModal: true
+	// 					}
+	// 				}
+	// 			}).then((willDelete) => {
+	// 				  if (willDelete) {
+	// 				  	$.ajax({
+	// 						type : "GET",
+	// 						url: "/admin/{{$folder}}/del_content",
+	// 						data : params,
+	// 						beforeSend : function(data){
+	// 							swal("ทำการเปลี่ยนแปลงข้อมูลนี้เรียบร้อยแล้ว", {icon: "success",});
 								
-							},
-						 	complete : function(){
-							 	window.location.assign('');
-							}
-							});
-					  }
-				});
-		});// Delete CONTENT
+	// 						},
+	// 					 	complete : function(){
+	// 						 	window.location.assign('');
+	// 						}
+	// 						});
+	// 				  }
+	// 			});
+	// 	});// Delete CONTENT
 
 		
 		if(editID != ''){

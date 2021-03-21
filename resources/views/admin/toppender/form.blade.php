@@ -29,8 +29,10 @@
 
                     <div class="col-md-4 bg-grey-light">
 							  <p class="m-b-10 p-0 ">
+							  @if(Auth::id() == 1)
 									<button type="submit" id="Save" class="btn btn-success m-t-5">
 									<i class="fa fa-save"></i> Save</button>
+									@endif
 							  </p>
 
 								<div class="panel-group alert alert-dark" id="accordion">
@@ -62,22 +64,36 @@
 	                                </div>
 	                                <div id="collapse1" class="panel-collapse collapse show">
 	                                	<div class="panel-body">
+										<label class="control-label">จำนวนรางวัล </label>
+		                                   	<div class="input-group date" >
+	                                            <input type="number" class="form-control" name="luckynumber" value="{{ old('luckynumber') }}" required>
+	                                        </div>
+											<hr>
+
+	                                    <label class="control-label">การแสดงผล </label>
+										<select class="form-control" id="online" name="online" required>
+											<option class="text-success-light" value="">การแสดงผล</option>
+											<option class="text-danger-light" value="1">ไม่แสดง</option>
+											<option class="text-success-light" value="2">แสดง</option>	
+										 </select>
+
+                                         <hr>
 										
 	                                	 <label class="control-label">เวลาเริ่มต้น </label>
 		                                   	<div class="input-group date" id="datetimepicker1">
-	                                            <input type="datetime-local" class="form-control" name="date_start" value="{{ old('date_start') }}" >
+	                                            <input type="datetime-local" class="form-control" name="date_start" value="{{ old('date_start') }}" required>
 	                                           
 	                                        </div>
                                          <hr>
 	                                   	 <label class="control-label">เวลาสินสุด </label>
 	                                   	<div class="input-group date" id="datetimepicker2">
-                                            <input type="datetime-local" class="form-control" name="date_stop" value="{{ old('date_stop') }}"/>
+                                            <input type="datetime-local" class="form-control" name="date_stop" value="{{ old('date_stop') }}" required/>
                                             
                                         </div>
 										<hr>
 
 	                                    <label class="control-label">รสชาติ </label>
-										<select class="form-control" id="status" name="status">
+										<select class="form-control" id="status" name="status" required>
 											<option class="text-success-light" value="">รสชาติ</option>
 											<option class="text-success-light" value="1">Lemon</option>
 											<option class="text-danger-light" value="2">Orange</option>	
