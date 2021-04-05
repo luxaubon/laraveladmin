@@ -36,7 +36,7 @@
 <!-- Content Wrapper @s -->
 <div class="content-wrapper">
 <div class="main-point">
-      <?php if($point > 0){echo '<span class="btn btn-sm btn-primary"><a href="/history" style="color: white;">คะแนนสะสมของคุณ : '.$point.'</a></span>';} ?>
+      <?php if($point > 0){echo '<span class="btn btn-sm btn-primary"><a href="/history" style="color: white;">สิทธิ์สะสมของคุณ : '.$point.'</a></span>';} ?>
       <!-- <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span> -->
   </div>
   <div class="main-button">
@@ -66,11 +66,11 @@
             <div class="form-group" >
                 <div class="input-group">
                 <button type="button" class="btn" style="background: white;border-color: white;"></button>
-                    <input type="number" id="number0" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
+                    <input type="number" id="number0" name="number[]" class="form-control txtCode" placeholder="กรุณาใส่ CODE" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
                     <div class="input-group-append">
                         <div class="upload-btn-wrapper input-group-text">
                           <i class="fal fa-camera"></i>
-                          <input type="file" id="files_0" name="image[]" onchange="fileselectedchange(this,0);" accept="image/*;capture=camera" required>
+                          <input type="file" id="files_0" name="image[]" onchange="fileselectedchange(this,0);" accept="image/*;capture=camera" required class="checkfile">
                       </div>
                     </div>
                 </div>
@@ -86,10 +86,40 @@
                 <a href="javascript:void(0);" class="btn btn-block" id="btnAdd">+ เพิ่มช่อง</a>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <button type="submit" class="btn btn-block btn-lg btn-primary" id="btnSend">ตกลง</button>
+            </div> -->
+            <div class="form-group">
+                <button type="button" class="btn btn-block btn-lg btn-primary" id="btnShow">ตกลง</button>
             </div>
             <?php } ?>
+
+            <div class="modal fade" id="showSum" tabindex="-1" role="dialog" aria-labelledby="showSum" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="modal-display">
+                  <i class="fas fa-qrcode"></i>
+                    <h3 class="title">
+                      กรุณาตรวจสอบอีกครั้ง
+                    </h3>
+                    <div class="desc" id="modalText">
+                    
+                    </div>
+                    <div class="row">
+                      <div class="col-6"><button type="button" class="btn btn-block btn-secondary"
+                          data-dismiss="modal">ยกเลิก</button></div>
+                      <div class="col-6">
+                        <button type="submit" class="btn btn-block btn-primary" id="btnSend">ตกลง</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
             
         </form>
@@ -104,7 +134,7 @@
   </div>
   <!-- Reward BG @e -->
 
-  <a href="javascript:void(0)" onclick="return social_share();" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
+  <a href="https://www.facebook.com/HiVitaminC200" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
   
 </div>
 <!-- Content Wrapper @e -->
@@ -127,6 +157,8 @@
 </div>
 
 
+
+
 <script>
 
 <?php if($block == 'block'){
@@ -134,10 +166,51 @@
   echo 'swal("ขออภัยท่านกรอกรหัสผิด", "เกินกว่าสิทธิ์ที่กำหนด กลับมาลองอีกครั้งในวันที่ '.DateThai($dateblock).'", "error");';
 }?>
 
+document.addEventListener("DOMContentLoaded", function() {
+    var elements = document.getElementsByClassName("checkfile");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                e.target.setCustomValidity("แนบภาพรหัสใต้ฝา");
+            }
+        };
+        elements[i].oninput = function(e) {
+            e.target.setCustomValidity("");
+        };
+    }
+})
+
 $(document).ready(function() {
-  $("#btnSend").submit(function (){
-    $("#btnSend").hide();
+  // $("#btnSend").submit(function (){
+  //   $("#btnSend").hide();
+  // });
+   $("#btnShow").click(function (){
+    var returnData;
+    var numCount = 0;
+    $("input:file").each(function(){
+        numCount++;
+        var val = $(this).val()
+        if(!val){
+          swal("แนบภาพรหัสใต้ฝา ช่องที่ "+numCount+" ", "", "error");
+          returnData = 0;
+        }
+    });
+
+    if(returnData != 0){
+      var elements = document.getElementsByClassName("txtCode");
+      var data = '';
+      var num = 0;
+      for (var i = 0; i < elements.length; i++) {
+        num++;
+        // data+='<p><h3>'+ num +'. ' + elements[i].value+'</h3></p>';
+        data+='<p><h3>'+elements[i].value+'</h3></p>';
+      }
+      $("#modalText").html(data)
+      $('#showSum').modal('toggle');
+    }
   });
+
 });
 
 $(function () {
@@ -193,11 +266,11 @@ function GetDynamicTextBox(value,number) {
     return `<div class="form-group" >
                 <div class="input-group">
                     <button type="button" class="btn btn-danger remove">-</button>
-                    <input type="number" id="number`+number+`" name="number[]" class="form-control" placeholder="กรุณาใส่ CODE" required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
+                    <input type="number" id="number`+number+`" name="number[]" class="form-control txtCode" placeholder="กรุณาใส่ CODE" required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
                     <div class="input-group-append">
                       <div class="upload-btn-wrapper input-group-text">
                           <i class="fal fa-camera"></i>
-                          <input type="file" id="files_`+number+`" name="image[]" onchange="fileselectedchange(this,`+number+`);" accept="image/*;capture=camera" required>
+                          <input type="file" id="files_`+number+`" name="image[]" onchange="fileselectedchange(this,`+number+`);" accept="image/*;capture=camera" required class="checkfile">
                       </div>
                     </div>
                     

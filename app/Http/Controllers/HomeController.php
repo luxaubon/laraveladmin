@@ -42,12 +42,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Session::get('ss_phone') ){
-            if(Session::get('ss_phone') && Session::get('ss_id')){
-                return redirect('/member');
-            }else{
-                return redirect('/register');
-            }
+        if(Session::get('ss_phone') && Session::get('ss_id') ){
+            return redirect('/member');
+            // if(Session::get('ss_phone') ){
+                
+            // }else{
+            //     return redirect('/register');
+            // }
         }else{
             $setting = Setting::find(1);
             $slide = Db_other::find(1);
@@ -60,11 +61,14 @@ class HomeController extends Controller
                 }
                 }
             }else {$slides = ''; }
+
             $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
-            if(time() > $toppender->date_start && time() < $toppender->date_stop){
-                $toppender_status = 'online';  
-            }else{
-                $toppender_status = 'offline';
+            if(!empty($toppender)){
+                if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                    $toppender_status = 'online';  
+                }else{
+                    $toppender_status = 'offline';
+                }
             }
 
             $data = array(
@@ -95,9 +99,10 @@ class HomeController extends Controller
     public function OTP(Request $request) {
         $phone = User_otp::where('phone','=',$request->phone)->where('status','=',1)->first();
        
-        Session::put('ss_phone', $request->phone);
+        //Session::put('ss_phone', $request->phone);
 
         if($phone){
+            Session::put('ss_phone', $phone->phone);
             Session::put('ss_id',$phone->id);
             return 'registerDont';
         }else{
@@ -120,7 +125,11 @@ class HomeController extends Controller
         
     }
 
-    public function register() {
+    public function register(Request $request) {
+        $phone = $request->phone;
+        if($phone == ''){
+            return redirect('/');
+        }
         $setting = Setting::find(1);
         $province = province::all();
         $slide = Db_other::find(1);
@@ -135,11 +144,13 @@ class HomeController extends Controller
         }else {$slides = ''; }
 
         $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
+        if(!empty($toppender)){
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
                 $toppender_status = 'online';  
             }else{
                 $toppender_status = 'offline';
             }
+        }
 
         $data = array(
             //HEAD
@@ -147,37 +158,36 @@ class HomeController extends Controller
             'slides' => $slides,
             'province' => $province,
             'toppender_status' => $toppender_status,
+            'phone' => $phone
             //HEAD
         );
         return view('register',$data);
     }
 
     public function registerPhone(Request $request){
-   
 
-        Session::put('ss_phone', $request->phone);
-
-        $myarray = explode('/',$request->datepicker);
         $post                  = new User_otp;
         $post->name            = $request->name;
         $post->last_name       = $request->last_name;
-        // $post->date            = $request->date;
-        // $post->month           = $request->month;
-        // $post->year            = $request->year;
-        $post->date            = $myarray[0];
-        $post->month           = $myarray[1];
-        $post->year            = $myarray[2]+543;
+        $post->date            = $request->date;
+        $post->month           = $request->month;
+        $post->year            = $request->year+543;
         $post->sex             = $request->sex;
         $post->phone           = $request->phone;
+
         $post->address         = $request->address;
+        $post->zipcode         = $request->zipcode;
         $post->province        = $request->province;
+        $post->amphoe          = $request->amphoe;
+        $post->district        = $request->district;
+
         $post->jobs            = $request->jobs;
         $post->salary          = $request->salary;
         $post->save();
 
-        Session::put('ss_id', $post->id);
-
         if($post){
+            Session::put('ss_phone', $request->phone);
+            Session::put('ss_id', $post->id);
             return 'success';
         }else{
             return 'fail';
@@ -201,10 +211,12 @@ class HomeController extends Controller
             }else {$slides = ''; }
 
             $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
-            if(time() > $toppender->date_start && time() < $toppender->date_stop){
-                $toppender_status = 'online';  
-            }else{
-                $toppender_status = 'offline';
+            if(!empty($toppender)){
+                if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                    $toppender_status = 'online';  
+                }else{
+                    $toppender_status = 'offline';
+                }
             }
 
             $data = array(
@@ -247,12 +259,15 @@ class HomeController extends Controller
             $history_count = DB::table('images')->select('code_number', 'status')->whereIn('id', $myarray_query)->where('status',1)->count();
 
             $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
-            if(time() > $toppender->date_start && time() < $toppender->date_stop){
-                $toppender_status = 'online';  
-            }else{
-                $toppender_status = 'offline';
+            if(!empty($toppender)){
+                if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                    $toppender_status = 'online';  
+                }else{
+                    $toppender_status = 'offline';
+                }
             }
             $point = Images::where('sid',Session::get('ss_id'))->where('status',1)->count();
+         
             $data = array(
                 //HEAD
                 'setting'               => $setting,
@@ -300,10 +315,12 @@ class HomeController extends Controller
                 }
             }else {$slides = ''; }
             $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
-            if(time() > $toppender->date_start && time() < $toppender->date_stop){
-                $toppender_status = 'online';  
-            }else{
-                $toppender_status = 'offline';
+            if(!empty($toppender)){
+                if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                    $toppender_status = 'online';  
+                }else{
+                    $toppender_status = 'offline';
+                }
             }
             
             $point = Images::where('sid',Session::get('ss_id'))->where('status',1)->count();
@@ -347,7 +364,7 @@ class HomeController extends Controller
         }
         
             $numberData = count($request->number)-1;
-            //$images_id = '';
+            $images_id = '';
             for($i=0; $i <= $numberData; $i++ ){
 
                 $photo          = $request->file('image')[$i];
@@ -368,7 +385,7 @@ class HomeController extends Controller
                     $user_check2         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();   
                     if($user_check2){
                         $count               = Log_otp::where('user_id',Session::get('ss_id'))->count('id');
-                        if($user_check2->total_use < 10){
+                        if($user_check2->total_use < 5){
                             $user_check2->total_use  = $user_check2->total_use + 1;
                             $user_check2->save();
                         }else{
@@ -415,7 +432,7 @@ class HomeController extends Controller
                 $images->table              = 'user_otp';
                 $images->image              = $nameimages;
                 $images->save();
-               // $images_id.=  $images->id.',';
+               $images_id.=  $images->id.',';
             }
 
             // $post           = User_otp::find(Session::get('ss_id'));
@@ -445,10 +462,12 @@ class HomeController extends Controller
             $pages = Pages::all();
 
             $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
-            if(time() > $toppender->date_start && time() < $toppender->date_stop){
-                $toppender_status = 'online';  
-            }else{
-                $toppender_status = 'offline';
+            if(!empty($toppender)){
+                if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                    $toppender_status = 'online';  
+                }else{
+                    $toppender_status = 'offline';
+                }
             }
             if(Session::get('ss_id')){
                 $point = Images::where('sid',Session::get('ss_id'))->where('status',1)->count();
@@ -487,10 +506,12 @@ class HomeController extends Controller
         }else {$slides = ''; }
 
         $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
-        if(time() > $toppender->date_start && time() < $toppender->date_stop){
-            $toppender_status = 'online';  
-        }else{
-            $toppender_status = 'offline';
+        if(!empty($toppender)){
+            if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                $toppender_status = 'online';  
+            }else{
+                $toppender_status = 'offline';
+            }
         }
 
         if(Session::get('ss_id')){
@@ -530,10 +551,12 @@ class HomeController extends Controller
 
             $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
             if(time() > $toppender->date_start && time() < $toppender->date_stop){
-
+                
             }else{
                 return redirect('/');
             }
+            
+
 
             $date_start = date('Y-m-d H:i:s',$toppender->date_start);
             $date_stop = date('Y-m-d H:i:s',$toppender->date_stop);
@@ -586,6 +609,77 @@ class HomeController extends Controller
             return view('toppender',$data);
 
         }
+       
+        public function profile(){
+            if(empty(Session::get('ss_id'))){
+                return redirect('/');
+            }else{
+                $profile = User_otp::find(Session::get('ss_id'));
+                $setting = Setting::find(1);
+                $slide = Db_other::find(1);
+
+                if($slide->gallery != ''){
+                    $gallery1 = explode(",",$slide->gallery);
+                    foreach($gallery1 as $value1) {
+                    $image = Slides::find($value1);
+                    if($image['online'] == 0){
+                            $slides[] = $image;
+                    }
+                    }
+                }else {$slides = ''; }
+    
+                $toppender = Toppender::where('online',2)->orderBy('id', 'DESC')->first();
+                if(!empty($toppender)){
+                    if(time() > $toppender->date_start && time() < $toppender->date_stop){
+                        $toppender_status = 'online';  
+                    }else{
+                        $toppender_status = 'offline';
+                    }
+                }
+    
+                $data = array(
+                    //HEAD
+                    'setting' => $setting,
+                    'slides' => $slides,
+                    'profile' => $profile,
+                    'toppender_status' => $toppender_status,
+                    //HEAD
+                );
+    
+                return view('profile',$data);
+            }
+            
+        }
+
+        public function updateProfile(Request $request){
+
+                $post = User_otp::find(Session::get('ss_id'));
+ 
+                // $post->name            = $request->name;
+                // $post->last_name       = $request->last_name;
+                $post->date            = $request->date;
+                $post->month           = $request->month;
+                $post->year            = $request->year+543;
+                // $post->sex             = $request->sex;
+                // $post->phone           = $request->phone;
+
+                $post->address         = $request->address;
+                $post->zipcode         = $request->zipcode;
+                $post->province        = $request->province;
+                $post->amphoe          = $request->amphoe;
+                $post->district        = $request->district;
+
+                // $post->jobs            = $request->jobs;
+                // $post->salary          = $request->salary;
+                $post->save();
+                if($post){
+                    return 'success';
+                }else{
+                    return 'error';
+                }
+            
+        }
+        
 
 
 

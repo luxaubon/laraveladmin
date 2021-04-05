@@ -57,7 +57,7 @@ class IndexController extends Controller
         $dataChartJobs = '';
         foreach($job as $data){
             switch ($data->jobs) {
-                case 0: $jobS = 'ไม่ระบุ';break;
+                case 0: $jobS = 'อื่นๆ';break;
                 case 1: $jobS = 'พนักงานบริษัท';break;
                 case 2: $jobS = 'พนักงานโรงงาน';break;
                 case 3: $jobS = 'ข้าราชการ';break;
@@ -67,7 +67,7 @@ class IndexController extends Controller
                 case 7: $jobS = 'พ่อค้า แม่ค้า (ค้าขาย)';break;
                 case 8: $jobS = 'เกษตรกร';break;
                 case 9: $jobS = 'เกษียณ/แม่บ้าน';break;
-                default: $jobS = 'ไม่ระบุ'; break;
+                default: $jobS = 'อื่นๆ'; break;
               }
             $dataChartJobs.= '{device:"'.$jobS.'",geekbench:'.$data->total.'},';
         }
@@ -77,7 +77,7 @@ class IndexController extends Controller
         $dataChartSalary = '';
         foreach($salary as $data){
             switch ($data->salary) {
-                case 0: $salary = 'ไม่ระบุ';break;
+                case 0: $salary = 'อื่นๆ';break;
                 case 1: $salary = 'ต่ำกว่า 5,000 บาท';break;
                 case 2: $salary = '5,001 - 7,999 บาท';break;
                 case 3: $salary = '8,000 - 9,999 บาท';break;
@@ -88,7 +88,7 @@ class IndexController extends Controller
                 case 8: $salary = '20,000 - 24,999 บาท';break;
                 case 9: $salary = '25,000 - 29,999 บาท';break;
                 case 10: $salary = '30,000 บาท หรือมากกว่า';break;
-                default: $salary = 'ไม่ระบุ'; break;
+                default: $salary = 'อื่นๆ'; break;
               }
             $dataChartSalary.= '{device:"'.$salary.'",geekbench:'.$data->total.'},';
         }
@@ -146,7 +146,8 @@ class IndexController extends Controller
         foreach($sex as $data){
             switch ($data->sex) {
                 case 1: $sexs = 'ชาย';break;
-                case 2: $sexs = 'หญิง';break;
+                case 2: $sexs = 'น.ส.';break;
+                case 3: $sexs = 'นาง';break;
                 default: $sexs = ''; break;
               }
             $sexData.= $data->total.',';

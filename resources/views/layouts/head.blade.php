@@ -53,10 +53,7 @@
   <link rel="stylesheet" href="/assets_home/css/style.css?v=5">
   <script src="/assets_home/js/jquery-3.5.1.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="/assets_home/jquery.datetimepicker.css" >
-  <script src="/assets_home/jquery.js"></script>
-  <script src="/assets_home/build/jquery.datetimepicker.full.js"></script>
+  <link rel="stylesheet" href="/jquery.Thailand.js/dist/jquery.Thailand.min.css">
 
   <!-- <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script> -->
 

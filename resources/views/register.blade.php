@@ -58,40 +58,82 @@
   <div class="main-box">
                 <h2 class="title">ลงทะเบียนร่วมกิจกรรม</h2>
                 <div class="main-mobile">
-                    <form action="">
+                    <form action="" id="form-insert" autocomplete="off" >
                         <div class="form-group">
                             <p>ชื่อและนามสกุล</p>
                             <div class="row">
-                                <div class="col-6">
+                                    <div class="col-4">
+                                    <select id="sex" name="sex" class="form-control">
+                                        <option value="">คำนำหน้านาม</option>
+                                        <option value="1">นาย </option>
+                                        <option value="2">น.ส.</option>
+                                        <option value="3">นาง</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-4">
                                     <input type="text" id="name" name="name" onkeyup="isThaichar(this.value,this)" class="form-control" placeholder="ชื่อ">
                                 </div>
-                                <div class="col-6">
-                                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="นามสกุล">
-                                </div>
+
+
+                                <div class="col-4">
+                                    <input type="text" id="last_name" onkeyup="isThaichar(this.value,this)" name="last_name" class="form-control" placeholder="นามสกุล">
+                                </div> 
                             </div>
                         </div>
+
+
+                        <!-- <div class="form-group">
+                            <p>เพศ</p>
+                            <select id="sex" name="sex" class="form-control">
+                                <option value="">เพศ</option>
+                                <option value="1">ชาย</option>
+                                <option value="2">หญิง</option>
+                            </select>
+                        </div> -->
 
                         <div class="form-group">
                             <p>วันเดือนปีเกิด</p>
                             <div class="row">
-
-                            <div class="col-12">
-                                <input type="text" id="b_dates" name="b_dates" class="form-control" placeholder="วันเดือนปีเกิด" readonly>
-                            </div>
-
-                               <!-- <div class="col-4">
-                                    <select id="date" name="date" class="form-control">
+                            <div class="col-4">
+                                    <select class="form-control" name="day" id="day">
                                         <option value="">วัน</option>
-                                        <?php 
-                                        // for($i = 1; $i < 32; $i++){
-                                        //     echo '<option value="'.$i.'">'.$i.'</option>';
-                                        // }
-                                        ?>
-                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option id="29" value="29">29</option>
+                                        <option id="30" value="30">30</option>
+                                        <option id="31" value="31">31</option>
                                     </select>
                                 </div>
+
                                 <div class="col-4">
-                                    <select id="month" name="month" class="form-control">
+                                    <select id="month" name="month" class="form-control" >
                                         <option value="">เดือน</option>
                                         <option value="1">มกราคม</option>
                                         <option value="2">กุมภาพันธ์</option>
@@ -105,50 +147,28 @@
                                         <option value="10">ตุลาคม</option>
                                         <option value="11">พฤศจิกายน</option>
                                         <option value="12">ธันวาคม</option>
-                                    </select></div>
-                                <div class="col-4">
+                                    </select>
+                                  </div>
+
+
+                             <div class="col-4">
                                     <select id="year" name="year" class="form-control">
                                         <option value="">พ.ศ.</option>
                                         <?php 
-                                        // for($i = 2464; $i < 2564; $i++){
-                                        //     echo '<option value="'.$i.'">'.$i.'</option>';
-                                        // }
+                                        for($i = 2021; $i > 1921; $i--){
+                                          $numshow = $i + 543;
+                                            echo '<option value="'.$i.'">'.$numshow.'</option>';
+                                        }
                                         ?>
                                         
                                     </select>
-                                </div>  -->
-
+                                </div> 
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <p>เพศ</p>
-                            <select id="sex" name="sex" class="form-control">
-                                <option value="">เพศ</option>
-                                <option value="1">ชาย</option>
-                                <option value="2">หญิง</option>
-                            </select>
-                        </div>
-
-                        <!-- <div class="form-group">
-                            <p>เพศ</p>
-                                        
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="sex" name="sex" value="1" >
-                                <label class="custom-control-label" for="customRadioInline1">ชาย</label>
-                            </div>            
-
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="sex" name="sex" value="2" >
-                                <label class="custom-control-label" for="customRadioInline2">หญิง</label>
-                            </div>
-                            
-
-                        </div> -->
 
                         <div class="form-group">
                             <p>เบอร์โทรศัพท์</p>
-                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์" value="<?php echo Session::get('ss_phone'); ?>" readonly >
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="เบอร์โทรศัพท์" value="<?php echo $phone; ?>" readonly >
                         </div>
 
                         <div class="form-group">
@@ -157,20 +177,43 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>รหัสไปรษณีย์</label>
+                                    <input name="zipcode" id='zipcode' class="form-control" type="text" placeholder="รหัสไปรษณีย์">
+                                </div>
+                                <div class="col-6">
+                                    <label>จังหวัด</label>
+                                    <input name="province" id="province" class="form-control" type="text" placeholder="จังหวัด">
+                                </div>
+                                <div class="col-6">
+                                    <label>อำเภอ / เขต</label>
+                                    <input name="amphoe" id="amphoe" class="form-control" type="text" placeholder="อำเภอ / เขต">
+                                </div>
+                                <div class="col-6">
+                                    <label>ตำบล / แขวง</label>
+                                    <input name="district" id="district" class="form-control" type="text" placeholder="ตำบล / แขวง">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="form-group">
                             <p>จังหวัด (กรุณากรอกข้อมูลตามบัตรประชาชน)</p>
                             <select id="province" name="province" class="form-control">
                                 <option value="">จังหวัด</option>
-                                <?php foreach($province as $province){
-                                    echo '<option value="'.$province['PROVINCE_ID'].'">'.$province['PROVINCE_NAME'].'</option>';
-                                }?>
+                                <?php 
+                                // foreach($province as $province){
+                                //     echo '<option value="'.$province['PROVINCE_ID'].'">'.$province['PROVINCE_NAME'].'</option>';
+                                // }
+                                ?>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                             <p>อาชีพ</p>
                             <select id="jobs" name="jobs" class="form-control">
                                 <option value="">เลือกอาชีพ</option>
-                                <option value="0">-ไม่ระบุ-</option>
                                 <option value="1">พนักงานบริษัท</option>
                                 <option value="2">พนักงานโรงงาน</option>
                                 <option value="3">ข้าราชการ</option>
@@ -180,6 +223,7 @@
                                 <option value="7">พ่อค้า แม่ค้า (ค้าขาย)</option>
                                 <option value="8">เกษตรกร</option>
                                 <option value="9">เกษียณ/แม่บ้าน</option>
+                                <option value="0">-อื่นๆ-</option>
                                 
                             </select>
                         </div>
@@ -188,7 +232,6 @@
                             <p>เงินเดือน</p>
                             <select id="salary" name="salary" class="form-control">
                                 <option value="">เลือกเงินเดือน</option>
-                                <option value="0">-ไม่ระบุ-</option>
                                 <option value="1">ต่ำกว่า 5,000 บาท</option>
                                 <option value="2">5,001 - 7,999 บาท</option>
                                 <option value="3">8,000 - 9,999 บาท</option>
@@ -199,6 +242,7 @@
                                 <option value="8">20,000 - 24,999 บาท</option>
                                 <option value="9">25,000 - 29,999 บาท</option>
                                 <option value="10">30,000 บาท หรือมากกว่า</option>
+                                <option value="0">-อื่นๆ-</option>
                             </select>
                         </div>
 
@@ -226,7 +270,7 @@
   </div>
   <!-- Reward BG @e -->
 
-  <a href="javascript:void(0)" onclick="return social_share();" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
+  <a href="https://www.facebook.com/HiVitaminC200" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
   
 </div>
 <!-- Content Wrapper @e -->
@@ -256,9 +300,10 @@
     </div>
     <!-- Terms & Conditions Modal  @e -->
 
-    <script>
+    <script type="text/javascript">
+
         function isThaichar(str,obj){
-            var orgi_text="abcdefghijklmnopqurstvwxyzABCDEFGHIJKLMNOPWXYZSๅภถุึคตจขชๆไำพะัีรนยบลฃฟหกดเ้่าสวงผปแอิืทมใฝ๑๒๓๔ู฿๕๖๗๘๙๐ฎฑธํ๊ณฯญฐฅฤฆฏโฌ็๋ษศซฉฮฺ์ฒฬฦ";
+            var orgi_text="ๅภถุึคตจขชๆไำพะัีรนยบลฃฟหกดเ้่าสวงผปแอิืทมใฝ๑๒๓๔ู฿๕๖๗๘๙๐ฎฑธํ๊ณฯญฐฅฤฆฏโฌ็๋ษศซฉฮฺ์ฒฬฦ";
             var str_length=str.length;
             var str_length_end=str_length-1;
             var isThai=true;
@@ -276,23 +321,12 @@
             }
             return isThai; // ถ้าเป็น true แสดงว่าเป็นภาษาไทยทั้งหมด
         }
+
+        
+
+
     $(document).ready(function() {
 
-   
-        $.datetimepicker.setLocale('th');
-        jQuery('#b_dates').datetimepicker({
-            timepicker:false,
-            format:'d-m-Y',  // กำหนดรูปแบบวันที่ ที่ใช้ เป็น 00-00-0000            
-            lang:'th',  // ต้องกำหนดเสมอถ้าใช้ภาษาไทย และ เป็นปี พ.ศ.
-            onSelectDate:function(dp,$input){
-                var yearT=new Date(dp).getFullYear();  
-                var yearTH=yearT+543;
-                var fulldate=$input.val();
-                var fulldateTH=fulldate.replace(yearT,yearTH);
-                $input.val(fulldateTH);
-            },
-        });
-  
         $('#flexCheckChecked').change(function() {
           if ($(this).is(":checked")) {
               var text =  $(this).val('true')
@@ -305,25 +339,20 @@
         $("#btnCheckData").click(function (){
             event.preventDefault();
             $("#btnCheckData").prop('disabled', true);
-            //$("#date").val() == ''  || $("#month").val() == '' || $("#year").val() == ''
-            //$(".sex").is(":checked") ==
             if($("#name").val() == '' || $("#last_name").val() == ''){
                 swal("กรุณากรอก ชื่อ-นามสกุล", "", "error");
                 $("#btnCheckData").prop('disabled', false);
-            }else if($("#b_dates").val() == ''){
-                swal("กรุณากรอก วัน-เดือน-ปี เกิดของท่าน", "", "error");
+            }else if($("#day").val() == ''  || $("#month").val() == '' || $("#year").val() == ''){
+                swal("กรุณาเลือก วัน-เดือน-ปี เกิดของท่าน", "", "error");
                 $("#btnCheckData").prop('disabled', false);
             }else if($("#sex").val() == ''){
-                swal("กรุณา เลือกเพศ", "", "error");
+                swal("กรุณา เลือกคำนำหน้านาม", "", "error");
                 $("#btnCheckData").prop('disabled', false);
             }else if($("#phone").val() == '' || $("#phone").val().length !== 10){
                 swal("กรุณากรอก เบอร์โทรศัพท์", "", "error");
                 $("#btnCheckData").prop('disabled', false);
-            }else if($("#address").val() == '' ){
+            }else if($("#address").val() == '' || $("#zipcode").val() == '' || $("#province").val() == '' || $("#amphoe").val() == '' || $("#district").val() == ''){
                 swal("กรุณา กรอกข้อมูลที่อยู่ตามบัตรประชาชน", "", "error");
-                $("#btnCheckData").prop('disabled', false);
-            }else if($("#province").val() == '' ){
-                swal("กรุณา เลือกจังหวัดตามบัตรประชนชน", "", "error");
                 $("#btnCheckData").prop('disabled', false);
             }else if($("#jobs").val() == ''){
                 swal("กรุณา เลือกอาชีพของ่ทาน", "", "error");
@@ -338,15 +367,18 @@
               
                 var name            =   $("#name").val();
                 var last_name       =   $("#last_name").val();
-                // var date            =   $("#date").val();
-                // var month           =   $("#month").val();
-                // var year            =   $("#year").val();
-                var b_dates         =   $("#b_dates").val();
+                var date            =   $("#day").val();
+                var month           =   $("#month").val();
+                var year            =   $("#year").val();
                 var sex             =   $("#sex").val();
-                // var sex             =   $('input[name="sex"]:checked').val();
                 var phone           =   $("#phone").val();
+
                 var address         =   $("#address").val();
-                var province        =   $("#province").val();
+                var zipcode          =   $("#zipcode").val();
+                var province         =   $("#province").val();
+                var amphoe           =   $("#amphoe").val();
+                var district         =   $("#district").val();
+
                 var jobs            =   $("#jobs").val();
                 var salary          =   $("#salary").val();
                 $.ajax({
@@ -356,16 +388,17 @@
                         "_token": "{{ csrf_token() }}",
                         "name":name, 
                         "last_name":last_name,
-                        "b_dates":b_dates,
-                        // "date":date,
-                        // "month":month,
-                        // "year":year, 
+                        "date":date,
+                        "month":month,
+                        "year":year, 
                         "sex":sex,
                         "phone":phone,
                         "address":address,
-                        "province":province, 
+                        "zipcode":zipcode,
+                        "province":province,
+                        "amphoe":amphoe,
+                        "district":district, 
                         "jobs":jobs,
-                        "phone":phone,
                         "salary":salary,
                     },
                     success: function(data){
@@ -384,6 +417,66 @@
             }
 
          });
+
+        //  $("#year").change(function(){
+        //     var year = $("#year").val();
+
+        //     if(year!="" && year!="year"){
+        //         $("#month").removeAttr('disabled');
+        //         $("#month").val('');
+        //     }else{
+        //         $("#month").attr('disabled', true);
+        //         $("#month").val('');
+        //         $("#day").attr('disabled', true);
+        //         $("#day").val('');
+        //     }
+        // });
+
+
+        // $("#month").change(function(){
+        //     var month = $("#month").val();
+        //     var year = $("#year").val();
+
+        //     if(month!="" && month!="month"){
+        //         $("#day").removeAttr('disabled');
+        //         $("#day").val('');
+
+        //             if(month=="2"){
+        //                 var lastday = $("#day option").last().val();
+        //                 $("#31").remove();
+        //                 $("#30").remove();
+        //                 if(year % 4 != 0){
+        //                     $("#29").remove();
+        //                 }else if(lastday == 28){
+        //                     $("#day").append("<option id='29' value='29'>29</option>");
+        //                 }
+        //             } else if(month == "3" || month == "6" || month == "10" || month == "9") {
+
+        //                 var lastday = $("#day option").last().val();
+        //                 if(lastday == 31){
+        //                     $("#31").remove();
+        //                 } else if(lastday == 29){
+        //                     $("#day").append("<option id='30' value='30'>30</option>");
+        //                 }else if(lastday == 28){
+        //                     $("#day").append("<option id='29' value='29'>29</option><option id='30' value='30'>30</option>");
+        //                 }
+        //             }else{
+        //                 var lastday = $("#day option").last().val();
+        //                 if(lastday == 30){
+        //                     $("#day").append("<option id='31' value='31'>31</option>");
+        //                 } else if(lastday == 29){
+        //                     $("#day").append("<option id='30' value='30'>30</option><option id='31' value='31'>31</option>");
+        //                 }else if(lastday == 28){
+        //                     $("#day").append("<option id='29' value='29'>29</option><option id='30' value='30'>30</option><option id='31' value='31'>31</option>");
+        //                 }
+        //             }
+        //     }else{
+        //         $("#day").attr('disabled', true);
+        //         $("#day").val('');
+        //     }
+        // });
+
+        
 
     });
 

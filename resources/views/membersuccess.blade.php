@@ -35,10 +35,7 @@
 
 <!-- Content Wrapper @s -->
 <div class="content-wrapper">
-<div class="main-point">
-      <?php if($point > 0){echo '<span class="btn btn-sm btn-primary"><a href="/history" style="color: white;">สิทธิ์สะสมของคุณ : '.$point.'</a></span>';} ?>
-      <!-- <span class="btn btn-sm btn-dark">อันดับของคุณ 999</span> -->
-  </div>
+
   <div class="main-button">
     <a href="/rules" class="btn">
       <i class="fal fa-file"></i>
@@ -58,47 +55,49 @@
 
 
   <!-- Main Box @s -->
+
   <div class="main-box">
-                <h2 class="title">ประกาศรายชื่อผู้โชคดี</h2>
+                <h2 class="title">ประวัติย้อนหลัง</h2>
                 <table class="table table-bordered table-sm">
                     <tbody>
                         <tr>
                             <td>
-                                รอบการร่วมสนุก
+                                รหัสใต้ฝา
                             </td>
                             <td>
-                                การจับรางวัล
+                                สถาณะ
                             </td>
                         </tr>
-                      <?php
-                      foreach($pages as $page){
-                        echo '<tr>
-                                <td><a href="/results?show='.$page['id'].'">'.json_decode($page->seo)[0]->seo_th.'</a></td>
-                                <td><a href="/results?show='.$page['id'].'">'.json_decode($page->title)[0]->title_th.'</a></td>
-                            </tr>';
-                      }?>
+                        <?php
+                        foreach($images_code as $db){
+                            if($db['status'] == 1){
+                                $status = 'ผ่าน';
+                            }else if($db['status'] == 2){
+                                $status = 'รหัสซ้ำ';
+                            }else{
+                                $status = 'รหัสผิดพลาด';
+                            }
+                            echo '<tr>
+                                    <td>'.$db['code_number'].'</td>
+                                    <td>'.$status.'</td>
+                                </tr>';
+                        }?>
+
+                        <tr >
+                            <td colspan="2">
+                            {{ $images_code->links() }}
+                            </td>
+                        </tr>
+
+
+                        
                     </tbody>
                 </table>
-                <?php
-                      foreach($pages as $page){
-                        if(@$_GET['show'] == $page['id']){
-                          echo '<p>'.json_decode($page->caption)[0]->caption_th.'</p>';
-                          echo json_decode($page->detail)[0]->detail_th;
-                          break;
-                        }else if(@$_GET['show'] == null){
-                          echo '<p>'.json_decode($page->caption)[0]->caption_th.'</p>';
-                          echo json_decode($page->detail)[0]->detail_th;
-                          break;
-                        }
-                      }?>
-                
 
             </div>
 
   <!-- Main Box @e -->
-  <div class="bottom-button">
-      <a href="/" class="btn btn-sm btn-dark"><i class="fal fa-angle-left"></i> ไปหน้าหลัก</a>
-  </div>
+
   <!-- Reward BG @s -->
   <div class="main-reward">
     <img src="assets_home/img/reward.png" alt="">
@@ -111,7 +110,16 @@
 <!-- Content Wrapper @e -->
 
 </div>
-<!-- Main @s -->
+<!-- Main @s  -->
+
+<?php if(@$_GET['share'] == 'share'){ ?>
+<script>
+
+$(function () {
+    social_share();
+});
 
 
+    </script>
+<?php } ?>
 @endsection

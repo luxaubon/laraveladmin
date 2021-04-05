@@ -4,7 +4,29 @@
   <script src="assets_home/js/bootstrap.min.js"></script>
   <script src="assets_home/js/swiper.min.js"></script>
   <script src="assets_home/js/script.js"></script>
-  <script>
+
+<script type="text/javascript" src="/jquery.Thailand.js/dependencies/zip.js/zip.js"></script>
+<script type="text/javascript" src="/jquery.Thailand.js/dependencies/JQL.min.js"></script>
+<script type="text/javascript" src="/jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+<script type="text/javascript" src="/jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
+<script type="text/javascript">
+    $.Thailand({
+            database: '/jquery.Thailand.js/database/db.json', 
+
+            $district: $('#form-insert [name="district"]'),
+            $amphoe: $('#form-insert [name="amphoe"]'),
+            $province: $('#form-insert [name="province"]'),
+            $zipcode: $('#form-insert [name="zipcode"]'),
+
+            onDataFill: function(data){
+                console.info('Data Filled', data);
+            },
+
+            onLoad: function(){
+                console.info('Autocomplete is ready!');
+                $('#loader, .demo').toggle();
+            }
+        });
 
   function social_share() {
           window.open(

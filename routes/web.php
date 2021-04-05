@@ -21,9 +21,11 @@ Route::get('/OTP','HomeController@OTP');
 Route::get('/register','HomeController@register');
 
 Route::post('/registerPhone','HomeController@registerPhone');
+Route::post('/updateProfile','HomeController@updateProfile');
 
 Route::get('/login','HomeController@login');
 Route::get('/member','HomeController@member');
+Route::get('/profile','HomeController@profile');
 Route::get('/history','HomeController@history');
 Route::get('/logout','HomeController@logout');
 

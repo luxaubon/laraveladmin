@@ -76,7 +76,7 @@
   </div>
   <!-- Reward BG @e -->
   
-  <a href="javascript:void(0)" onclick="return social_share();" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
+  <a href="https://www.facebook.com/HiVitaminC200" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
   
 </div>
 <!-- Content Wrapper @e -->
@@ -207,7 +207,7 @@ $(document).ready(function() {
             $("#btnSuccess").prop('disabled', true);
 
             if(textOTP === otp && (textOTP) && (otp)){
-              window.location.href = '/register'
+              window.location.href = '/register?phone='+phone;
             }else{
               swal("กรุณากรอกรหัส OTP ที่ท่านได้รับ", "", "error");
               $("#btnSuccess").prop('disabled', false);
