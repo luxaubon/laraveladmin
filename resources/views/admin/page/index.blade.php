@@ -43,12 +43,14 @@
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul"></i> LIST DATA</span>
 								</a>
 							</li>
+							@IF($status == 2)
 							<li class="nav-items">
 								<a href="#default-tab-2" data-toggle="tab" class="nav-link <?php echo $ftab; ?>">
 									<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
 								</a>
 							</li>
+							@ENDIF
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade {{$lshow2}}" id="default-tab-1">

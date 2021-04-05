@@ -91,7 +91,18 @@
 	                                </div>
 	                                <div id="collapse1" class="panel-collapse collapse show">
 	                                   	<div class="panel-body">
-	                                   		
+										   @php
+												$selected = $user_id->status == 1 ?  "selected" : "";
+												$selected2 = $user_id->status == 2 ?  "selected" : "";
+											@endphp
+										   <label class="control-label">Status </label>
+											<select class="form-control" id="status" name="status" required>
+												<option class="text-success-light" value="">Select</option>
+												<option class="text-success-light" value="1" {{ $selected }}>Super Admin</option>
+												<option class="text-danger-light" value="2" {{ $selected2 }}>Admin</option>
+											</select>
+											<hr>
+
 	                                        <div class="profile-thum"  style="height: 200px;">
 	                                        	@if ($user_id->image != '')
 	                                        		<img id="cover-thumb" src="{{ asset('public/images/'.$user_id->image) }}" width="100%">

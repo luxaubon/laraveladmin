@@ -98,7 +98,14 @@
 	                                <div id="collapse1" class="panel-collapse collapse show">
 	                                	<div class="panel-body">
 	                                   	
-                                        <hr>
+										   <label class="control-label">Status </label>
+											<select class="form-control" id="status" name="status" required>
+												<option class="text-success-light" value="">Select</option>
+												<option class="text-success-light" value="1">Super Admin</option>
+												<option class="text-danger-light" value="2">Admin</option>
+											</select>
+											<hr>
+
 	                                        <div class="profile-thum"  style="height: 200px;">
 						                	<div class="blah"><i class="fa fa-camera fa-2x"></i><br>Select images<br></div>
 						                	<div id="img-thumb"></div>

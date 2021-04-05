@@ -33,12 +33,13 @@ class ToppenderController extends Controller
     public function index()
     {
         //$user = Auth::user();
-        
+        $admin = Auth::user();
         $pages = Toppender::orderBy('id','DESC')->get();
         $data = array(
             'pages' => $pages,
             'pages_id' => '',
             'folder' => $this->folder(),
+            'status' => $admin->status
            
         );
 
@@ -88,12 +89,14 @@ class ToppenderController extends Controller
             GROUP BY user_otp.id
             ORDER BY totals DESC
         ");
+        $admin = Auth::user();
 
         $data = array(
             'pages_id'  => $pages_id,
             'pages'     => $pages,
             'folder'    => $this->folder(),
-            'user'      => $user
+            'user'      => $user,
+            'status' => $admin->status
          );
         return view('admin.'.$this->folder().'.index',$data);
     }

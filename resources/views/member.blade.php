@@ -107,8 +107,7 @@
                     
                     </div>
                     <div class="row">
-                      <div class="col-6"><button type="button" class="btn btn-block btn-secondary"
-                          data-dismiss="modal">ยกเลิก</button></div>
+                      <div class="col-6"><button type="button" class="btn btn-block btn-secondary" data-dismiss="modal">ยกเลิก</button></div>
                       <div class="col-6">
                         <button type="submit" class="btn btn-block btn-primary" id="btnSend">ตกลง</button>
                       </div>
@@ -182,9 +181,12 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 $(document).ready(function() {
-  // $("#btnSend").submit(function (){
-  //   $("#btnSend").hide();
-  // });
+
+  $("#btnSend").submit(function (){
+    $("#btnSend").hide();
+    $('#get-otp').modal('toggle');
+  });
+
    $("#btnShow").click(function (){
     var returnData;
     var numCount = 0;
@@ -254,7 +256,6 @@ function fileselectedchange(obj,number){
         },
         error: function(data) {
             $('#get-otp').modal('toggle');
-            console.log(data);
             swal("ระบบไม่สามารถกรอกรหัส CODE ให้ท่านได้", "กรุณากรอกรหัสด้วยตัวท่านเอง", "error");
         }
     });

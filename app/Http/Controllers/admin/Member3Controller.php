@@ -66,7 +66,7 @@ class Member3Controller extends Controller
         $phone          = ($request->phone == 'show') ? $myArrayHeaders[] = "เบอร์โทร" : '';
         $code           = ($request->code == 'show') ? $myArrayHeaders[] = "รหัสใต้ฝา" : '';
         $date_register  = ($request->date_register == 'show') ? $myArrayHeaders[] = "วันที่สมัคร" : '';
-        $status         = ($request->status == 'show') ? $myArrayHeaders[] = "สถาณะ" : '';
+        $status         = ($request->status == 'show') ? $myArrayHeaders[] = "สถานะ" : '';
         $link_image     = ($request->link_image == 'show') ? $myArrayHeaders[] = "link รูป" : '';
         header('Content-Type: text/html; charset=utf-8');
         

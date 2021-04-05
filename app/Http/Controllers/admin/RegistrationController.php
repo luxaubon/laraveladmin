@@ -16,6 +16,10 @@ class RegistrationController extends Controller
 {
     //
 
+    public function __construct()
+    {
+        
+    }
 
    /* public function index()
     {
@@ -29,14 +33,15 @@ class RegistrationController extends Controller
     public function status(){return '1';}
     public function index()
     {
-        //$user = Auth::user();
-        
+        $admin = Auth::user();
+
         $user = User::all()->where('is_admin',$this->status());
         $data = array(
             'user' => $user,
             'user_id' => '',
             'folder' => $this->folder(),
-            'alert' => ''
+            'alert' => '',
+            'status' => $admin->status
         );
 
         return view('admin.'.$this->folder().'.listadmin',$data);
@@ -47,12 +52,14 @@ class RegistrationController extends Controller
     {
         $user_id = User::findOrFail($id);
         $user = User::all()->where('is_admin',$this->status());
+        $admin = Auth::user();
 
         $data = array(
             'user_id' => $user_id,
             'user' => $user,
             'folder' => $this->folder(),
-            'alert' => ''
+            'alert' => '',
+            'status' => $admin->status
          );
         return view('admin.'.$this->folder().'.listadmin',$data);
     }
@@ -61,8 +68,8 @@ class RegistrationController extends Controller
 
         $this->validate(request(), [
                 'name' => 'required',
-
                 'lname' => 'required',
+                'status' => 'required',
             ]);
         $post = User::find($request->id);
 
@@ -81,6 +88,7 @@ class RegistrationController extends Controller
 
         $post->name = $request->name;
         $post->lname = $request->lname;
+        $post->status = $request->status;
         $post->save();
 
 
@@ -91,11 +99,7 @@ class RegistrationController extends Controller
             'folder' => $this->folder(),
             'alert' => ''
         );
-        //return view('admin.'.$this->folder().'.listadmin',$data);
-        //return redirect()->home();
-        //return redirect('admin.'.$this->folder().'.listadmin',$data);
         return redirect()->back();
-        //return redirect()->action('admin\RegistrationController@index');
     }
     public function del_content(Request $request){
         $page = User::find($request->numrow);
@@ -115,7 +119,9 @@ class RegistrationController extends Controller
 
                 'email' => 'required|string|email|max:255|unique:users|confirmed',
 
-                'password' => 'required|string|min:6|confirmed'
+                'password' => 'required|string|min:6|confirmed',
+
+                'status' => 'required',
             ]);
 
             if ($request->hasFile('image')) {
@@ -130,28 +136,10 @@ class RegistrationController extends Controller
             $post->password = Hash::make($request->password);
             $post->is_admin = User::ADMIN_TYPE;
             $post->image = $filename;
+            $post->status = $request->status;
             $post->save();
-            /*
-            User::create([
-                'name' => request()->name,
-                'lname' => request()->lname,
-                'email' => request()->email,
-                'password' => Hash::make(request()->password),
-                'is_admin' => User::ADMIN_TYPE,
-                'image' => $filename,
-            ]);*/
 
-            $user = User::all()->where('is_admin',$this->status());
-            $data = array(
-                'alert' => 'alert',
-                'user' => $user,
-                'user_id' => '',
-                'folder' => $this->folder(),
-                'alert' => 'alert'
-            );
-            return view('admin.'.$this->folder().'.listadmin',$data);
-
-            //\Mail::to($user)->send(new WelcomeAgain($user));
+            return redirect()->back();
 	    }
 
 

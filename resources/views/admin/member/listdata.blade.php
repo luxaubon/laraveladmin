@@ -21,7 +21,7 @@
                                         <th class="text-nowrap">เบอร์โทร</th>
                                         <th class="text-nowrap">รหัสใต้ฝา</th>
                                         <th class="text-nowrap">วันที่สมัคร</th>
-                                        <th class="text-nowrap">สถาณะ</th>
+                                        <th class="text-nowrap">สถานะ</th>
                                         <th class="text-nowrap">รูป</th>
                                     </tr>
                                 </thead>
@@ -103,7 +103,7 @@
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="date_register" id="status" checked>
-                                                    <label class="form-check-label" for="defaultCheckbox">สถาณะ</label>
+                                                    <label class="form-check-label" for="defaultCheckbox">สถานะ</label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="link_image" id="link_image" checked>

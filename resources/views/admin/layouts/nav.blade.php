@@ -54,9 +54,9 @@
 
 					
 
-					
+					@IF(Auth::id() == 1)
 					<li class="{{ checkActiveMenu(Request::segment(2),'setting') }}"><a href="/admin/setting/index"><i class="fa fa-cogs"></i> <span>Setting</span></a></li>
-
+					@ENDIF
 
 			        <!-- begin sidebar minify button -->
 					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Images;
 use App\User_otp;
+use App\db_code;
 
 use Illuminate\Support\Facades\DB;
 
@@ -94,6 +95,8 @@ class UserController extends Controller
             Images::where('sid',$pages_id->id)->where('status',5)->count(),
         );
 
+        $admin = Auth::user();
+
         $data = array(
             'pages_id' => $pages_id,
             'myArray' => $myArray,
@@ -101,6 +104,7 @@ class UserController extends Controller
             'member' => $member,
             'image' => $image,
             'folder' => $this->folder(),
+            'status' => $admin->status
          );
         return view('admin.'.$this->folder().'.index',$data);
     }
@@ -115,28 +119,52 @@ class UserController extends Controller
     }
 
     public function edit(Request $request){
-    	$this->validate(request(), [
+
+        $this->validate(request(), [
             'status' => 'required',
-            'image' => 'required'
+            'code_number' => 'required',
+            'image' => 'required',
         ]);
+    	
+        $check_code     = db_code::where('code_number',$request->code_number)->first();
 
-        if ($request->hasFile('image')) {
-            $filename     = $request->editID.'-bof-'.date('dms').'-'.rand(0,99999).'.'.$request->image->getClientOriginalExtension();
-            $imageName = $request->image->move('images/'.$request->editID.'/',$filename);
-        }else{$filename='';}
+        if($check_code['status'] == 1){
+            
+            if ($request->hasFile('image')) {
+                $filename     = $request->editID.'-bof-'.date('dms').'-'.rand(0,99999).'.'.$request->image->getClientOriginalExtension();
+                $imageName = $request->image->move('images/'.$request->editID.'/',$filename);
+            }else{$filename='';}
+    
+            $post = new Images;
+            $post->sid  = $request->editID;
+            $post->code_first_number = $request->status;
+            $post->code_number = $request->code_number; 
+            $post->status = 4;
+            $post->image = $filename;
+            $post->table = 'user_otp';
+            $post->admin_id = Auth::id();
+            $post->admin_name = Auth::user()->name;
+            $post->save();
+    
+            return redirect()->back();
 
 
-        $post = new Images;
-        $post->sid  = $request->editID;
-        $post->code_first_number = $request->status;
-        $post->status = 4;
-        $post->image = $filename;
-        $post->table = 'user_otp';
-        $post->admin_id = Auth::id();
-        $post->admin_name = Auth::user()->name;
-        $post->save();
-
-        return redirect()->back();
+        }else if($check_code['status'] == 2){
+            $this->validate(
+                request(), 
+                ['code_error' => 'required'],
+                ['code_error.required' => 'รหัสใต้ฝานี้ถูกใช้ไปแล้ว']
+            );
+             // ซ้ำ
+        }else{
+            $this->validate(
+                request(), 
+                ['code_error' => 'required'],
+                ['code_error.required' => 'รหัสใต้ฝานี้ ผิดพลาด']
+            );
+            // มั่ว
+        }
+       
     
     }
 

@@ -156,7 +156,7 @@
 							  <p class="m-b-10 p-0 ">
 
 								<!-- UPDATE BUTTON -->
-								@if(Auth::id() == 1)
+								@IF($status == 2)
 									<button type="submit" id="Save" class="btn btn-success m-t-5">
 									<i class="fa fa-save"></i> Save</button>
 								@endif
@@ -201,6 +201,9 @@
 												<option class="text-danger-light" value="2">Orange</option>
 												<option class="text-danger-light" value="3">Mix Berry</option>
 											</select>
+											<hr>
+											<label class="control-label">รหัสใต้ฝา </label>
+											<input class="form-control" id="code_number" name="code_number"  placeholder="1234567890">
 											<hr>
 	                                   		<div class="profile-thum"  style="height: 200px;">
 												<div class="blah">

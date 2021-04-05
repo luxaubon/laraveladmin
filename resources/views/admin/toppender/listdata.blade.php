@@ -32,7 +32,7 @@
                                             <div class="m-t-10">
                                                 <a href="/admin/{{$folder}}/show/{{ $db->id }}" class="btn btn-primary"><i class="fas fa-cog fa-spin"></i> View & Edit</a>
 
-                                                @if(Auth::id() == 1)
+                                                @IF($status == 2)
                                                 <a href="javascript::void(0)" class="btn btn-danger" id="content_del{{ $db->id }}"><i class="fas fa-lg fa-fw m-r-10 fa-trash-alt"></i> Trash</a>
                                                 @endif
                                             </div>

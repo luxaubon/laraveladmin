@@ -151,7 +151,7 @@
 	                                </div>
 	                                <div id="collapse1" class="panel-collapse collapse show">
 	                                	<div class="panel-body">
-	                                    <label class="control-label">สถาณะ </label>
+	                                    <label class="control-label">สถานะ </label>
 										@php
 	                                    	$selected = $pages_id->online == 0 ?  "selected" : "";
 	                                    	$selected2 = $pages_id->online == 1 ?  "selected" : "";

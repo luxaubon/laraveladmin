@@ -157,7 +157,7 @@
 										 </select>
 										 <hr>
                                         
-	                                    <label class="control-label">สถาณะ </label>
+	                                    <label class="control-label">สถานะ </label>
 										<select class="form-control" id="online" name="online">
 											<option class="text-success-light" value="0">Published</option>
 											<option class="text-danger-light" value="1">Draft</option>	

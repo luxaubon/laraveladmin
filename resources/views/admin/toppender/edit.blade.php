@@ -54,7 +54,7 @@
 
                     <div class="col-md-4 bg-grey-light">
 							  <p class="m-b-10 p-0 ">
-							  @if(Auth::id() == 1)
+							  @IF($status == 2)
 									<button type="submit" id="Save" class="btn btn-success m-t-5">
 									<i class="fa fa-save"></i> Save</button>
 								@endif

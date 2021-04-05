@@ -34,12 +34,13 @@ class PagesController extends Controller
     public function index()
     {
         //$user = Auth::user();
-        
+        $admin = Auth::user();
         $pages = Pages::all()->where('status',$this->status());
         $data = array(
             'pages' => $pages,
             'pages_id' => '',
             'folder' => $this->folder(),
+            'status' => $admin->status
            
         );
 
@@ -93,12 +94,13 @@ class PagesController extends Controller
         foreach($gallery as $value) {
            $image[] = Images::find($value);
         }
-        
+        $admin = Auth::user();
         $data = array(
             'pages_id' => $pages_id,
             'pages' => $pages,
             'folder' => $this->folder(),
             'image' => $image,
+            'status' => $admin->status
          );
         return view('admin.'.$this->folder().'.index',$data);
     }
