@@ -43,8 +43,8 @@
 
 						<li class="nav-items">
 							<a href="#default-tab-4" data-toggle="tab" class="nav-link">
-								<span class="d-sm-none"><i class="fab fa-lg fa-fw m-r-10 fa-amazon-pay"></i> SMS gateway</span>
-								<span class="d-sm-block d-none"><i class="fab fa-lg fa-fw m-r-10 fa-amazon-pay"></i> SMS gateway</span>
+								<span class="d-sm-none"><i class="fab fa-lg fa-fw m-r-10 fa-amazon-pay"></i> LINE gateway</span>
+								<span class="d-sm-block d-none"><i class="fab fa-lg fa-fw m-r-10 fa-amazon-pay"></i> LINE gateway</span>
 							</a>
 						</li>
 						<li class="nav-items">

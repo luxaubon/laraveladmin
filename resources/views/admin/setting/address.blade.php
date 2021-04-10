@@ -21,13 +21,13 @@
                                 <div class="tab-pane fade active show" id="default-tab-sup-1">
                                 <!-- Start TAP -->
 				                     <div class="clearfix m-b-20">
-					                        <label class="control-label col-sm-2" for="title">Terms and conditions <span class="text-danger">*</span></label>
+					                        <label class="control-label col-sm-2" for="title">ข้อตกลงและเงื่อนไขการร่วมกิจกรรม <span class="text-danger">*</span></label>
 					                        	<div class="col-sm-12">
 								                   <textarea class="form-control" id="address_th" name="address_th" rows="2" placeholder="Company" data-parsley-required="true">{{ $pages->address_th }}</textarea>
 												</div>
 								        </div>
 										<div class="clearfix m-b-20">
-					                        <label class="control-label col-sm-2" for="title">กฏกติกา <span class="text-danger">*</span></label>
+					                        <label class="control-label col-sm-2" for="title">กติกาและของรางวัลกิจกรรม <span class="text-danger">*</span></label>
 					                        	<div class="col-sm-12">
 								                   <textarea class="form-control" id="address_en" name="address_en" rows="2" placeholder="Company" data-parsley-required="true">{{ $pages->address_en }}</textarea>
 												</div>

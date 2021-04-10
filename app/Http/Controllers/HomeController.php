@@ -13,6 +13,7 @@ use App\Setting;
 use App\Images;
 use App\User_otp;
 use App\province;
+use App\receipt;
 
 use Session;
 
@@ -87,8 +88,11 @@ class HomeController extends Controller
 
 
     public function linelogin(Request $request){
-        define('LINE_LOGIN_CHANNEL_ID',1655784149);
-        define('LINE_LOGIN_CHANNEL_SECRET','001a6b43fde6ffeb4206e294d17eb2ee');
+
+        $setting = Setting::find(1);
+
+        define('LINE_LOGIN_CHANNEL_ID',json_decode($setting->payment)[0]->user);
+        define('LINE_LOGIN_CHANNEL_SECRET',json_decode($setting->payment)[0]->pass);
         define('LINE_LOGIN_CALLBACK_URL','http://localhost:8000/linelogin');
         
         $LineLogin = new LineLoginLib(LINE_LOGIN_CHANNEL_ID, LINE_LOGIN_CHANNEL_SECRET, LINE_LOGIN_CALLBACK_URL);
@@ -226,7 +230,16 @@ class HomeController extends Controller
                 $i=0;
 
                 $shop_name = DB::table('region')->select('shop_name')->Where('region_id','=',$request->region_id)->first();
-    
+                $receipt                    = new receipt;
+                $receipt->member_id         = Session::get('ss_id');
+                $receipt->receipt_status    = 1;
+                $receipt->region_id         = $request->region_id;
+                $receipt->region_name	    = $request->region;
+                $receipt->region_province   = $request->province;
+                $receipt->shop_name         = $shop_name->shop_name;
+                $receipt->status_shop       = $request->status;
+                $receipt->save();
+
                 foreach ($photos as $photo) {
                     if($photo != ''){
                         $i++;
@@ -235,13 +248,9 @@ class HomeController extends Controller
                         $paths   = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
                         $images = new Images;
                         $images->sid = Session::get('ss_id');
-                        $images->status = $request->status;
                         $images->table = 'user_otp';
                         $images->image = $nameimages;
-                        $images->region_id       = $request->region_id;
-                        $images->region_name	 = $request->region;
-                        $images->region_province = $request->province;
-                        $images->shop_name       = $shop_name->shop_name;
+                        $images->receipt_id = $receipt->id;
                         $images->save();
                     }
                 }

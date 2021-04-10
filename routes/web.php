@@ -53,32 +53,12 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
     });
 
 
-    Route::group(['prefix'=>'/page/'], function(){
+    Route::group(['prefix'=>'/receipt_wait/'], function(){
+        Route::get('/index','admin\ReceiptWaitController@index');
+        Route::get('/show/{id}','admin\ReceiptWaitController@show');
 
-        Route::get('/index','admin\PagesController@index');
-    	Route::post('/insert','admin\PagesController@store');
-
-        Route::get('/show/{id}','admin\PagesController@show');
-        Route::post('/edit/{id}','admin\PagesController@edit');
-        Route::get('/del_content','admin\PagesController@del_content');
-
-        Route::get('/update_listpic','admin\PagesController@update_listpic');
-        Route::get('/del_img','admin\PagesController@del_img');
-
+        Route::get('/zip','admin\ReceiptWaitController@zipFiles');
     });
-
-
-     Route::group(['prefix'=>'/slide/'], function(){
-        Route::get('/index','admin\SlideController@index');
-        Route::post('/insert','admin\SlideController@store');
-
-        Route::get('/show/{id}','admin\SlideController@show');
-        Route::post('/edit/{id}','admin\SlideController@edit');
-        
-        Route::get('/update_listpic','admin\SlideController@update_listpic');
-        Route::get('/del_img','admin\SlideController@del_img');
-
-     });
 
 
      Route::group(['prefix'=>'/setting/'], function(){
