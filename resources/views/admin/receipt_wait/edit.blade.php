@@ -3,6 +3,7 @@
                         <!-- begin panel -->
                         <div class="panel">
                             <ul class="nav nav-tabs">
+
 								<li class="nav-items">
 									<a href="#default-tab-sup-1" data-toggle="tab" class="nav-link active">
 										<span class="d-sm-none">
@@ -11,6 +12,12 @@
 										<span class="d-sm-block d-none">
 											<img src="{{asset('/icon/flag-th.png')}}" height="25px">
 										</span>
+									</a>
+								</li>
+								<li class="nav-items">
+									<a href="#default-tab-sup-4" data-toggle="tab" class="nav-link">
+										<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-images"></i> Receipt images</span>
+										<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-images"></i> Receipt images</span>
 									</a>
 								</li>
 								
@@ -60,9 +67,38 @@
 
                                 <div class="tab-pane fade" id="default-tab-sup-4">
                                 <!-- Start TAP -->
-                                	
+								<div id="uppic_form">
+                        				<div class="clearfix m-b-30 ">
+                        					@include('admin.page.upload_photo_multi')
+                        				</div>
+										<div id="gallery_group">
+											<ul class="gallery-list" id="sortable">  
+
+												@foreach($image as $value)
+												@if ($value['id'] != '')
+
+												<li id="{{ $value['id'] }}">
+													<div class="image-container">
+														<div class="image" style="cursor: move; background:url({{ asset('public/images/'.$value['image']) }}); background-position:center center; background-size:cover;">
+														</div>
+														<div class="btn-list">
+															<a href="{{ asset('public/images/'.$value['image']) }}" class="image-link btn btn-white btn-xs"><i class="fa fa-search-plus"></i></a>
+															<a href="javascript:;" class="btn btn-danger btn-xs" id="del_img{{ $value['id'] }}"><i class="fa fa-trash"></i></a>
+														</div>
+														<div class="info">                                       
+															<small class="text-muted">{{ $value['created_at']->diffForHumans() }}</small>
+														</div>
+													</div>
+												</li>
+
+												@endif
+                 								@endforeach
+										</ul>
+										</div>
+									</div>
                                 <!-- END TAP -->
                                 </div>
+
                                 <div class="tab-pane fade" id="default-tab-sup-5">
                                 <!-- Start TAP -->
                                 	
