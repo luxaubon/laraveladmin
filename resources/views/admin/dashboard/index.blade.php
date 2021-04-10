@@ -44,7 +44,7 @@
 						<div class="stats-icon"><i class="fa fa-clock"></i></div>
 						<div class="stats-info">
 							<h4>ยอด Register ทั้งหมด</h4>
-							<p>{{$Chart['countUserAll']}}</p>	
+							<p>{{-- $Chart['countUserAll'] --}}</p>	
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;"></a>
@@ -57,7 +57,7 @@
 						<div class="stats-icon"><i class="fa fa-users"></i></div>
 						<div class="stats-info">
 							<h4>ยอด Transaction ทั้งหมด</h4>
-							<p>{{$Chart['countCode']}}</p>	
+							<p>{{-- $Chart['countCode'] --}}</p>	
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;"></a>

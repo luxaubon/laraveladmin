@@ -1,226 +1,225 @@
 @extends('layouts.head')
 
 @section('content')
-<!-- Main @s -->
+
 <div class="main-wrapper">
-
-
-<div class="main-bar">
-  <div class="main-logo">
-    <a href="/"><img src="assets_home/img/Logo.png" alt=""></a>
-  </div>
-  <div class="main-title">
-  	<a href="/"><img src="assets_home/img/title.png" alt=""></a>
-  </div>
-
-</div>
-
-
-
-<div class="homeslide-wrapper">
-  <div class="home-slide">
-    <div class="swiper-wrapper">
-      @foreach($slides as $db => $sdb)
-          @if($sdb)
-          <?php 
-              $slide = $sdb['image'];
-              $link = ($sdb['link']) ? $sdb['link'] : 'javascript:void(0);';
-              echo '<div class="swiper-slide">
-                      <a href="'.$sdb['link'].'"><img src="public/images/'.$slide.'" alt=""></a>
-                  </div>';
-          ?>
-          @endif
-      @endforeach 
+    <div class="main-title">
+      <img src="assets_home/img/main-title.png" alt="">
     </div>
-    <div class="swiper-pagination"></div>
-  </div>
-</div>
 
-<!-- Content Wrapper @s -->
-<div class="content-wrapper">
+    <div class="main-content text-center">
+      <h3 class="title">กรุณาลงทะเบียน</h3>
 
-  <div class="main-button">
-    <a href="/rules" class="btn">
-      <i class="fal fa-file"></i>
-      <div>กติกา</div>
-    </a>
-    <a href="/results" class="btn">
-      <i class="fal fa-trophy"></i>
-      <div>ประกาศผล</div>
-    </a>
-    <?php if($toppender_status == 'online'){
-        echo '<a href="/toppender" class="btn btn-primary">
-            <i class="fal fa-star"></i>
-            <div>TOP SPENDER</div>
-        </a>';
-    }?>
-  </div>
-
-
-  <!-- Main Box @s -->
-  <div class="main-box">
-    <div class="main-mobile">
-      <form action="">
-        <div class="form-group">
-        <h4>กรุณากรอกเบอร์โทรศัพท์</h4>
-          <input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="กรุณากรอกเบอร์โทรศัพท์" maxlength="10">
-        </div>
-        <div class="form-group">
-          <button type="button" class="btn btn-block btn-lg btn-primary" id="btnCheckData">ตกลง</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <!-- Main Box @e -->
-
-  <!-- Reward BG @s -->
-  <div class="main-reward">
-    <img src="assets_home/img/reward.png" alt="">
-  </div>
-  <!-- Reward BG @e -->
-  
-  <a href="https://www.facebook.com/HiVitaminC200" target="_blank" class="btn btn-block btn-facebook"><i class="fab fa-facebook"></i> <span>HiVitaminC200</span></a>
-  
-</div>
-<!-- Content Wrapper @e -->
-
-</div>
-<!-- Main @s -->
-
-<!-- Get OTP Modal @s -->
-<div class="modal fade" id="get-otp" tabindex="-1" role="dialog" aria-labelledby="get-otp" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="modal-display">
-          <i class="fas fa-mobile"></i>
-          <h3 class="title">
-            รับรหัส OTP
-          </h3>
-          <div class="desc" id="modalTextPhone">
+      <div class="main-form">
+        <form action="">
+          <div class="form-group">
+            <input type="hidden" value="<?php echo @$line_id; ?>" id="token_line">
+            <input type="text" class="form-control" placeholder="ชื่อ" id="name" name="name" onkeyup="isThaichar(this.value,this)">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="นามสกุล" id="last_name" onkeyup="isThaichar(this.value,this)" name="last_name">
+          </div>
+          <div class="form-group">
+            <input type="tel" class="form-control" placeholder="เบอร์โทรศัพท์" id="phone" name="phone" placeholder="กรุณากรอกเบอร์โทรศัพท์" maxlength="10">
           </div>
 
-          <form action="">
-            <div class="get-otp">
-              <div class="row no-gutters">
-                <div class="col-7">
-                    <input type="number" id="otp" name="otp" class="form-control">
-                    <input type="hidden" id="Numotp" name="Numotp" class="form-control" >
-                    
-                </div>
-                <div class="col-5">
-                  <button type="button" class="btn btn-block btn-primary" id="sendOtp">รับรหัส OTP </button>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6"><button type="button" class="btn btn-block btn-secondary"
-                  data-dismiss="modal">ยกเลิก</button></div>
-              <div class="col-6"><button type="button" class="btn btn-block btn-primary" 
-                    id="btnSuccess"
-                   data-toggle="modal">ตกลง</button></div>
-            </div>
-          </form>
+          <div class="form-check text-left mb-3">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+              ยอมรับ <a href="#" data-toggle="modal"
+                data-target="#terms-conditions">ข้อตกลงและเงื่อนไขการร่วมกิจกรรม</a>
+            </label>
+          </div>
+
+          <div class="form-check text-left mb-3">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked_2">
+            <label class="form-check-label" for="flexCheckChecked_2">
+              ยอมรับ <a href="#" data-toggle="modal" data-target="#rules">กติกาและของรางวัลกิจกรรม</a>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <button type="button" class="btn btn-block btn-lg btn-primary" id="btnCheckData">ลงทะเบียน</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <div class="main-product">
+      <img src="assets_home/img/product.png" alt="">
+    </div>
+  </div>
+  <!-- Main Wrapper @e -->
 
 
+  <!-- Terms & Conditions Modal  @s -->
+  <div class="modal fade" id="terms-conditions" tabindex="-1" role="dialog" aria-labelledby="terms-conditions"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">ข้อตกลงและเงื่อนไขการร่วมกิจกรรม</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
+          massa. Cum
+          sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
+          ultricies
+          nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo,
+          fringilla vel,
+          aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+          Nullam
+          dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
+          Aenean
+          vulputate eleifend tellus.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">ตกลง</button>
         </div>
       </div>
     </div>
   </div>
-</div>
+  <!-- Terms & Conditions Modal  @e -->
 
-<script>
-  $.fn.timedDisable = function(time) {
-      if (time == null) {
-        time = 5;
+  <!-- Rules  @s -->
+  <div class="modal fade" id="rules" tabindex="-1" role="dialog" aria-labelledby="rules" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">กติกาและของรางวัลกิจกรรม</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
+          massa. Cum
+          sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
+          ultricies
+          nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo,
+          fringilla vel,
+          aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+          Nullam
+          dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.
+          Aenean
+          vulputate eleifend tellus.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">ตกลง</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Rules  @e -->
+
+  <script type="text/javascript">
+
+  function isThaichar(str,obj){
+      var orgi_text="ๅภถุึคตจขชๆไำพะัีรนยบลฃฟหกดเ้่าสวงผปแอิืทมใฝ๑๒๓๔ู฿๕๖๗๘๙๐ฎฑธํ๊ณฯญฐฅฤฆฏโฌ็๋ษศซฉฮฺ์ฒฬฦ";
+      var str_length=str.length;
+      var str_length_end=str_length-1;
+      var isThai=true;
+      var Char_At="";
+      for(i=0;i<str_length;i++){
+          Char_At=str.charAt(i);
+          if(orgi_text.indexOf(Char_At)==-1){
+              isThai=false;
+          }   
       }
-      var seconds = Math.ceil(time); // Calculate the number of seconds
-      return $(this).each(function() {
-        $(this).attr('disabled', 'disabled');
-        var disabledElem = $(this);
-        var originalText = this.innerHTML;
-        disabledElem.text(originalText + ' (' + seconds + ')');
-        var interval = setInterval(function() {
-        	seconds = seconds - 1;
-          disabledElem.text(originalText + ' (' + seconds + ')');
-          if (seconds === 0) { 
-            disabledElem.removeAttr('disabled').text(originalText);
-            clearInterval(interval); 
+      if(str_length>=1){
+          if(isThai==false){
+              obj.value=str.substr(0,str_length_end);
           }
-        }, 1000);
-      });
-    };
+      }
+      return isThai; // ถ้าเป็น true แสดงว่าเป็นภาษาไทยทั้งหมด
+  }
 
 $(document).ready(function() {
-      
 
-      $("#btnCheckData").click(function (){
+    $('#flexCheckChecked').change(function() {
+      if ($(this).is(":checked")) {
+          var text =  $(this).val('true')
+          $('#terms-conditions').modal('toggle');
+      } else {
+          var text = $(this).val('false');
+      }
+    });
+    
+    $('#flexCheckChecked_2').change(function() {
+      if ($(this).is(":checked")) {
+          var text =  $(this).val('true')
+          $('#rules').modal('toggle');
+      } else {
+          var text = $(this).val('false');
+      }
+    });
+
+    if($("#token_line").val() == ''){
+        window.location.href = '/linelogin'
+    }
+
+    $("#btnCheckData").click(function (){
         event.preventDefault();
         $("#btnCheckData").prop('disabled', true);
+        if($("#token_line").val() == ''){
+            swal("ไม่สามารถสมัครสมาชิกได้", "กรุณากลับไปที่ Menu line เพื่อทำการ login", "error");
+            $("#btnCheckData").prop('disabled', false);
+        }else if($("#name").val() == '' || $("#last_name").val() == ''){
+            swal("กรุณากรอก ชื่อ-นามสกุล", "", "error");
+            $("#btnCheckData").prop('disabled', false);
+        }else if($("#phone").val() == '' || $("#phone").val().length !== 10){
+            swal("กรุณากรอก เบอร์โทรศัพท์", "", "error");
+            $("#btnCheckData").prop('disabled', false);
+        }else if($("#flexCheckChecked").val() == 'false' || $("#flexCheckChecked").val() == ''){
+            swal("กรุณา ยอมรับข้อตกลงและเงื่อนไขการร่วมกิจกรรม", "", "error");
+            $("#btnCheckData").prop('disabled', false);
+        }else if($("#flexCheckChecked_2").val() == 'false' || $("#flexCheckChecked_2").val() == ''){
+            swal("กรุณา ยอมรับกติกาและของรางวัลกิจกรรม", "", "error");
+            $("#btnCheckData").prop('disabled', false);
+        }else{ 
+            var token_line      =   $("#token_line").val();
+            var name            =   $("#name").val();
+            var last_name       =   $("#last_name").val();
+            var phone           =   $("#phone").val();
 
-        if($("#phone").val() == '' || $("#phone").val().length !== 10){
-             swal("กรุณากรอก เบอร์โทรศัพท์", "", "error");
-             $("#btnCheckData").prop('disabled', false);
-         }else{
-              var phone   =   $("#phone").val();
-              $.ajax({
-                  url: "/login?phone="+phone,
-                  method: "GET",
-                  success: function(data){
-                    if(data == 'loginsuccess'){
-                      window.location.href = '/member'
-                    }else{
-                      $('#get-otp').modal('toggle');
-                      $("#modalTextPhone").html('ส่งรหัส OTP ไปที่หมายเลข '+ $("#phone").val())
-                      $("#btnCheckData").prop('disabled', false);
-                    }
-
-                  }
-              });
-
-            
-         }
-      });
-
-      $("#sendOtp").click( function(){
-            $('#sendOtp').timedDisable(180);
-            $("#Numotp").val(<?php echo rand(10000,999999); ?>);
-            var phone   =   $("#phone").val();
-            var otp     =   $("#Numotp").val();
             $.ajax({
-                url: "/OTP?phone="+phone+"&otp="+otp,
-                method: "GET",
+                url: "/register",
+                method: "POST",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "name":name, 
+                    "last_name":last_name,
+                    "phone":phone,
+                    "token_line":token_line,
+                },
                 success: function(data){
-                  if(data == 'registerDont'){
-                    window.location.href = '/member'
-                  }else{
-                      swal("ระบบกำลังส่งหมายเลข OTP กรุณารอสักครู่", "", "success");
-                  }
+                    if(data == 'success'){
+                        swal("สมัครสมาชิกเรียบร้อย", "", "success");
+                        setTimeout(function(){ 
+                            window.location.href = '/choose'
+                        }, 2000);
+                    }else{
+                        swal("กรุณาลองใหม่อีกครั้ง", "", "error");
+                        $("#btnCheckData").prop('disabled', false);
+                    }
+                }
+            })
+            $("#btnCheckData").prop('disabled', false);
 
-                 }
-            });
-        });
+        }
 
-        $("#btnSuccess").click(function (){
-            event.preventDefault();
-            var phone  =   $("#phone").val();
-            var otp  =   $("#Numotp").val();
-            var textOTP  =   $("#otp").val();
+    });
 
-            $("#btnSuccess").prop('disabled', true);
 
-            if(textOTP === otp && (textOTP) && (otp)){
-              window.location.href = '/register?phone='+phone;
-            }else{
-              swal("กรุณากรอกรหัส OTP ที่ท่านได้รับ", "", "error");
-              $("#btnSuccess").prop('disabled', false);
-            }
-
-            
-        });
 
 
 });
+
 </script>
+
 
 @endsection

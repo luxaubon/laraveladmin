@@ -53,7 +53,6 @@
   <link rel="stylesheet" href="/assets_home/css/style.css?v=5">
   <script src="/assets_home/js/jquery-3.5.1.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <link rel="stylesheet" href="/jquery.Thailand.js/dist/jquery.Thailand.min.css">
 
   <!-- <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script> -->
 
@@ -65,7 +64,7 @@
 </head>
 
 <body>
-<?php if(Session::get('ss_id')){ echo '<div class="profile-button"><a href="/profile"><i class="fas fa-user"></i></a></div>'; } ?>
+
 
 
 @yield('content')
