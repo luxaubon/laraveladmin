@@ -54,13 +54,13 @@ class UserController extends Controller
 
             
 
-
+        $admin = Auth::user();
         $data = array(
             'myArray' => $myArray,
             'member' => $member,
             'pages_id' => '',
             'folder' => $this->folder(),
-           
+            'status' => $admin->status
         );
 
         return view('admin.'.$this->folder().'.index',$data);
@@ -96,7 +96,6 @@ class UserController extends Controller
         );
 
         $admin = Auth::user();
-
         $data = array(
             'pages_id' => $pages_id,
             'myArray' => $myArray,

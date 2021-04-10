@@ -63,7 +63,7 @@
                             <p>ชื่อและนามสกุล</p>
                             <div class="row">
                                 <div class="col-4">
-                                    <?php if($profile->sex == 1){$sex = 'ชาย';}else if($profile->sex == 2){$sex = 'น.ส.';}else if($profile->sex == 3){$sex = 'นาง';} ?>
+                                    <?php if($profile->sex == 1){$sex = 'นาย';}else if($profile->sex == 2){$sex = 'น.ส.';}else if($profile->sex == 3){$sex = 'นาง';} ?>
                                     <input type="text" id="name" name="name" value="<?php echo $sex; ?>"  class="form-control" placeholder="คำนำหน้านาม" readonly>
                                 </div>
 
@@ -154,7 +154,7 @@
 
                         <div class="form-group">
                             <p>ที่อยู่ (กรุณากรอกข้อมูลตามบัตรประชาชน)</p>
-                            <input type="text" id="address" name="address" class="form-control" placeholder="ที่อยู่" value="<?php echo $profile->address; ?>">
+                            <input type="text" id="address" name="address" class="form-control" placeholder="บ้านเลขที่ / ซอย / หมู่บ้าน" value="<?php echo $profile->address; ?>">
                         </div>
 
                         <div class="form-group">
@@ -232,7 +232,7 @@
             </div>
 <!-- Main Box @e -->
 <div class="bottom-button">
-      <a href="/" class="btn btn-sm btn-dark"><i class="fal fa-angle-left"></i> ไปหน้าหลัก</a>
+      <a href="/" class="btn btn-sm btn-primary"><i class="fal fa-angle-left"></i> ไปหน้าหลัก</a>
   </div>
   <!-- Reward BG @s -->
   <div class="main-reward">

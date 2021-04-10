@@ -108,7 +108,7 @@
 
   <!-- Main Box @e -->
   <div class="bottom-button">
-      <a href="/" class="btn btn-sm btn-dark"><i class="fal fa-angle-left"></i> ไปหน้าหลัก</a>
+      <a href="/" class="btn btn-sm btn-primary"><i class="fal fa-angle-left"></i> ไปหน้าหลัก</a>
   </div>
   <!-- Reward BG @s -->
   <div class="main-reward">
@@ -129,7 +129,7 @@
       <div class="modal-body">
         <div class="modal-display">
           <h3 class="title">
-            คุณได้รับ <?php if(!empty($history_count)){ echo $history_count;}else{ echo 0; } ?> คะแนน
+            คุณได้เพิ่ม <?php if(!empty($history_count)){ echo $history_count;}else{ echo 0; } ?> สิทธิ์
           </h3>
           <div class="desc" id="modalTextPhone">
           </div>

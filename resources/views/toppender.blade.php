@@ -131,7 +131,7 @@
 
   <!-- Reward BG @s -->
   <div class="bottom-button">
-      <a href="/" class="btn btn-sm btn-dark"><i class="fal fa-angle-left"></i> ไปหน้าหลัก</a>
+      <a href="/" class="btn btn-sm btn-primary"><i class="fal fa-angle-left"></i> ไปหน้าหลัก</a>
       <a href="/toppender" class="btn btn-sm btn-dark"><i class="fal fa-redo-alt"></i> รีเฟรช</a>
   </div>
 

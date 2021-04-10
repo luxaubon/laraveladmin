@@ -65,6 +65,7 @@
 </head>
 
 <body>
+<?php if(Session::get('ss_id')){ echo '<div class="profile-button"><a href="/profile"><i class="fas fa-user"></i></a></div>'; } ?>
 
 
 @yield('content')

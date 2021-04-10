@@ -10,9 +10,12 @@
     <a href="/"><img src="assets_home/img/Logo.png" alt=""></a>
   </div>
   <div class="main-title">
-  <a href="/"><img src="assets_home/img/title.png" alt=""></a>
+  	<a href="/"><img src="assets_home/img/title.png" alt=""></a>
   </div>
+
 </div>
+
+
 
 <div class="homeslide-wrapper">
   <div class="home-slide">

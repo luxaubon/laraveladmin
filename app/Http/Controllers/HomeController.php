@@ -341,12 +341,22 @@ class HomeController extends Controller
             return redirect('/');
         }
     }
-
+    public function showCode(Request $request){
+        $code_number = $request->code;
+        $check_code     = db_code::where('code_number',$code_number)->first();
+        $data = array(
+            //HEAD
+            'id' => $check_code->id,
+            'code_number' => $check_code->code_number,
+            //HEAD
+        );
+        return response()->json($data);
+    }
     public function checkCode(Request $request){
-
-        if(Session::get('ss_phone') == null && Session::get('ss_id') == null){
-            return redirect('/');
-        }
+        // dd($request->number);
+        // if(Session::get('ss_phone') == null && Session::get('ss_id') == null){
+        //     return redirect('/');
+        // }
        
         $user_check         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();
         
@@ -366,80 +376,78 @@ class HomeController extends Controller
             $numberData = count($request->number)-1;
             $images_id = '';
             for($i=0; $i <= $numberData; $i++ ){
+                if(!empty($request->number[$i])){
+                    $photo          = $request->file('image')[$i];
+                    $code_number    = $request->number[$i];
+                    $check_code     = db_code::where('code_number',$code_number)->first();
 
-                $photo          = $request->file('image')[$i];
-                $code_number    = $request->number[$i];
-                $check_code     = db_code::where('code_number',$code_number)->first();
 
+                    if($check_code['status'] == 1){
+                        
+                        $stauts = 1; // กรอกมาใหม่
+                        $check_code->status  = 2;
+                        $check_code->save();
 
-                if($check_code['status'] == 1){
-                    
-                    $stauts = 1; // กรอกมาใหม่
-                    $check_code->status  = 2;
-                    $check_code->save();
-
-                }else if($check_code['status'] == 2){
-                    $stauts = 2; // ซ้ำ
-                }else{
-                    $stauts = 3; // มั่ว
-                    $user_check2         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();   
-                    if($user_check2){
-                        $count               = Log_otp::where('user_id',Session::get('ss_id'))->count('id');
-                        if($user_check2->total_use < 5){
-                            $user_check2->total_use  = $user_check2->total_use + 1;
-                            $user_check2->save();
-                        }else{
-                            if($count < 3){
-                                $count = 1;
-                            }else if($count == 3){
-                                $count = 1;
-                            }else if($count == 4){
-                                $count = 2;
-                            }else if($count == 5){
-                                $count = 3;
-                            }else if($count == 6){
-                                $count = 4;
-                            }else if($count == 7){
-                                $count = 5;
-                            }else{
-                                $count = 6;
-                            }
-                            $startDate  = time(); 
-                            $dateNow    = date('Y-m-d H:i:s', strtotime('+'.$count.' day', $startDate));
-                            $user_check2->date_block  = $dateNow;
-                            $user_check2->save();
-                            
-                            return redirect()->back();
-
-                        }
+                    }else if($check_code['status'] == 2){
+                        $stauts = 2; // ซ้ำ
                     }else{
-                        $user_log               = new Log_otp;
-                        $user_log->user_id      = Session::get('ss_id');
-                        $user_log->total_use    = 1;
-                        $user_log->save();
+                        $stauts = 3; // มั่ว
+                        $user_check2         = Log_otp::where('user_id',Session::get('ss_id'))->where('status',1)->orderBy('id', 'DESC')->first();   
+                        if($user_check2){
+                            $count               = Log_otp::where('user_id',Session::get('ss_id'))->count('id');
+                            if($user_check2->total_use < 5){
+                                $user_check2->total_use  = $user_check2->total_use + 1;
+                                $user_check2->save();
+                            }else{
+                                if($count < 3){
+                                    $count = 1;
+                                }else if($count == 3){
+                                    $count = 1;
+                                }else if($count == 4){
+                                    $count = 2;
+                                }else if($count == 5){
+                                    $count = 3;
+                                }else if($count == 6){
+                                    $count = 4;
+                                }else if($count == 7){
+                                    $count = 5;
+                                }else{
+                                    $count = 6;
+                                }
+                                $startDate  = time(); 
+                                $dateNow    = date('Y-m-d H:i:s', strtotime('+'.$count.' day', $startDate));
+                                $user_check2->date_block  = $dateNow;
+                                $user_check2->save();
+                                
+                                return redirect()->back();
+
+                            }
+                        }else{
+                            $user_log               = new Log_otp;
+                            $user_log->user_id      = Session::get('ss_id');
+                            $user_log->total_use    = 1;
+                            $user_log->save();
+                        }
                     }
+
+                    $extension      = $photo->getClientOriginalExtension();
+                    $nameimages     = Session::get('ss_id').'-'.$i.'-'.date('dms').'-'.rand(0,99999).'.'.$extension;
+                    $paths          = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
+
+                    $images                     = new Images;
+                    $images->sid                = Session::get('ss_id');
+                    $images->code_first_number  = $code_number[0];
+                    $images->code_number        = $code_number;
+                    $images->status             = $stauts;
+                    $images->table              = 'user_otp';
+                    $images->image              = $nameimages;
+                    $images->save();
+                    $images_id.=  $images->id.',';
+                    }            
                 }
-
-                $extension      = $photo->getClientOriginalExtension();
-                $nameimages     = Session::get('ss_id').'-'.$i.'-'.date('dms').'-'.rand(0,99999).'.'.$extension;
-                $paths          = $photo->move('images/'.Session::get('ss_id').'/', $nameimages);
-
-                $images                     = new Images;
-                $images->sid                = Session::get('ss_id');
-                $images->code_first_number  = $code_number[0];
-                $images->code_number        = $code_number;
-                $images->status             = $stauts;
-                $images->table              = 'user_otp';
-                $images->image              = $nameimages;
-                $images->save();
-               $images_id.=  $images->id.',';
-            }
-
             // $post           = User_otp::find(Session::get('ss_id'));
             // $post->gallery  = $post->gallery.$images_id;
             // $post->save();
-
-
             return redirect('/history?code='.$images_id);
 
     }   

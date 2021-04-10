@@ -43,7 +43,7 @@
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul"></i> LIST DATA</span>
 								</a>
 							</li>
-							@IF($status == 2)
+							@IF($status == 1)
 							<li class="nav-items">
 								<a href="#default-tab-2" data-toggle="tab" class="nav-link <?php echo $ftab; ?>">
 									<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>

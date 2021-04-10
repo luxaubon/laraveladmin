@@ -37,7 +37,7 @@ Route::get('/toppender','HomeController@toppender');
 Route::post('/ocr', 'OcrController@ocrImage');
 
 Route::post('/checkCode', 'HomeController@checkCode');
-//Route::get('/checkCode', 'HomeController@checkCode');
+Route::get('/showCode', 'HomeController@showCode');
 
 Route::get('/admin', function () {
     return view('admin.login');

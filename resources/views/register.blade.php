@@ -173,7 +173,7 @@
 
                         <div class="form-group">
                             <p>ที่อยู่ (กรุณากรอกข้อมูลตามบัตรประชาชน)</p>
-                            <input type="text" id="address" name="address" class="form-control" placeholder="ที่อยู่">
+                            <input type="text" id="address" name="address" class="form-control" placeholder="บ้านเลขที่ / ซอย / หมู่บ้าน">
                         </div>
 
                         <div class="form-group">

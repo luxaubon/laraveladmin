@@ -65,7 +65,7 @@
 
   <!-- Main Box @e -->
   <div class="bottom-button">
-      <a href="/" class="btn btn-sm btn-dark"><i class="fal fa-angle-left"></i> ไปหน้าหลัก</a>
+      <a href="/" class="btn btn-sm btn-primary"><i class="fal fa-angle-left"></i> ไปหน้าหลัก</a>
   </div>
   <!-- Reward BG @s -->
   <div class="main-reward">

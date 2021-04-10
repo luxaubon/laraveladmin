@@ -68,22 +68,22 @@
                                         foreach($image as $db){
                                             $i++;
                                          if($db->status == 1 ){
-                                             $status = 'ผ่าน';
+                                             $status_2 = 'ผ่าน';
                                          }else if($db->status == 2){
-                                            $status = 'รหัสซ้ำ';
+                                            $status_2 = 'รหัสซ้ำ';
                                         }else if($db->status == 3){
-                                            $status = 'รหัสผิดพลาด';
+                                            $status_2 = 'รหัสผิดพลาด';
                                         }else if($db->status == 4){
-                                            $status = 'ลงทะเบียนโดย '.@$db->admin_name;
+                                            $status_2 = 'ลงทะเบียนโดย '.@$db->admin_name;
                                         }else if($db->status == 5){
-                                            $status = 'ยกเลิกโดย '.@$db->admin_name;
+                                            $status_2 = 'ยกเลิกโดย '.@$db->admin_name;
                                         }
 										if(Auth::id() == 1){
 											echo '<tr class="odd gradeX">
 													<td>'.$i.'</td>
 													<td>'.$db->code_number.'</td>
 													<td>'.DateThai($db->created_at).'</td>
-													<td>'.$status.'</td>
+													<td>'.$status_2.'</td>
 													<td width="10%"> 
 														<div class="card">
 															<a href="'.asset('images/'.$db->sid.'/'.$db->image.'').'" class="image-link">
@@ -99,7 +99,7 @@
                                                 <td>'.$i.'</td>
                                                 <td>'.$db->code_number.'</td>
                                                 <td>'.DateThai($db->created_at).'</td>
-                                                <td>'.$status.'</td>
+                                                <td>'.$status_2.'</td>
                                                 <td width="10%"> 
 													<div class="card">
 														<a href="'.asset('images/'.$db->sid.'/'.$db->image.'').'" class="image-link">
@@ -156,7 +156,7 @@
 							  <p class="m-b-10 p-0 ">
 
 								<!-- UPDATE BUTTON -->
-								@IF($status == 2)
+								@IF($status == 1)
 									<button type="submit" id="Save" class="btn btn-success m-t-5">
 									<i class="fa fa-save"></i> Save</button>
 								@endif

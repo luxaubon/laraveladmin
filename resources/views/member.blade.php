@@ -59,23 +59,45 @@
 
   <!-- Main Box @s -->
   <div class="main-box">
-    <h2 class="title">กรุณาใส่ CODE</h2>
+    <h2 class="title">กรุณา กรอกรหัสใต้ฝา</h2>
     <div class="main-mobile">
         <form action="/checkCode" method="POST" id="header_image_frm" enctype="multipart/form-data">    
             @csrf
             <div class="form-group" >
                 <div class="input-group">
                 <button type="button" class="btn" style="background: white;border-color: white;"></button>
-                    <input type="number" id="number0" name="number[]" class="form-control txtCode" placeholder="กรุณาใส่ CODE" required oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
+                    <input type="number" id="number0" name="number[]" onkeyup="isThaichar(this.value,this)" class="form-control txtCode" placeholder="กรุณา กรอกรหัสใต้ฝา"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
                     <div class="input-group-append">
                         <div class="upload-btn-wrapper input-group-text">
                           <i class="fal fa-camera"></i>
-                          <input type="file" id="files_0" name="image[]" onchange="fileselectedchange(this,0);" accept="image/*;capture=camera" required class="checkfile">
+                          <input type="file" id="files_0" name="image[]" onchange="fileselectedchange(this,0);" accept="image/*;capture=camera"  class="checkfile">
                       </div>
                     </div>
                 </div>
-                
-                
+            </div>
+            <div class="form-group" >
+                <div class="input-group">
+                <button type="button" class="btn" style="background: white;border-color: white;"></button>
+                    <input type="number" id="number1" name="number[]" onkeyup="isThaichar(this.value,this)" class="form-control txtCode" placeholder="กรุณา กรอกรหัสใต้ฝา"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
+                    <div class="input-group-append">
+                        <div class="upload-btn-wrapper input-group-text">
+                          <i class="fal fa-camera"></i>
+                          <input type="file" id="files_1" name="image[]" onchange="fileselectedchange(this,1);" accept="image/*;capture=camera"  class="checkfile">
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <div class="input-group">
+                <button type="button" class="btn" style="background: white;border-color: white;"></button>
+                    <input type="number" id="number2" name="number[]" onkeyup="isThaichar(this.value,this)" class="form-control txtCode" placeholder="กรุณา กรอกรหัสใต้ฝา"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
+                    <div class="input-group-append">
+                        <div class="upload-btn-wrapper input-group-text">
+                          <i class="fal fa-camera"></i>
+                          <input type="file" id="files_2" name="image[]" onchange="fileselectedchange(this,2);" accept="image/*;capture=camera"  class="checkfile">
+                      </div>
+                    </div>
+                </div>
             </div>
             
             <div id="TextBoxContainer"></div>
@@ -99,7 +121,7 @@
               <div class="modal-content">
                 <div class="modal-body">
                   <div class="modal-display">
-                  <i class="fas fa-qrcode"></i>
+
                     <h3 class="title">
                       กรุณาตรวจสอบอีกครั้ง
                     </h3>
@@ -180,6 +202,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 })
 
+        function isThaichar(str,obj){
+            var orgi_text="1234567890";
+            var str_length=str.length;
+            var str_length_end=str_length-1;
+            var isThai=true;
+            var Char_At="";
+            for(i=0;i<str_length;i++){
+                Char_At=str.charAt(i);
+                if(orgi_text.indexOf(Char_At)==-1){
+                    isThai=false;
+                }   
+            }
+            if(str_length>=1){
+                if(isThai==false){
+                    obj.value=str.substr(0,str_length_end);
+                }
+            }
+            return isThai; // ถ้าเป็น true แสดงว่าเป็นภาษาไทยทั้งหมด
+        }
+
+
 $(document).ready(function() {
 
   $("#btnSend").submit(function (){
@@ -188,18 +231,25 @@ $(document).ready(function() {
   });
 
    $("#btnShow").click(function (){
-    var returnData;
+    var returnData = 1;
     var numCount = 0;
-    $("input:file").each(function(){
-        numCount++;
-        var val = $(this).val()
-        if(!val){
-          swal("แนบภาพรหัสใต้ฝา ช่องที่ "+numCount+" ", "", "error");
-          returnData = 0;
-        }
-    });
 
-    if(returnData != 0){
+      $('input[type=number]').each(function(){
+          var val = $(this).val();
+          if(val){
+            console.log(numCount,val,"#files_"+numCount);
+            var files = $("#files_"+numCount).val();
+            if(!files){
+                swal("แนบภาพรหัสใต้ฝา ช่องที่ "+(numCount+1)+" ", "", "error");
+                returnData = 2;
+            }else{
+                returnData = 0;
+            }
+          }
+          numCount++;
+      });
+
+    if(returnData == 0){
       var elements = document.getElementsByClassName("txtCode");
       var data = '';
       var num = 0;
@@ -210,7 +260,11 @@ $(document).ready(function() {
       }
       $("#modalText").html(data)
       $('#showSum').modal('toggle');
+    }else if(returnData == 1){
+      swal("กรุณากรอกรหัสใต้ฝา", "", "error");
     }
+
+    console.log(returnData);
   });
 
 });
@@ -218,7 +272,7 @@ $(document).ready(function() {
 $(function () {
     
     $("#btnAdd").bind("click", function () {
-        var div = $("<div />");
+        var div = $("<div/>");
         var myArray = $(".main-mobile .form-group .form-control").length;
         console.log(myArray);
         if(myArray < 10){
@@ -231,6 +285,7 @@ $(function () {
 
     $("body").on("click", ".remove", function () {
         $(this).closest("div").remove();
+       
     });
 
 });
@@ -256,7 +311,7 @@ function fileselectedchange(obj,number){
         },
         error: function(data) {
             $('#get-otp').modal('toggle');
-            swal("ระบบไม่สามารถกรอกรหัส CODE ให้ท่านได้", "กรุณากรอกรหัสด้วยตัวท่านเอง", "error");
+            swal("ระบบไม่สามารถกรอกรหัส CODE ให้ท่านได้", "กรุณากรอกรหัสใต้ฝาด้วยตัวท่านเอง", "error");
         }
     });
 
@@ -267,11 +322,11 @@ function GetDynamicTextBox(value,number) {
     return `<div class="form-group" >
                 <div class="input-group">
                     <button type="button" class="btn btn-danger remove">-</button>
-                    <input type="number" id="number`+number+`" name="number[]" class="form-control txtCode" placeholder="กรุณาใส่ CODE" required  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
+                    <input type="number" id="number`+number+`" name="number[]" onkeyup="isThaichar(this.value,this)" class="form-control txtCode" placeholder="กรุณา กรอกรหัสใต้ฝา" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "10">
                     <div class="input-group-append">
                       <div class="upload-btn-wrapper input-group-text">
                           <i class="fal fa-camera"></i>
-                          <input type="file" id="files_`+number+`" name="image[]" onchange="fileselectedchange(this,`+number+`);" accept="image/*;capture=camera" required class="checkfile">
+                          <input type="file" id="files_`+number+`" name="image[]" onchange="fileselectedchange(this,`+number+`);" accept="image/*;capture=camera" class="checkfile">
                       </div>
                     </div>
                     
