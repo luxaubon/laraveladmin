@@ -21,6 +21,7 @@
                                         <th class="text-nowrap">เบอร์โทร</th>
                                         <th class="text-nowrap">วันที่สมัคร</th>
                                         <th class="text-nowrap">สถานะ</th>
+                                        <th class="text-nowrap">Reject By</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,6 +46,7 @@
                                             <td>'.$db->phone.'</td>
                                             <td>'.DateThai($db->created_at).'</td>
                                             <td>'.$status.'</td>
+                                            <td>'.$db->admin_name.'<br>('.$db->receipt_reject.')</td>
                                         </tr>';
                                      }
                                     ?>

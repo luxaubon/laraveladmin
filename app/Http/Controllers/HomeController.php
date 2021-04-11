@@ -12,7 +12,7 @@ use App\Pages;
 use App\Setting;
 use App\Images;
 use App\User_otp;
-use App\province;
+use App\region;
 use App\receipt;
 
 use Session;
@@ -163,6 +163,7 @@ class HomeController extends Controller
         $setting = Setting::find(1);
         $region = DB::table('region')
         ->select('region_name')
+        ->Where('status','=',1)
         ->distinct('region_name')
         ->groupBy('region_name')
         ->get();
@@ -181,10 +182,32 @@ class HomeController extends Controller
         return redirect('/linelogin');
 
     }
+    public function moderntrade(){
+
+        $setting = Setting::find(1);
+        $region = region::Where('status','=',2)->get();
+        
+        $data = array(
+            //HEAD
+            'setting' => $setting,
+            'region' => $region
+            //HEAD
+        );
+
+        if(Session::get('ss_id')){
+            return view('moderntrade',$data);
+        }
+
+        return redirect('/linelogin');
+
+    }
+
+    
     public function province(Request $request){
 
         $province = DB::table('region')
         ->select('region_province')
+        ->Where('status','=',1)
         ->Where('region_name','=',$request->val)
         ->distinct('region_province')
         ->groupBy('region_province')
@@ -204,6 +227,7 @@ class HomeController extends Controller
 
         $shop_name = DB::table('region')
         ->select('shop_name','region_id')
+        ->Where('status',1)
         ->Where('region_province','=',$request->val)
         ->distinct('shop_name')
         ->groupBy('shop_name')
@@ -228,17 +252,29 @@ class HomeController extends Controller
                 $photos = $request->file('files');
                 $images_id = '';
                 $i=0;
-
-                $shop_name = DB::table('region')->select('shop_name')->Where('region_id','=',$request->region_id)->first();
-                $receipt                    = new receipt;
-                $receipt->member_id         = Session::get('ss_id');
-                $receipt->receipt_status    = 1;
-                $receipt->region_id         = $request->region_id;
-                $receipt->region_name	    = $request->region;
-                $receipt->region_province   = $request->province;
-                $receipt->shop_name         = $shop_name->shop_name;
-                $receipt->status_shop       = $request->status;
-                $receipt->save();
+                if($request->status == 'dealer'){
+                    $shop_name = region::find($request->region_id);
+                    $receipt                    = new receipt;
+                    $receipt->member_id         = Session::get('ss_id');
+                    $receipt->receipt_status    = 1;
+                    $receipt->region_id         = $request->region_id;
+                    $receipt->region_name	    = $request->region;
+                    $receipt->region_province   = $request->province;
+                    $receipt->shop_name         = $shop_name->shop_name;
+                    $receipt->status_shop       = $request->status;
+                    $receipt->save();
+                }else if($request->status == 'company'){
+                    $shop_name = region::find($request->region_id);
+                    $receipt                    = new receipt;
+                    $receipt->member_id         = Session::get('ss_id');
+                    $receipt->receipt_status    = 1;
+                    $receipt->region_id         = $request->region_id;
+                    $receipt->shop_name         = $shop_name->shop_name;
+                    $receipt->status_shop       = $request->status;
+                    $receipt->save();
+                }else{
+                    return redirect('/');
+                }
 
                 foreach ($photos as $photo) {
                     if($photo != ''){
@@ -252,8 +288,14 @@ class HomeController extends Controller
                         $images->image = $nameimages;
                         $images->receipt_id = $receipt->id;
                         $images->save();
+                        $images_id.=  $images->id.',';
                     }
                 }
+                $post = receipt::find($receipt->id);
+                $post->gallery = $images_id;
+                $post->save();
+    
+
                 return redirect('/done');
             }
         }else{

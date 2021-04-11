@@ -7,11 +7,11 @@
 			<ol class="breadcrumb pull-right">
 				<li class="breadcrumb-item"><a href="javascript:;">Home </a></li>
 				<!--li class="breadcrumb-item"><a href="javascript:;">UI Elements</a></li-->
-				<li class="breadcrumb-item active">Receipt Waiting</li>
+				<li class="breadcrumb-item active">Receipt Reject</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">Receipt Waiting</small></h1>
+			<h1 class="page-header">Receipt Reject</small></h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->

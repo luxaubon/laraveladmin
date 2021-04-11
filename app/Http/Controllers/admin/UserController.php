@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Images;
 use App\User_otp;
-use App\db_code;
+
 
 use Illuminate\Support\Facades\DB;
 

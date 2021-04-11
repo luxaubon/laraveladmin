@@ -2,12 +2,12 @@
 
                         
 
-                            <form class="form-inline" action="/admin/<?php echo $folder; ?>/index" method="GET">
-								<!-- <div class="form-group m-r-10">
-                                    <a href="#modal-dialog"  class="btn btn-primary m-r-5 m-b-5" data-toggle="modal">Excel Download</a>
-								</div> -->
+                            <form class="form-inline" action="/admin/member1/index" method="GET">
 								<div class="form-group m-r-10">
-									<input type="text" class="form-control" name="search" placeholder="ชื่อ - นามสกุล - เบอร์โทร" >
+                                    <a href="#modal-dialog"  class="btn btn-primary m-r-5 m-b-5" data-toggle="modal">Excel Download</a>
+								</div>
+								<div class="form-group m-r-10">
+									<input type="text" class="form-control" name="search" placeholder="ค้นหารหัสใต้ฝา" >
 								</div>
 								<button type="submit" class="btn btn-sm btn-warning  m-r-5">ค้นหา</button>
 							</form>
@@ -19,8 +19,10 @@
                                         <th class="text-nowrap">ชื่อ</th>
                                         <th class="text-nowrap">นามสกุล</th>
                                         <th class="text-nowrap">เบอร์โทร</th>
+                                        <th class="text-nowrap">รหัสใต้ฝา</th>
                                         <th class="text-nowrap">วันที่สมัคร</th>
                                         <th class="text-nowrap">สถานะ</th>
+                                        <th class="text-nowrap">รูป</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,22 +31,30 @@
                                      $i=0;
                                      foreach($member as $db){
                                          $i++;
-                                         if($db->receipt_status == 1){
-                                             $status = 'Waiting';
-                                         }else if($db->receipt_status == 2){
-                                            $status = 'Approved';
-                                        }else if($db->receipt_status == 3){
-                                            $status = 'Reject';
-                                        }else{
-                                            $status = 'Reject';
+                                         if($db->status == 1){
+                                             $status = 'ผ่าน';
+                                         }else if($db->status == 2){
+                                            $status = 'รหัสซ้ำ';
+                                        }else if($db->status == 3){
+                                            $status = 'รหัสผิดพลาด';
+                                        }else if($db->status == 4){
+                                            $status = 'ลงทะเบียนโดย Admin';
                                         }
                                     echo '<tr class="odd gradeX">
                                             <td>'.$i.'</td>
-                                            <td><a href="/admin/'.$folder.'/show/'.$db->id.'" >'.$db->name.'</a></td>
+                                            <td>'.$db->name.'</td>
                                             <td>'.$db->last_name.'</td>
                                             <td>'.$db->phone.'</td>
+                                            <td>'.$db->code_number.'</td>
                                             <td>'.DateThai($db->created_at).'</td>
                                             <td>'.$status.'</td>
+                                            <td width="10%"> 
+                                                <div class="card">
+                                                    <a href="'.asset('images/'.$db->id.'/'.$db->image.'').'" class="image-link">
+                                                        <img class="card-img-top" src="'.asset('images/'.$db->id.'/'.$db->image.'').'" />
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>';
                                      }
                                     ?>
@@ -55,7 +65,7 @@
                             </table>
                         </div>
 
-                        <!-- <div class="modal fade" id="modal-dialog">
+                        <div class="modal fade" id="modal-dialog">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -108,25 +118,25 @@
 										</div>
 									</div>
 								</div>
-							</div> -->
+							</div>
                             		
  <script>
-	// 	$(document).ready(function() {
-	// 	 $("#btnCheckData").click(function (){
-	// 		event.preventDefault();
-    //         var name 			= ($("#name").is(":checked") == true) ? 'show' : 'hide';
-	// 		var last_name 		= ($("#last_name").is(":checked") == true) ? 'show' : 'hide';
-	// 		var phone 			= ($("#phone").is(":checked") == true) ? 'show' : 'hide';
-	// 		var code 			= ($("#code").is(":checked") == true) ? 'show' : 'hide';
-	// 		var date_register 	= ($("#date_register").is(":checked") == true) ? 'show' : 'hide';
-    //         var status 		    = ($("#status").is(":checked") == true) ? 'show' : 'hide';
-	// 		var link_image 		= ($("#link_image").is(":checked") == true) ? 'show' : 'hide';
-    //         var pass = $("#pass").val();
+		$(document).ready(function() {
+		 $("#btnCheckData").click(function (){
+			event.preventDefault();
+            var name 			= ($("#name").is(":checked") == true) ? 'show' : 'hide';
+			var last_name 		= ($("#last_name").is(":checked") == true) ? 'show' : 'hide';
+			var phone 			= ($("#phone").is(":checked") == true) ? 'show' : 'hide';
+			var code 			= ($("#code").is(":checked") == true) ? 'show' : 'hide';
+			var date_register 	= ($("#date_register").is(":checked") == true) ? 'show' : 'hide';
+            var status 		    = ($("#status").is(":checked") == true) ? 'show' : 'hide';
+			var link_image 		= ($("#link_image").is(":checked") == true) ? 'show' : 'hide';
+            var pass = $("#pass").val();
 
-    //         swal("Password zip : "+pass, {icon: "success",});
-    //         window.open('/admin/member/zip?name='+name+'&last_name='+last_name+'&phone='+phone+'&code='+code+'&date_register='+date_register+'&status='+status+'&link_image='+link_image+'&pass='+pass+'', '_blank');
+            swal("Password zip : "+pass, {icon: "success",});
+            window.open('/admin/member1/zip?name='+name+'&last_name='+last_name+'&phone='+phone+'&code='+code+'&date_register='+date_register+'&status='+status+'&link_image='+link_image+'&pass='+pass+'', '_blank');
 
-	// 	});
-	// });
+		});
+	});
 	</script>
 	

@@ -20,7 +20,7 @@
                     <input type="hidden" value="dealer" id="status" name="status"  required>
                     <div class="form-group">
                         <select name="region" id="region" class="form-control" required>
-                            <option value="">กรุณาเลือกภาค</option>
+                            <option value="">กรุณาเลือกภูมิภาค</option>
                             <?php foreach($region as $region){ 
                                 echo '<option value="'.$region->region_name.'">'.$region->region_name.'</option>';
                             }?>

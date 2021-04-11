@@ -41,10 +41,10 @@
 			<div class="row">
 				<div class="col-lg-6 col-md-6">
 					<div class="widget widget-stats bg-black-lighter">
-						<div class="stats-icon"><i class="fa fa-clock"></i></div>
+						<div class="stats-icon"><i class="fa fa-users"></i></div>
 						<div class="stats-info">
 							<h4>ยอด Register ทั้งหมด</h4>
-							<p>{{-- $Chart['countUserAll'] --}}</p>	
+							<p>{{ $Chart['countUserAll'] }}</p>	
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;"></a>
@@ -54,10 +54,10 @@
 				<!-- begin col-3 -->
 				<div class="col-lg-6 col-md-6">
 					<div class="widget widget-stats bg-grey-darker">
-						<div class="stats-icon"><i class="fa fa-users"></i></div>
+						<div class="stats-icon"><i class="fa fa-clock"></i></div>
 						<div class="stats-info">
 							<h4>ยอด Transaction ทั้งหมด</h4>
-							<p>{{-- $Chart['countCode'] --}}</p>	
+							<p>{{ $Chart['countCode'] }}</p>	
 						</div>
 						<div class="stats-link">
 							<a href="javascript:;"></a>
@@ -102,27 +102,44 @@
 							</div>
 						</div>
 					</div>
-
 					
-				<div class="col-md-6">
-					<div class="panel panel-inverse" data-sortable-id="morris-chart-2">
-						<div class="panel-heading">
-							<div class="panel-heading-btn">
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+					
+					<div class="col-md-6">
+						<div class="panel panel-inverse" data-sortable-id="morris-chart-2">
+							<div class="panel-heading">
+								<div class="panel-heading-btn">
+									<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+									<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+									<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+									<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+								</div>
+								<h4 class="panel-title">ยอด ร้านค้าตัวแทนจำหน่าย แต่ละวัน</h4>
 							</div>
-							<h4 class="panel-title">อาชีพ</h4>
+							<div class="panel-body">
+								<div id="morris-bar-chart-Transaction-mt" class="height-sm"></div>
+							</div>
 						</div>
-						<div class="panel-body">
-							<div id="morris-bar-chart-Jobs" class="height-sm"></div>
-						</div>
-					</div>
-				</div> 
+					</div> 
 
-				<div class="col-md-6">
-					<div class="panel panel-inverse" data-sortable-id="morris-chart-2">
+					<div class="col-md-6">
+						<div class="panel panel-inverse" data-sortable-id="morris-chart-2">
+							<div class="panel-heading">
+								<div class="panel-heading-btn">
+									<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+									<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+									<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+									<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+								</div>
+								<h4 class="panel-title">ยอด ร้านค้าชั้นนำ แต่ละวัน</h4>
+							</div>
+							<div class="panel-body">
+								<div id="morris-bar-chart-Transaction-tt" class="height-sm"></div>
+							</div>
+						</div>
+					</div> 
+
+				<div class="col-md-4">
+					<div class="panel panel-inverse" data-sortable-id="flot-chart-5">
 						<div class="panel-heading">
 							<div class="panel-heading-btn">
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -130,10 +147,12 @@
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
-							<h4 class="panel-title">เงินเดือน</h4>
+							<h4 class="panel-title">Top 5 ร้านค้าตัวแทนจำหน่าย</h4>
 						</div>
 						<div class="panel-body">
-							<div id="morris-bar-chart-saraly" class="height-sm"></div>
+							<div>
+								<canvas id="pie-chart" data-render="chart-js"></canvas>
+							</div>
 						</div>
 					</div>
 				</div> 
@@ -147,11 +166,11 @@
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
-							<h4 class="panel-title">รหัสใต้ฝาแต่ละรสชาติ</h4>
+							<h4 class="panel-title">Top 5 ร้านค้าชั้นนำ</h4>
 						</div>
 						<div class="panel-body">
 							<div>
-								<canvas id="pie-chart" data-render="chart-js"></canvas>
+								<canvas id="pie-chart3" data-render="chart-js"></canvas>
 							</div>
 						</div>
 					</div>
@@ -166,31 +185,11 @@
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
-							<h4 class="panel-title">อายุ</h4>
+							<h4 class="panel-title">5 อันดับจังหวัด</h4>
 						</div>
 						<div class="panel-body">
 							<div>
 								<canvas id="pie-chart2" data-render="chart-js"></canvas>
-							</div>
-						</div>
-					</div>
-				</div> 
-				
-
-				<div class="col-md-4">
-					<div class="panel panel-inverse" data-sortable-id="flot-chart-5">
-						<div class="panel-heading">
-							<div class="panel-heading-btn">
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-							</div>
-							<h4 class="panel-title">เพศ</h4>
-						</div>
-						<div class="panel-body">
-							<div>
-								<canvas id="pie-chart3" data-render="chart-js"></canvas>
 							</div>
 						</div>
 					</div>

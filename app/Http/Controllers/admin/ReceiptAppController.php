@@ -11,7 +11,7 @@ use App\Images;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File as LaraFile;
 
-class ReceiptWaitController extends Controller
+class ReceiptAppController extends Controller
 {
     //
     public function __construct(){
@@ -22,15 +22,15 @@ class ReceiptWaitController extends Controller
     }
 
 
-    public function folder(){return 'receipt_wait';}
-    public function statis(){return 1;}
+    public function folder(){return 'receipt_app';}
+    public function statis(){return 2;}
 
     public function index(Request $request){
         if($request->search){
 
             $member = DB::table('receipt')
             ->join('user_otp', 'receipt.member_id', '=', 'user_otp.id')
-            ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status')
+            ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status','receipt_point','status_shop')
             ->Where('receipt_status','=',$this->statis())
             ->orWhere('name',$request->search)
             ->orWhere('last_name',$request->search)
@@ -42,7 +42,7 @@ class ReceiptWaitController extends Controller
 
             $member = DB::table('receipt')
             ->join('user_otp', 'receipt.member_id', '=', 'user_otp.id')
-            ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status')
+            ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status','receipt_point','status_shop')
             ->Where('receipt_status','=',$this->statis())
             ->orderBy('receipt.id', 'DESC')
             ->paginate(30);
@@ -67,7 +67,7 @@ class ReceiptWaitController extends Controller
         $pages_id = receipt::findOrFail($id);
         $member = DB::table('receipt')
         ->join('user_otp', 'receipt.member_id', '=', 'user_otp.id')
-        ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status')
+        ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status','receipt_point','status_shop')
         ->Where('receipt_status','=',$this->statis())
         ->orderBy('receipt.id', 'DESC')
         ->paginate(30);

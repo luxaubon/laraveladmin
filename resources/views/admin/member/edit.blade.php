@@ -222,8 +222,7 @@
 															<div class="image" style="cursor: move; background:url({{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}); background-position:center center; background-size:cover;">
 															</div>
 															<div class="btn-list">
-																<a href="{{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}" class="image-link btn btn-white btn-xs">
-																	<i class="fa fa-search-plus"></i></a>
+																<a href="{{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}" class="image-link btn btn-white btn-xs"><i class="fa fa-search-plus"></i></a>
 																<a href="javascript:;" class="btn btn-danger btn-xs" id="del_img{{ $value['id'] }}"><i class="fa fa-trash"></i></a>
 															</div>
 															<div class="info">                                       
@@ -231,6 +230,7 @@
 															</div>
 														</div>
 													</li>
+
 													@endif
                  								@endforeach
 										</ul>
@@ -263,8 +263,6 @@
 
 									<a href="javascript::void(0)" id="content_del{{$pages_id->id}}" class="btn btn-danger m-t-5" >Reject </a>
 								<?php } ?>
-								
-
 								<!-- UPDATE BUTTON -->
 
 							  </p>

@@ -12,7 +12,7 @@
       <h3 class="title">กรุณาเลือกประเภทร้านค้า</h3>
 
       <div class="shop-type">
-          <a href="moderntrade.html">
+          <a href="/moderntrade">
               <img src="assets_home/img/moderntrade.png" alt="">
           </a>
           <a href="/dealer">

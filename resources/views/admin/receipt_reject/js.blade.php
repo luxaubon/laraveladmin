@@ -103,6 +103,7 @@
 			}
 		})
 		
+
 		// Delete IMAGE GALLERY
 	   $("a[id^='del_img']").click(function(){
 			var numrow = $(this).attr("id");

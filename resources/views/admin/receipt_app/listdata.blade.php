@@ -21,6 +21,8 @@
                                         <th class="text-nowrap">เบอร์โทร</th>
                                         <th class="text-nowrap">วันที่สมัคร</th>
                                         <th class="text-nowrap">สถานะ</th>
+                                        <th class="text-nowrap">ร้านค้า</th>
+                                        <th class="text-nowrap">Point</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,15 +31,22 @@
                                      $i=0;
                                      foreach($member as $db){
                                          $i++;
-                                         if($db->receipt_status == 1){
-                                             $status = 'Waiting';
-                                         }else if($db->receipt_status == 2){
-                                            $status = 'Approved';
-                                        }else if($db->receipt_status == 3){
-                                            $status = 'Reject';
-                                        }else{
-                                            $status = 'Reject';
-                                        }
+                                            if($db->receipt_status == 1){
+                                                $status = 'Waiting';
+                                            }else if($db->receipt_status == 2){
+                                                $status = 'Approved';
+                                            }else if($db->receipt_status == 3){
+                                                $status = 'Reject';
+                                            }else{
+                                                $status = 'Reject';
+                                            }
+
+                                            if($db->status_shop == 'dealer'){
+                                                $txt = 'ร้านค้าตัวแทนจำหน่าย';
+                                            }else{
+                                                $txt = 'ร้านค้าชั้นนำ';
+                                            }
+
                                     echo '<tr class="odd gradeX">
                                             <td>'.$i.'</td>
                                             <td><a href="/admin/'.$folder.'/show/'.$db->id.'" >'.$db->name.'</a></td>
@@ -45,6 +54,8 @@
                                             <td>'.$db->phone.'</td>
                                             <td>'.DateThai($db->created_at).'</td>
                                             <td>'.$status.'</td>
+                                            <td>'.$txt.'</td>
+                                            <td>'.$db->receipt_point.'</td>
                                         </tr>';
                                      }
                                     ?>

@@ -24,6 +24,8 @@ Route::get('/choose','HomeController@choose');
 Route::get('/logout','HomeController@logout');
 
 Route::get('/dealer','HomeController@dealer');
+Route::get('/moderntrade','HomeController@moderntrade');
+
 Route::post('/province','HomeController@province');
 Route::post('/shop_name','HomeController@shop_name');
 Route::post('/sendData','HomeController@sendData');
@@ -56,8 +58,34 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
     Route::group(['prefix'=>'/receipt_wait/'], function(){
         Route::get('/index','admin\ReceiptWaitController@index');
         Route::get('/show/{id}','admin\ReceiptWaitController@show');
+        Route::post('/edit/{id}','admin\ReceiptWaitController@edit');
+        Route::get('/del_img','admin\ReceiptWaitController@del_img');
+        Route::get('/del_content','admin\ReceiptWaitController@del_content');
 
-        Route::get('/zip','admin\ReceiptWaitController@zipFiles');
+        //Route::get('/zip','admin\ReceiptWaitController@zipFiles');
+    });
+    Route::group(['prefix'=>'/receipt_app/'], function(){
+        Route::get('/index','admin\ReceiptAppController@index');
+        Route::get('/show/{id}','admin\ReceiptAppController@show');
+        Route::post('/edit/{id}','admin\ReceiptAppController@edit');
+        Route::get('/del_img','admin\ReceiptAppController@del_img');
+        Route::get('/del_content','admin\ReceiptAppController@del_content');
+
+        //Route::get('/zip','admin\ReceiptAppController@zipFiles');
+    });
+    Route::group(['prefix'=>'/receipt_reject/'], function(){
+        Route::get('/index','admin\ReceiptRejectController@index');
+        Route::get('/show/{id}','admin\ReceiptRejectController@show');
+        Route::post('/edit/{id}','admin\ReceiptRejectController@edit');
+        Route::get('/del_img','admin\ReceiptRejectController@del_img');
+        Route::get('/del_content','admin\ReceiptRejectController@del_content');
+
+        //Route::get('/zip','admin\ReceiptAppController@zipFiles');
+    });
+    
+    Route::group(['prefix'=>'/member/'], function(){
+        Route::get('/index','admin\MemberController@index');
+        Route::get('/zip','admin\MemberController@zipFiles');
     });
 
 

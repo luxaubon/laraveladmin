@@ -222,8 +222,7 @@
 															<div class="image" style="cursor: move; background:url({{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}); background-position:center center; background-size:cover;">
 															</div>
 															<div class="btn-list">
-																<a href="{{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}" class="image-link btn btn-white btn-xs">
-																	<i class="fa fa-search-plus"></i></a>
+																<a href="{{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}" class="image-link btn btn-white btn-xs"><i class="fa fa-search-plus"></i></a>
 																<a href="javascript:;" class="btn btn-danger btn-xs" id="del_img{{ $value['id'] }}"><i class="fa fa-trash"></i></a>
 															</div>
 															<div class="info">                                       
@@ -231,6 +230,7 @@
 															</div>
 														</div>
 													</li>
+
 													@endif
                  								@endforeach
 										</ul>
@@ -261,10 +261,8 @@
 									<button type="submit" id="Save" class="btn btn-success m-t-5">
 									<i class="fa fa-save"></i> Save</button>
 
-									<a href="javascript::void(0)" id="content_del{{$pages_id->id}}" class="btn btn-danger m-t-5" >Reject </a>
+									<!-- <a href="javascript::void(0)" id="content_del{{$pages_id->id}}" class="btn btn-danger m-t-5" >Reject </a> -->
 								<?php } ?>
-								
-
 								<!-- UPDATE BUTTON -->
 
 							  </p>
@@ -303,8 +301,11 @@
 												<?php
 												$status_wait  		= ($pages_id->receipt_status == 1) ? 'selected' : '';
 												$status_approved 	= ($pages_id->receipt_status == 2) ? 'selected' : '';
+												$status_reject 		= ($pages_id->receipt_status == 3) ? 'selected' : '';
 												echo '<option class="text-success-light" value="1" '.$status_wait.'>Waiteing</option>
-													  <option class="text-danger-light" value="2" '.$status_approved.'>Approved</option>';
+													  <option class="text-danger-light" value="2" '.$status_approved.'>Approved</option>
+													  <option class="text-danger-light" value="3" '.$status_reject.'>Reject</option>
+													  ';
 												?>
 											</select>
 											<hr>

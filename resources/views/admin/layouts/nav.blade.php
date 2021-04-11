@@ -17,7 +17,7 @@
 						</ul>
 						
 					</li>
-					<li class="has-sub {{ checkActiveMenu(Request::segment(2),'receipt_wait') }}">
+					<li class="has-sub {{ checkActiveMenu(Request::segment(2),'receipt_wait') }} {{ checkActiveMenu(Request::segment(2),'receipt_app') }}{{ checkActiveMenu(Request::segment(2),'receipt_reject') }}">
 						<a href="javascript:;">
 					        <b class="caret"></b>
 						    <i class="fab fa-lg fa-fw m-r-10 fa-product-hunt"></i>
@@ -25,9 +25,11 @@
 						</a>
 						<ul class="sub-menu">
 							<li class="{{ checkActiveMenu(Request::segment(2),'receipt_wait') }}"><a href="/admin/receipt_wait/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Waiting</span></a></li>
+							<li class="{{ checkActiveMenu(Request::segment(2),'receipt_app') }}"><a href="/admin/receipt_app/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Approved</span></a></li>
+							<li class="{{ checkActiveMenu(Request::segment(2),'receipt_reject') }}"><a href="/admin/receipt_reject/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>Reject</span></a></li>
 						</ul>
 					</li>
-					<li class="{{ checkActiveMenu(Request::segment(2),'user') }}"><a href="/admin/user/index"><i class="fa fa-calendar"></i> <span>Member</span></a></li>
+					<li class="{{ checkActiveMenu(Request::segment(2),'member') }}"><a href="/admin/member/index"><i class="fa fa-calendar"></i> <span>Export Member</span></a></li>
 					@IF(Auth::id() == 1)
 					<li class="{{ checkActiveMenu(Request::segment(2),'setting') }}"><a href="/admin/setting/index"><i class="fa fa-cogs"></i> <span>Setting</span></a></li>
 					@ENDIF

@@ -7,11 +7,11 @@
 			<ol class="breadcrumb pull-right">
 				<li class="breadcrumb-item"><a href="javascript:;">Home </a></li>
 				<!--li class="breadcrumb-item"><a href="javascript:;">UI Elements</a></li-->
-				<li class="breadcrumb-item active">Receipt Waiting</li>
+				<li class="breadcrumb-item active">Member Pass Code</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">Receipt Waiting</small></h1>
+			<h1 class="page-header">Member Pass Code</small></h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->
@@ -69,12 +69,12 @@
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul"></i> LIST DATA</span>
 								</a>
 							</li>
-							 <li class="nav-items"> 
+							<!-- <li class="nav-items"> 
 								<a href="#default-tab-2" data-toggle="tab" class="nav-link active">
 									<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
 								</a>
-							</li>
+							</li> -->
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade " id="default-tab-1">
@@ -83,7 +83,6 @@
 							<div class="tab-pane fade active show" id="default-tab-2">
 								<form method="POST" action="/admin/{{$folder}}/edit/{{$pages_id->id}}" enctype="multipart/form-data">
 									<input type="hidden" name="editID" id="editID" value="{{$pages_id->id}}" >
-									<input type="hidden" name="member_id" id="member_id" value="{{$pages_id->member_id}}" >
 									@csrf
 										@include('admin.'.$folder.'.edit')
 								</form>
