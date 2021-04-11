@@ -7,11 +7,11 @@
 			<ol class="breadcrumb pull-right">
 				<li class="breadcrumb-item"><a href="javascript:;">Home </a></li>
 				<!--li class="breadcrumb-item"><a href="javascript:;">UI Elements</a></li-->
-				<li class="breadcrumb-item active">Member Pass Code</li>
+				<li class="breadcrumb-item active">Export Group Product</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">Member Pass Code</small></h1>
+			<h1 class="page-header">Export Group Product</small></h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->

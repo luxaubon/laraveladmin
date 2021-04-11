@@ -33,6 +33,7 @@
 											 <div class="col-sm-12">
 												<select class="form-control" id="receipt_product_1" name="receipt_product_1" required>
 													<option class="text-success-light" value="" >กรุณาเลือก กลุ่มสินค้าที่ชื้อร่วม</option>
+													
 													<?php 
 													foreach($products as $myArray){
 														switch ($myArray) {

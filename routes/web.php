@@ -82,10 +82,14 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
 
         //Route::get('/zip','admin\ReceiptAppController@zipFiles');
     });
-    
+
     Route::group(['prefix'=>'/member/'], function(){
         Route::get('/index','admin\MemberController@index');
         Route::get('/zip','admin\MemberController@zipFiles');
+    });
+    Route::group(['prefix'=>'/export/'], function(){
+        Route::get('/index','admin\ExportController@index');
+        Route::get('/zip','admin\ExportController@zipFiles');
     });
 
 

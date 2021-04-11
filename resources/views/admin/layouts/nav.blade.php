@@ -31,6 +31,7 @@
 					</li>
 					<li class="{{ checkActiveMenu(Request::segment(2),'member') }}"><a href="/admin/member/index"><i class="fa fa-calendar"></i> <span>Export Member</span></a></li>
 					@IF(Auth::id() == 1)
+					<li class="{{ checkActiveMenu(Request::segment(2),'export') }}"><a href="/admin/export/index"><i class="fa fa-calendar"></i> <span>Export Group Product</span></a></li>
 					<li class="{{ checkActiveMenu(Request::segment(2),'setting') }}"><a href="/admin/setting/index"><i class="fa fa-cogs"></i> <span>Setting</span></a></li>
 					@ENDIF
 

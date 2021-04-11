@@ -26,7 +26,7 @@
                             	
                                 <div class="tab-pane fade active show" id="default-tab-sup-1">
                                 <!-- Start TAP -->
-									<?php $products = array(1,2,3,4,5,6); ?>
+									<?php $products = array(0,1,2,3,4,5,6); ?>
 
 									 <div class="clearfix m-b-20">
 									 		<label class="control-label col-sm-12" for="title">กลุ่มสินค้าที่ชื้อร่วม 1</label>
