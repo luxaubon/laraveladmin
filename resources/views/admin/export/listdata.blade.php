@@ -40,6 +40,9 @@
                                             case 4 : $reTrunData = 'อุปกรณ์ทำความสะอาด'; break;
                                             case 5 : $reTrunData = 'ผลิตภัณฑ์สำหรับเด็ก'; break;
                                             case 6 : $reTrunData = 'ผลิตภัณฑ์และอุปกรณ์การซักรีด'; break;
+                                            case 7 : $reTrunData = 'ไฮยีนส์ น้ำยาซักผ้าขาว'; break;
+                                            case 8 : $reTrunData = 'ไฮยีนส์ น้ำย่ซักผ้าสี'; break;
+                                            case 9 : $reTrunData = 'ไฮยีนส์ น้ำยารีดผ้า'; break;
                                             default : $reTrunData = ''; break;
                                         }
                                         return $reTrunData;

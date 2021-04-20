@@ -118,7 +118,7 @@ class MemberController extends Controller
                 }
 
                 $myArrayData[] = array(
-                    //$myArrayData[0] + 1,
+                    $i,
                     ($request->name == 'show') ? $showMember->name : '',
                     ($request->last_name == 'show') ?   $showMember->last_name : '',
                     ($request->phone == 'show') ? $showMember->phone : '',

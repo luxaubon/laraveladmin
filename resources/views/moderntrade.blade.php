@@ -63,11 +63,36 @@
 
     </div>
 
+    <div class="text-center">
+            <a href="#" data-toggle="modal" data-target="#rules"  class="btn btn-primary btn-sm">กติกาและของรางวัลกิจกรรม</a>
+        </div>
+
     <div class="main-product">
       <img src="assets_home/img/product.png" alt="">
     </div>
   </div>
   <!-- Main Wrapper @e -->
+
+<!-- Rules  @s -->
+<div class="modal fade" id="rules" tabindex="-1" role="dialog" aria-labelledby="rules" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">กติกาและของรางวัลกิจกรรม</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <?php echo $setting['address_en']; ?>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">ตกลง</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Rules  @e -->
 
 
 @endsection

@@ -43,6 +43,9 @@
 															case 4 : $txt = 'อุปกรณ์ทำความสะอาด'; break;
 															case 5 : $txt = 'ผลิตภัณฑ์สำหรับเด็ก'; break;
 															case 6 : $txt = 'ผลิตภัณฑ์และอุปกรณ์การซักรีด'; break;
+															case 7 : $txt = 'ไฮยีนส์ น้ำยาซักผ้าขาว'; break;
+															case 8 : $txt = 'ไฮยีนส์ น้ำย่ซักผ้าสี'; break;
+															case 9 : $txt = 'ไฮยีนส์ น้ำยารีดผ้า'; break;
 															default : $txt = ''; break;
 														}
 														if($myArray == $pages_id->receipt_product_1){
@@ -70,6 +73,9 @@
 															case 4 : $txt = 'อุปกรณ์ทำความสะอาด'; break;
 															case 5 : $txt = 'ผลิตภัณฑ์สำหรับเด็ก'; break;
 															case 6 : $txt = 'ผลิตภัณฑ์และอุปกรณ์การซักรีด'; break;
+															case 7 : $txt = 'ไฮยีนส์ น้ำยาซักผ้าขาว'; break;
+															case 8 : $txt = 'ไฮยีนส์ น้ำย่ซักผ้าสี'; break;
+															case 9 : $txt = 'ไฮยีนส์ น้ำยารีดผ้า'; break;
 															default : $txt = ''; break;
 														}
 														if($myArray == $pages_id->receipt_product_2){
@@ -97,6 +103,9 @@
 															case 4 : $txt = 'อุปกรณ์ทำความสะอาด'; break;
 															case 5 : $txt = 'ผลิตภัณฑ์สำหรับเด็ก'; break;
 															case 6 : $txt = 'ผลิตภัณฑ์และอุปกรณ์การซักรีด'; break;
+															case 7 : $txt = 'ไฮยีนส์ น้ำยาซักผ้าขาว'; break;
+															case 8 : $txt = 'ไฮยีนส์ น้ำย่ซักผ้าสี'; break;
+															case 9 : $txt = 'ไฮยีนส์ น้ำยารีดผ้า'; break;
 															default : $txt = ''; break;
 														}
 														if($myArray == $pages_id->receipt_product_3){
@@ -124,6 +133,9 @@
 															case 4 : $txt = 'อุปกรณ์ทำความสะอาด'; break;
 															case 5 : $txt = 'ผลิตภัณฑ์สำหรับเด็ก'; break;
 															case 6 : $txt = 'ผลิตภัณฑ์และอุปกรณ์การซักรีด'; break;
+															case 7 : $txt = 'ไฮยีนส์ น้ำยาซักผ้าขาว'; break;
+															case 8 : $txt = 'ไฮยีนส์ น้ำย่ซักผ้าสี'; break;
+															case 9 : $txt = 'ไฮยีนส์ น้ำยารีดผ้า'; break;
 															default : $txt = ''; break;
 														}
 														if($myArray == $pages_id->receipt_product_4){
@@ -151,6 +163,9 @@
 															case 4 : $txt = 'อุปกรณ์ทำความสะอาด'; break;
 															case 5 : $txt = 'ผลิตภัณฑ์สำหรับเด็ก'; break;
 															case 6 : $txt = 'ผลิตภัณฑ์และอุปกรณ์การซักรีด'; break;
+															case 7 : $txt = 'ไฮยีนส์ น้ำยาซักผ้าขาว'; break;
+															case 8 : $txt = 'ไฮยีนส์ น้ำย่ซักผ้าสี'; break;
+															case 9 : $txt = 'ไฮยีนส์ น้ำยารีดผ้า'; break;
 															default : $txt = ''; break;
 														}
 														if($myArray == $pages_id->receipt_product_5){
@@ -178,6 +193,9 @@
 															case 4 : $txt = 'อุปกรณ์ทำความสะอาด'; break;
 															case 5 : $txt = 'ผลิตภัณฑ์สำหรับเด็ก'; break;
 															case 6 : $txt = 'ผลิตภัณฑ์และอุปกรณ์การซักรีด'; break;
+															case 7 : $txt = 'ไฮยีนส์ น้ำยาซักผ้าขาว'; break;
+															case 8 : $txt = 'ไฮยีนส์ น้ำย่ซักผ้าสี'; break;
+															case 9 : $txt = 'ไฮยีนส์ น้ำยารีดผ้า'; break;
 															default : $txt = ''; break;
 														}
 														if($myArray == $pages_id->receipt_product_6){
@@ -218,18 +236,21 @@
 													@if ($value['id'] != '')
 
 													<li id="{{ $value['id'] }}">
-														<div class="image-container">
-															<div class="image" style="cursor: move; background:url({{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}); background-position:center center; background-size:cover;">
+															<div class="image-container" >
+																<div class="image" style="cursor: move; background:url({{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}); background-position:center center; background-size:cover;">
+																</div>
+																<div class="btn-list">
+																	<a href="{{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}" class="image-link btn btn-white btn-xs">
+																		<i class="fa fa-search-plus"></i></a>
+																</div>
+																<div class="btn-list2">
+																	<a href="javascript:;" class="btn btn-danger btn-xs" id="del_img{{ $value['id'] }}"><i class="fa fa-trash"></i></a>
+																</div>
+																<div class="info">                                       
+																	<small class="text-muted">{{ $value['created_at']->diffForHumans() }}</small>
+																</div>
 															</div>
-															<div class="btn-list">
-																<a href="{{ asset('/images/'.$pages_id->member_id.'/'.$value['image']) }}" class="image-link btn btn-white btn-xs"><i class="fa fa-search-plus"></i></a>
-																<a href="javascript:;" class="btn btn-danger btn-xs" id="del_img{{ $value['id'] }}"><i class="fa fa-trash"></i></a>
-															</div>
-															<div class="info">                                       
-																<small class="text-muted">{{ $value['created_at']->diffForHumans() }}</small>
-															</div>
-														</div>
-													</li>
+														</li>
 
 													@endif
                  								@endforeach

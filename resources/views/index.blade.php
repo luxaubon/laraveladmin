@@ -51,6 +51,10 @@
       </div>
     </div>
 
+    <!-- <div class="text-center">
+      <a href="#" class="btn btn-primary btn-sm">กติกาการร่วมกิจกรรม</a>
+    </div> -->
+    
     <div class="main-product">
       <img src="assets_home/img/product.png" alt="">
     </div>
