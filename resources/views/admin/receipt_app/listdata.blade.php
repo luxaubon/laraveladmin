@@ -53,7 +53,7 @@
                                             <td>'.$db->last_name.'</td>
                                             <td>'.$db->phone.'</td>
                                             <td>'.DateThai($db->created_at).'</td>
-                                            <td>'.$status.'</td>
+                                            <td>'.$status.' by ('.$db->admin_name.')</td>
                                             <td>'.$txt.'</td>
                                             <td>'.$db->receipt_point.'</td>
                                         </tr>';

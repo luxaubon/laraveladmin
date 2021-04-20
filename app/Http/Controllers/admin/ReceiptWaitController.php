@@ -160,6 +160,7 @@ class ReceiptWaitController extends Controller
                 $post->receipt_status       = $request->receipt_status;
                 $post->receipt_point        = $request->receipt_point;
                 $post->admin_id             = Auth::user()->id;
+                $post->admin_name           = Auth::user()->name;
                 $post->region_id            = ($shop_name->region_id) ? $shop_name->region_id : '';
                 $post->region_name	        = ($request->region) ? $request->region : '';
                 $post->region_province      = ($request->province) ? $request->province : '';

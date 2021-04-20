@@ -30,7 +30,7 @@ class ReceiptAppController extends Controller
 
             $member = DB::table('receipt')
             ->join('user_otp', 'receipt.member_id', '=', 'user_otp.id')
-            ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status','receipt_point','status_shop')
+            ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status','receipt_point','status_shop','admin_name')
             ->Where('receipt_status','=',$this->statis())
             ->orWhere('name',$request->search)
             ->orWhere('last_name',$request->search)
@@ -42,7 +42,7 @@ class ReceiptAppController extends Controller
 
             $member = DB::table('receipt')
             ->join('user_otp', 'receipt.member_id', '=', 'user_otp.id')
-            ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status','receipt_point','status_shop')
+            ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status','receipt_point','status_shop','admin_name')
             ->Where('receipt_status','=',$this->statis())
             ->orderBy('receipt.id', 'DESC')
             ->paginate(30);
@@ -67,7 +67,7 @@ class ReceiptAppController extends Controller
         $pages_id = receipt::findOrFail($id);
         $member = DB::table('receipt')
         ->join('user_otp', 'receipt.member_id', '=', 'user_otp.id')
-        ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status','receipt_point','status_shop')
+        ->select('receipt.id','name', 'last_name', 'phone', 'receipt.created_at','receipt_status','receipt_point','status_shop','admin_name')
         ->Where('receipt_status','=',$this->statis())
         ->orderBy('receipt.id', 'DESC')
         ->paginate(30);
@@ -160,6 +160,7 @@ class ReceiptAppController extends Controller
                 $post->receipt_status       = $request->receipt_status;
                 $post->receipt_point        = $request->receipt_point;
                 $post->admin_id             = Auth::user()->id;
+                $post->admin_name           = Auth::user()->name;
                 $post->region_id            = ($shop_name->region_id) ? $shop_name->region_id : '';
                 $post->region_name	        = ($request->region) ? $request->region : '';
                 $post->region_province      = ($request->province) ? $request->province : '';
