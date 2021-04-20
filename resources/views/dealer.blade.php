@@ -6,6 +6,12 @@
         <div class="main-title">
             <img src="assets_home/img/main-title.png" alt="">
         </div>
+
+        <div class="text-center">
+    Call center : 095-892-1436<br>
+(ทุกวัน 08.30-17.30)
+    </div>
+    
         <form action="/sendData" method="post" enctype="multipart/form-data">
 
         <div class="main-content text-center">

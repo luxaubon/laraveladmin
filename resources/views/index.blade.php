@@ -7,6 +7,11 @@
       <img src="assets_home/img/main-title.png" alt="">
     </div>
 
+    <div class="text-center">
+    Call center : 095-892-1436<br>
+(ทุกวัน 08.30-17.30)
+    </div>
+    
     <div class="main-content text-center">
       <h3 class="title">กรุณาลงทะเบียน</h3>
 
