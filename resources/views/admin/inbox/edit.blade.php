@@ -162,7 +162,24 @@
 												<option class="text-success-light" value="0" {{ $selected_upload_0 }}>Published</option>
 												<option class="text-danger-light" value="1" {{ $selected_upload_1 }}>Draft</option>	
 											</select>
-											
+											<hr>
+
+											<div class="panel-group" id="groupcontent">
+												<label class="control-label">คูปองส่วนลดพิเศษ </label>
+												<div class="panel panel-inverse overflow-hidden">
+													<div class="row">
+														@php
+															$sid =  explode(",",$pages_id->sid);
+														@endphp
+													@foreach ($user as $db)
+														<?php if(in_array($db->id,$sid)){ $check = 'checked'; }else{ $check =''; }?>
+														<label class="checkbox-inline  text-default-light col-6">
+															<input type="checkbox" name="sid[]" id="sid" value="{{$db->id}}" <?=$check;?>> {{ $db->name }}( {{ $db->phone }} )
+														</label>
+													@endforeach
+													</div>
+												</div>
+											</div>
 
 
                                     	</div>

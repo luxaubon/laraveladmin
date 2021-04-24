@@ -130,6 +130,19 @@
 											<input type="text" class="form-control" id="code_number" name="code_number" value="{{ old('code_number') }}" required>
 											
 											<hr>
+											<label class="control-label">กรอก Shop Code </label>
+											<select class="form-control" id="shop_code" name="shop_code">
+												<option class="text-success-light" value="0">Published</option>
+												<option class="text-danger-light" value="1">Draft</option>	
+											</select>
+											<hr>
+											<label class="control-label">นับถอยหลัง </label>
+											<select class="form-control" id="count_down" name="count_down">
+												<option class="text-success-light" value="0" >Published</option>
+												<option class="text-danger-light" value="1" >Draft</option>	
+											</select>
+
+											<hr>
 											<label class="control-label">กรอกเลขที่ใบเสร็จ </label>
 											<select class="form-control" id="receipt_number" name="receipt_number">
 												<option class="text-success-light" value="0">Published</option>

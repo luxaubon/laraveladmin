@@ -19,7 +19,7 @@ LaraFile::delete("public/images/main-1549017697.png");
 $time_stamp = time();
 &&  ((date_start <= $time_stamp) && (date_stop='' || ( date_stop >= $time_stamp) ))
 */
-class SpecialController extends Controller
+class InboxController extends Controller
 {
     //
     public function __construct(){
@@ -29,8 +29,8 @@ class SpecialController extends Controller
         $admin = Auth::user();
     }
 
-    public function folder(){return 'special';}
-    public function status(){return 'SpecialCoupons';}
+    public function folder(){return 'inbox';}
+    public function status(){return 'InBoxCoupons';}
 
     public function index()
     {
@@ -69,7 +69,12 @@ class SpecialController extends Controller
             $imageName = $request->image->move('images/',$filename);
         }else{$filename='';}
 
+        $sid = '';
+        for($i = 0; $i < count($request->sid); $i++){
+            $sid.= $request->sid[$i].',';
+        }
         $post                   = new Pages;
+        $post->sid              = $sid;
         $post->seo              = mysql_escape(stripslashes(slug($request->seo)));
         $post->title            = mysql_escape(stripslashes($request->title));
         $post->detail           = stripslashes($request->detail);
@@ -132,7 +137,11 @@ class SpecialController extends Controller
             $imageName = $request->image->move('images/',$filename);
             $post->image        = $filename;
         }
-
+        $sid = '';
+        for($i = 0; $i < count($request->sid); $i++){
+            $sid.= $request->sid[$i].',';
+        }
+        $post->sid              = $sid;
         $post->seo              = mysql_escape(stripslashes(slug($request->seo)));
         $post->title            = mysql_escape(stripslashes($request->title));
         $post->detail           = stripslashes($request->detail);

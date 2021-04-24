@@ -76,6 +76,8 @@ class PagesController extends Controller
         $post->online           = $request->online;
         $post->image            = $filename;
         $post->code_number      = $request->code_number;
+        $post->shop_code        = $request->shop_code;
+        $post->count_down       = $request->count_down;
         $post->receipt_number   = $request->receipt_number;
         $post->receipt_upload   = $request->receipt_upload;
         $post->save();
@@ -132,6 +134,8 @@ class PagesController extends Controller
         $post->status           = $this->status();
         $post->online           = $request->online;
         $post->code_number      = $request->code_number;
+        $post->shop_code        = $request->shop_code;
+        $post->count_down       = $request->count_down;
         $post->receipt_number   = $request->receipt_number;
         $post->receipt_upload   = $request->receipt_upload;
         $post->save();

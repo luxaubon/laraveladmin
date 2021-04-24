@@ -115,6 +115,12 @@
 												$selected_online_0 = $pages_id->online == 0 ?  "selected" : "";
 												$selected_online_1 = $pages_id->online == 1 ?  "selected" : "";
 
+												$selected_shop_code_0 = $pages_id->shop_code == 0 ?  "selected" : "";
+												$selected_shop_code_1 = $pages_id->shop_code == 1 ?  "selected" : "";
+												
+												$selected_count_down_0 = $pages_id->count_down == 0 ?  "selected" : "";
+												$selected_count_down_1 = $pages_id->count_down == 1 ?  "selected" : "";
+
 												$selected_receipt_0 = $pages_id->receipt_number == 0 ?  "selected" : "";
 												$selected_receipt_1 = $pages_id->receipt_number == 1 ?  "selected" : "";
 
@@ -130,6 +136,18 @@
 											<label class="control-label">Code </label>
 											<input type="text" class="form-control" id="code_number" name="code_number" value="{{ $pages_id->code_number }}" required>
 											
+											<hr>
+											<label class="control-label">กรอก Shop Code </label>
+											<select class="form-control" id="shop_code" name="shop_code">
+												<option class="text-success-light" value="0" {{ $selected_shop_code_0 }}>Published</option>
+												<option class="text-danger-light" value="1" {{ $selected_shop_code_1 }}>Draft</option>	
+											</select>
+											<hr>
+											<label class="control-label">นับถอยหลัง </label>
+											<select class="form-control" id="count_down" name="count_down">
+												<option class="text-success-light" value="0" {{ $selected_count_down_0 }}>Published</option>
+												<option class="text-danger-light" value="1" {{ $selected_count_down_1 }}>Draft</option>	
+											</select>
 											<hr>
 											<label class="control-label">กรอกเลขที่ใบเสร็จ </label>
 											<select class="form-control" id="receipt_number" name="receipt_number">

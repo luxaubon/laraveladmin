@@ -80,7 +80,19 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
        // Route::get('/del_img','admin\SpecialController@del_img');
 
     });
+    Route::group(['prefix'=>'/inbox/'], function(){
 
+        Route::get('/index','admin\InboxController@index');
+    	Route::post('/insert','admin\InboxController@store');
+
+        Route::get('/show/{id}','admin\InboxController@show');
+        Route::post('/edit/{id}','admin\InboxController@edit');
+        Route::get('/del_content','admin\InboxController@del_content');
+
+       // Route::get('/update_listpic','admin\InboxController@update_listpic');
+       // Route::get('/del_img','admin\InboxController@del_img');
+
+    });
     
 
     Route::group(['prefix'=>'/receipt_wait/'], function(){
