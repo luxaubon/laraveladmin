@@ -27,7 +27,7 @@
                                                 @ENDIF
 
                                                 
-                                                @IF($status == 1)
+                                                @IF(Auth::user()->status == 1)
                                                     <a href="javascript::void(0)" class="btn btn-danger" id="content_del{{ $db->id }}"><i class="fas fa-lg fa-fw m-r-10 fa-trash-alt"></i> Trash</a>
                                                 @ENDIF
                                             </div>

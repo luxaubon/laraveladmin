@@ -7,11 +7,11 @@
 			<ol class="breadcrumb pull-right">
 				<li class="breadcrumb-item"><a href="javascript:;">Home </a></li>
 				<!--li class="breadcrumb-item"><a href="javascript:;">UI Elements</a></li-->
-				<li class="breadcrumb-item active">{{ ucfirst($folder) }}</li>
+				<li class="breadcrumb-item active">คูปองส่วนลดพิเศษ</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">{{ ucfirst($folder) }}</small></h1>
+			<h1 class="page-header">คูปองส่วนลดพิเศษ</small></h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->
@@ -33,7 +33,7 @@
 			    		}
 			    	@endphp
 
-			    	@if ($user_id == '')
+			    	@if ($pages_id == '')
 
 			    		
 						<ul class="nav nav-tabs">
@@ -44,12 +44,12 @@
 								</a>
 							</li>
 							@IF(Auth::user()->status == 1)
-								<li class="nav-items">
-									<a href="#default-tab-2" data-toggle="tab" class="nav-link <?php echo $ftab; ?>">
-										<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
-										<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
-									</a>
-								</li>
+							<li class="nav-items">
+								<a href="#default-tab-2" data-toggle="tab" class="nav-link <?php echo $ftab; ?>">
+									<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
+									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
+								</a>
+							</li>
 							@ENDIF
 						</ul>
 						<div class="tab-content">
@@ -57,7 +57,7 @@
 								@include('admin.'.$folder.'.listdata')
 							</div>
 							<div class="tab-pane fade {{$lshow1}}" id="default-tab-2">
-								<form method="POST" action="/admin/{{$folder}}/register"  enctype="multipart/form-data">
+								<form method="POST" action="/admin/{{$folder}}/insert" enctype="multipart/form-data">
 									@csrf
 										@include('admin.'.$folder.'.form')
 								</form>
@@ -83,8 +83,8 @@
 								@include('admin.'.$folder.'.listdata')
 							</div>
 							<div class="tab-pane fade active show" id="default-tab-2">
-								<form method="POST" action="/admin/{{$folder}}/edit/{{$user_id->id}}" enctype="multipart/form-data">
-									<input type="hidden" name="editID" id="editID" value="{{$user_id->id}}" >
+								<form method="POST" action="/admin/{{$folder}}/edit/{{$pages_id->id}}" enctype="multipart/form-data">
+									<input type="hidden" name="editID" id="editID" value="{{$pages_id->id}}" >
 									@csrf
 										@include('admin.'.$folder.'.edit')
 								</form>
@@ -99,24 +99,6 @@
 			<!-- end row -->
 		</div>
  @include('admin.'.$folder.'.js')
- @if ($alert == 'alert')
-<script type="text/javascript">
-$(document).ready(function(){
-	swal({
-		title: 'เพิ่มข้อมูลสมาชิกเรียบร้อย',
-		text: 'สามารถเข้าสู่ระบบได้ทันที',
-		icon: 'success',
-		buttons: {
-			confirm : {
-				text: 'Ok!',
-				value: true,
-				visible: true,
-				className: 'btn btn-success',
-				closeModal: true
-			}
-		}
-	});
- });
-</script>
-@endif
+		
+
 @endsection

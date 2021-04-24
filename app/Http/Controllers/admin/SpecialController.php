@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Pages;
 use App\Images;
+use App\User_otp;
 use Auth;
 
 use Illuminate\Support\Facades\File as LaraFile;
@@ -18,7 +19,7 @@ LaraFile::delete("public/images/main-1549017697.png");
 $time_stamp = time();
 &&  ((date_start <= $time_stamp) && (date_stop='' || ( date_stop >= $time_stamp) ))
 */
-class PagesController extends Controller
+class SpecialController extends Controller
 {
     //
     public function __construct(){
@@ -28,21 +29,19 @@ class PagesController extends Controller
         $admin = Auth::user();
     }
 
-    public function folder(){return 'page';}
-    public function status(){return 'DiscountCoupons';}
+    public function folder(){return 'special';}
+    public function status(){return 'SpecialCoupons';}
 
     public function index()
     {
-
-        
         $pages = Pages::where('status',$this->status())->orderBy('id', 'DESC')->paginate(10);
+        $user = User_otp::all();
         $data = array(
-            'pages' => $pages,
-            'pages_id' => '',
-            'folder' => $this->folder(),
-           
+            'pages'     => $pages,
+            'pages_id'  => '',
+            'folder'    => $this->folder(),
+            'user'      => $user,
         );
-
         return view('admin.'.$this->folder().'.index',$data);
     }
 
@@ -54,12 +53,14 @@ class PagesController extends Controller
                     'seo'           => 'required',
                     'title'         => 'required',
                     'code_number'   => 'required',
-                    'image'         => 'required'
+                    'image'         => 'required',
+                    'sid'         => 'required'
                 ],[
                     'seo.required'          => 'กรุณากรอก Seo Title',
                     'title.required'        => 'กรุณากรอก Title',
                     'code_number.required'  => 'กรุณากรอก Code',
-                    'image.required'        => 'กรุณาเลือกรูปภาพ'
+                    'image.required'        => 'กรุณาเลือก รูปภาพ',
+                    'image.required'        => 'กรุณาเลือก คูปองส่วนลดพิเศษ'
                 ]
         );
 
@@ -68,7 +69,12 @@ class PagesController extends Controller
             $imageName = $request->image->move('images/',$filename);
         }else{$filename='';}
 
+        $sid = '';
+        for($i = 0; $i < count($request->sid); $i++){
+            $sid.= $request->sid[$i].',';
+        }
         $post                   = new Pages;
+        $post->sid              = $sid;
         $post->seo              = mysql_escape(stripslashes(slug($request->seo)));
         $post->title            = mysql_escape(stripslashes($request->title));
         $post->detail           = stripslashes($request->detail);
@@ -78,6 +84,7 @@ class PagesController extends Controller
         $post->code_number      = $request->code_number;
         $post->receipt_number   = $request->receipt_number;
         $post->receipt_upload   = $request->receipt_upload;
+        $post->count_sid        = count($request->sid);
         $post->save();
 
          return redirect()->back();
@@ -93,11 +100,12 @@ class PagesController extends Controller
         // foreach($gallery as $value) {
         //    $image[] = Images::find($value);
         // }
-        
+        $user = User_otp::all();    
         $data = array(
-            'pages_id' => $pages_id,
-            'pages' => $pages,
-            'folder' => $this->folder(),
+            'pages_id'  => $pages_id,
+            'pages'     => $pages,
+            'folder'    => $this->folder(),
+            'user'      => $user,
             //'image' => $image,
          );
         return view('admin.'.$this->folder().'.index',$data);
@@ -110,10 +118,12 @@ class PagesController extends Controller
                     'seo'           => 'required',
                     'title'         => 'required',
                     'code_number'   => 'required',
+                    'sid'           => 'required',
                 ],[
                     'seo.required'          => 'กรุณากรอก Seo Title',
                     'title.required'        => 'กรุณากรอก Title',
                     'code_number.required'  => 'กรุณากรอก Code',
+                    'image.required'        => 'กรุณาเลือก คูปองส่วนลดพิเศษ'
                 ]
         );
 
@@ -125,7 +135,11 @@ class PagesController extends Controller
             $imageName = $request->image->move('images/',$filename);
             $post->image        = $filename;
         }
-
+        $sid = '';
+        for($i = 0; $i < count($request->sid); $i++){
+            $sid.= $request->sid[$i].',';
+        }
+        $post->sid              = $sid;
         $post->seo              = mysql_escape(stripslashes(slug($request->seo)));
         $post->title            = mysql_escape(stripslashes($request->title));
         $post->detail           = stripslashes($request->detail);
@@ -134,6 +148,7 @@ class PagesController extends Controller
         $post->code_number      = $request->code_number;
         $post->receipt_number   = $request->receipt_number;
         $post->receipt_upload   = $request->receipt_upload;
+        $post->count_sid        = count($request->sid);
         $post->save();
 
        return redirect()->back();

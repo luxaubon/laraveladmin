@@ -1,5 +1,6 @@
                         <div class="panel-body">
                             <table id="data-table-default" class="table table-striped table-bordered">
+                            
                                 <thead>
                                     <tr>
                                         <th width="10%" data-orderable="false"></th>
@@ -21,6 +22,7 @@
                                             <strong>Seo Title</strong> : {{$db->seo}}<hr/>
                                             <strong>Title</strong> : {{$db->title}}<hr/>
                                             <strong>Code</strong> : {{$db->code_number}}<hr/>
+                                            <strong>จำนวนผู้ได้รับ</strong> : {{$db->count_sid}}<hr/>
                                             <strong>Create Date</strong> : {{ $db->created_at->diffForHumans() }}<hr/>
 
                                             <div class="m-t-10">

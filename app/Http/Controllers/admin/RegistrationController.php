@@ -18,7 +18,7 @@ class RegistrationController extends Controller
 
     public function __construct()
     {
-        
+        $admin = Auth::user();
     }
 
    /* public function index()
@@ -33,7 +33,7 @@ class RegistrationController extends Controller
     public function status(){return '1';}
     public function index()
     {
-        $admin = Auth::user();
+       
 
         $user = User::all()->where('is_admin',$this->status());
         $data = array(
@@ -41,7 +41,6 @@ class RegistrationController extends Controller
             'user_id' => '',
             'folder' => $this->folder(),
             'alert' => '',
-            'status' => $admin->status
         );
 
         return view('admin.'.$this->folder().'.listadmin',$data);
@@ -52,14 +51,13 @@ class RegistrationController extends Controller
     {
         $user_id = User::findOrFail($id);
         $user = User::all()->where('is_admin',$this->status());
-        $admin = Auth::user();
+       
 
         $data = array(
             'user_id' => $user_id,
             'user' => $user,
             'folder' => $this->folder(),
             'alert' => '',
-            'status' => $admin->status
          );
         return view('admin.'.$this->folder().'.listadmin',$data);
     }

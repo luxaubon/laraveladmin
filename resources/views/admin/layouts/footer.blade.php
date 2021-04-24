@@ -90,9 +90,11 @@
 		<!-- end scroll to top btn -->
 	</div>
 	<!-- end page container -->
-	
+    
+
+    <script src="/assets/js/jquery.magnific-popup.min.js" type="text/javascript"></script>
+
 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="/assets/plugins/jquery/jquery-3.2.1.min.js"></script>
 	<script src="/assets/plugins/jquery-ui/jquery-ui.min.js"></script>
 	<script src="/assets/plugins/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/plugins/bootstrap-sweetalert/sweetalert.min.js"></script>
@@ -121,6 +123,9 @@
 	<script src="/assets/plugins/DataTables/extensions/Responsive/js/dataTables.responsive.min.js"></script>
 	<script src="/assets/js/demo/table-manage-buttons.demo.min.js"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
+
+   
+
 	<script>
 		$(document).ready(function() {
 			App.init();
