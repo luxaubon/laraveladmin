@@ -54,6 +54,34 @@ Route::group(['prefix'=>'/admin', 'middleware'=>['admin'] ],function(){
         //Route::get('/listadmin','admin\RegistrationController@show');
     });
 
+    Route::group(['prefix'=>'/page/'], function(){
+
+        Route::get('/index','admin\PagesController@index');
+    	Route::post('/insert','admin\PagesController@store');
+
+        Route::get('/show/{id}','admin\PagesController@show');
+        Route::post('/edit/{id}','admin\PagesController@edit');
+        Route::get('/del_content','admin\PagesController@del_content');
+
+       // Route::get('/update_listpic','admin\PagesController@update_listpic');
+       // Route::get('/del_img','admin\PagesController@del_img');
+
+    });
+    Route::group(['prefix'=>'/special/'], function(){
+
+        Route::get('/index','admin\SpecialController@index');
+    	Route::post('/insert','admin\SpecialController@store');
+
+        Route::get('/show/{id}','admin\SpecialController@show');
+        Route::post('/edit/{id}','admin\SpecialController@edit');
+        Route::get('/del_content','admin\SpecialController@del_content');
+
+       // Route::get('/update_listpic','admin\SpecialController@update_listpic');
+       // Route::get('/del_img','admin\SpecialController@del_img');
+
+    });
+
+    
 
     Route::group(['prefix'=>'/receipt_wait/'], function(){
         Route::get('/index','admin\ReceiptWaitController@index');

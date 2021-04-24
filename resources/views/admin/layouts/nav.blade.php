@@ -17,6 +17,20 @@
 						</ul>
 						
 					</li>
+					
+
+					<li class="has-sub {{ checkActiveMenu(Request::segment(2),'page') }} {{ checkActiveMenu(Request::segment(2),'special') }}">
+						<a href="javascript:;">
+					        <b class="caret"></b>
+						    <i class="fab fa-lg fa-fw m-r-10 fa-product-hunt"></i>
+						    <span>Activity</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="{{ checkActiveMenu(Request::segment(2),'page') }}"><a href="/admin/page/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>คูปองส่วนลด</span></a></li>
+							<li class="{{ checkActiveMenu(Request::segment(2),'special') }}"><a href="/admin/special/index"><i class="fas fa-lg fa-fw m-r-10 fa-list-alt"></i> <span>ส่วนลดพิเศษ</span></a></li>
+						</ul>
+					</li>
+					
 					<li class="has-sub {{ checkActiveMenu(Request::segment(2),'receipt_wait') }} {{ checkActiveMenu(Request::segment(2),'receipt_app') }}{{ checkActiveMenu(Request::segment(2),'receipt_reject') }}">
 						<a href="javascript:;">
 					        <b class="caret"></b>

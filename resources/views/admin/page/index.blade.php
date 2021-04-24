@@ -7,11 +7,11 @@
 			<ol class="breadcrumb pull-right">
 				<li class="breadcrumb-item"><a href="javascript:;">Home </a></li>
 				<!--li class="breadcrumb-item"><a href="javascript:;">UI Elements</a></li-->
-				<li class="breadcrumb-item active">Results</li>
+				<li class="breadcrumb-item active">คูปองส่วนลด</li>
 			</ol>
 			<!-- end breadcrumb -->
 			<!-- begin page-header -->
-			<h1 class="page-header">Results</small></h1>
+			<h1 class="page-header">คูปองส่วนลด</small></h1>
 			<!-- end page-header -->
 			
 			<!-- begin row -->
@@ -43,7 +43,7 @@
 									<span class="d-sm-block d-none"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul"></i> LIST DATA</span>
 								</a>
 							</li>
-							@IF($status == 1)
+							@IF(Auth::user()->status == 1)
 							<li class="nav-items">
 								<a href="#default-tab-2" data-toggle="tab" class="nav-link <?php echo $ftab; ?>">
 									<span class="d-sm-none"><i class="fas fa-lg fa-fw m-r-10 fa-plus-circle"></i> FROM DATA</span>
