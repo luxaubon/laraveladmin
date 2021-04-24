@@ -147,7 +147,7 @@
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
-							<h4 class="panel-title">Top 5 ร้านค้าตัวแทนจำหน่าย</h4>
+							<h4 class="panel-title">Top 5 ร้านค้าท้องถิ่น</h4>
 						</div>
 						<div class="panel-body">
 							<div>
@@ -166,7 +166,7 @@
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
 								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
 							</div>
-							<h4 class="panel-title">Top 5 ร้านค้าชั้นนำ</h4>
+							<h4 class="panel-title">Top 5 ร้านสรรพสินค้าชั้นนำทั่วไป</h4>
 						</div>
 						<div class="panel-body">
 							<div>

@@ -98,7 +98,9 @@
 										   <label class="control-label">Status </label>
 											<select class="form-control" id="status" name="status" required>
 												<option class="text-success-light" value="">Select</option>
+												<?php if(Auth::user()->status == 1){ ?>
 												<option class="text-success-light" value="1" {{ $selected }}>Super Admin</option>
+												<?php } ?>
 												<option class="text-danger-light" value="2" {{ $selected2 }}>Admin</option>
 											</select>
 											<hr>
