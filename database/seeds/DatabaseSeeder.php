@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('settings')->insert([
 
-                'email' => '[{"email":"promos33@hotmail.com","host":"smtp.gmail.com","user":"numwhan154@gmail.com","password":"q10082530","port":"465","secure":"ssl"}]',
+                'email' => '[{"email":"promos33@hotmail.com","host":"smtp.gmail.com","user":"numwhan154@gmail.com","password":"","port":"465","secure":"ssl"}]',
 
                 'social' => '[{"fb":"www.facebook.com","ig":"www.instragram.com","gg":"www.google.com","yt":"www.youtube.com","twt":"www.twister.com","line":"www.line.com"}]',
 
